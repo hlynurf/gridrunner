@@ -34,7 +34,9 @@ function updateSimulation(du) {
     
     processDiagnostics();
 
-    // Update entity manage
+    // Update entity manager
+    entityManager.update(du);
+
     // Fire bullet
 }
 
@@ -76,7 +78,7 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
-    // entityManager.render(ctx);
+    entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
 }
@@ -102,7 +104,7 @@ var g_sprites = {};
 function preloadDone() {
 
     g_sprites.ship  = new Sprite(g_images.ship);
-
+    entityManager.init();
     main.init();
 }
 
