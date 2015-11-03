@@ -1,0 +1,2 @@
+# Gridrunner
+Lokaverkefni í tölvuleikjaforritun
