@@ -155,71 +155,46 @@ Ship.prototype.update = function (du) {
 
 Ship.prototype.computeSubStep = function (du) {
     
-    var thrust = this.computeThrustMag();
+    var speedY = this.computeSpeedVertical();
+    var speedX = this.computeSpeedHorizontal();
 
-    // Apply thrust directionally, based on our rotation
-    var accelX = +Math.sin(this.rotation) * thrust;
-    var accelY = -Math.cos(this.rotation) * thrust;
-    
-    accelY += this.computeGravity();
+    this.cx += speedX;
+    this.cy += speedY;
 
-    this.applyAccel(accelX, accelY, du);
-    
     this.wrapPosition();
     
-    if (thrust === 0 || g_allowMixedActions) {
-        this.updateRotation(du);
-    }
 };
 
-var NOMINAL_GRAVITY = 0.12;
+var NOMINAL_THRUST = +5;
 
-Ship.prototype.computeGravity = function () {
-    return g_useGravity ? NOMINAL_GRAVITY : 0;
-};
-
-var NOMINAL_THRUST = +0.2;
-var NOMINAL_RETRO  = -0.1;
-
-Ship.prototype.computeThrustMag = function () {
+Ship.prototype.computeSpeedVertical = function () {
     
-    var thrust = 0;
+    var speed = 0;
     
     if (keys[this.KEY_THRUST]) {
-        thrust += NOMINAL_THRUST;
+        speed -= NOMINAL_THRUST;
     }
     if (keys[this.KEY_RETRO]) {
-        thrust += NOMINAL_RETRO;
+        speed += NOMINAL_THRUST;
     }
     
-    return thrust;
+    return speed;
 };
 
-Ship.prototype.applyAccel = function (accelX, accelY, du) {
-    
-    // u = original velocity
-    var oldVelX = this.velX;
-    var oldVelY = this.velY;
-    
-    // v = u + at
-    this.velX += accelX * du;
-    this.velY += accelY * du; 
+var speedHorizontal = +5;
 
-    // v_ave = (u + v) / 2
-    var aveVelX = (oldVelX + this.velX) / 2;
-    var aveVelY = (oldVelY + this.velY) / 2;
+Ship.prototype.computeSpeedHorizontal = function () {
     
-    // Decide whether to use the average or not (average is best!)
-    var intervalVelX = g_useAveVel ? aveVelX : this.velX;
-    var intervalVelY = g_useAveVel ? aveVelY : this.velY;
+    var speed = 0;
     
-    // s = s + v_ave * t
-    var nextX = this.cx + intervalVelX * du;
-    var nextY = this.cy + intervalVelY * du;
-      
-    // s = s + v_ave * t
-    this.cx += du * intervalVelX;
-    this.cy += du * intervalVelY;
+    if (keys[this.KEY_LEFT]) {
+        speed -= speedHorizontal;
+    }
+    if (keys[this.KEY_RIGHT]) {
+        speed += speedHorizontal;
+    }
+    
+    return speed;
 };
 
 Ship.prototype.maybeFireBullet = function () {
@@ -265,14 +240,6 @@ Ship.prototype.halt = function () {
 
 var NOMINAL_ROTATE_RATE = 0.1;
 
-Ship.prototype.updateRotation = function (du) {
-    if (keys[this.KEY_LEFT]) {
-        this.rotation -= NOMINAL_ROTATE_RATE * du;
-    }
-    if (keys[this.KEY_RIGHT]) {
-        this.rotation += NOMINAL_ROTATE_RATE * du;
-    }
-};
 
 Ship.prototype.render = function (ctx) {
     var origScale = this.sprite.scale;
