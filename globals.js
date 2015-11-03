@@ -1,6 +1,11 @@
 // =======
 // GLOBALS
 // =======
+/*
+
+Evil, ugly (but "necessary") globals, which everyone can use.
+
+*/
 
 "use strict";
 

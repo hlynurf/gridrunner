@@ -65,6 +65,7 @@ main._iterCore = function (dt) {
         return;
     }
     
+    gatherInputs();
     update(dt);
     render(g_ctx);
 };

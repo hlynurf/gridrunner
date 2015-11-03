@@ -26,11 +26,39 @@ with suitable 'data' and 'methods'.
 var entityManager = {
 
 // "PRIVATE" DATA
-_ships : [],
+
 _bullets : [],
+_ships   : [],
+
 
 // "PRIVATE" METHODS
 
+
+_findNearestShip : function(posX, posY) {
+    var closestShip = null,
+        closestIndex = -1,
+        closestSq = 1000 * 1000;
+
+    for (var i = 0; i < this._ships.length; ++i) {
+
+        var thisShip = this._ships[i];
+        var shipPos = thisShip.getPos();
+        var distSq = util.wrappedDistSq(
+            shipPos.posX, shipPos.posY, 
+            posX, posY,
+            g_canvas.width, g_canvas.height);
+
+        if (distSq < closestSq) {
+            closestShip = thisShip;
+            closestIndex = i;
+            closestSq = distSq;
+        }
+    }
+    return {
+        theShip : closestShip,
+        theIndex: closestIndex
+    };
+},
 
 _forEachOf: function(aCategory, fn) {
     for (var i = 0; i < aCategory.length; ++i) {
@@ -49,18 +77,23 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._bullets, this._ships];
+    this._categories = [ this._bullets, this._ships];
 },
 
 init: function() {
-    // this._generateRocks();
-    this.generateShip();
+    //this._generateShip();
 },
 
 fireBullet: function(cx, cy, velX, velY, rotation) {
+    this._bullets.push(new Bullet({
+        cx   : cx,
+        cy   : cy,
+        velX : velX,
+        velY : velY,
 
+        rotation : rotation
+    }));
 },
-
 
 generateShip : function(descr) {
     this._ships.push(new Ship(descr));
@@ -86,11 +119,7 @@ resetShips: function() {
 
 haltShips: function() {
     this._forEachOf(this._ships, Ship.prototype.halt);
-},  
-
-toggleRocks: function() {
-    this._bShowRocks = !this._bShowRocks;
-},
+},	
 
 update: function(du) {
 
@@ -98,7 +127,7 @@ update: function(du) {
 
         var aCategory = this._categories[c];
         var i = 0;
-        console.log(this._categories);
+
         while (i < aCategory.length) {
 
             var status = aCategory[i].update(du);
@@ -124,6 +153,10 @@ render: function(ctx) {
 
         var aCategory = this._categories[c];
 
+        if (!this._bShowRocks && 
+            aCategory == this._rocks)
+            continue;
+
         for (var i = 0; i < aCategory.length; ++i) {
 
             aCategory[i].render(ctx);
@@ -138,3 +171,4 @@ render: function(ctx) {
 
 // Some deferred setup which needs the object to have been created first
 entityManager.deferredSetup();
+
