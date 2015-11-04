@@ -63,7 +63,7 @@ Ship.prototype.warp = function () {
 
     this._isWarping = true;
     this._scaleDirn = -0.4;
-    this.warpSound.play();
+    util.playSound(this.warpSound);
     
     // Unregister me from my old posistion
     // ...so that I can't be collided with while warping

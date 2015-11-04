@@ -68,10 +68,12 @@ var g_allowMixedActions = true;
 var g_useGravity = false;
 var g_useAveVel = true;
 var g_renderSpatialDebug = false;
+var g_muted = false;
 
 var KEY_MIXED   = keyCode('M');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
+var KEY_MUTE = keyCode('N');
 
 
 function processDiagnostics() {
@@ -83,6 +85,7 @@ function processDiagnostics() {
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
 
+    if (eatKey(KEY_MUTE)) g_muted = !g_muted;
 }
 
 
