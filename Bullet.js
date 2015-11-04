@@ -51,7 +51,7 @@ Bullet.prototype.update = function (du, ctx) {
     //if (this._isDeadNow) 
     //    return entityManager.KILL_ME_NOW;
 
-    this.cy -= 3;
+    this.cy -= 10;
 
     if (this.cy<5) return entityManager.KILL_ME_NOW;
     //this.rotation += 1 * du;
