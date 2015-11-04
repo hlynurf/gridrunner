@@ -3,23 +3,23 @@ function drawBackground(ctx) {
 	var boxSize = 20;
 	var vertLines = g_canvas.width / boxSize;
 	var horLines = g_canvas.height / boxSize;
-	for (var i = 2; i < vertLines - 1; i++) {
+	for (var i = 1; i < vertLines; i++) {
 		ctx.save();
 		
 		ctx.beginPath();
-		ctx.moveTo(boxSize * i, 40);
-		ctx.lineTo(boxSize * i, g_canvas.height);
+		ctx.moveTo(boxSize * i, 0);
+		ctx.lineTo(boxSize * i, g_canvas.height - 40);
 		ctx.strokeStyle = 'Red';
 		ctx.stroke();
 		
 		ctx.restore();
 	}
-	for (var i = 2; i < horLines; i++) {
+	for (var i = 1; i < horLines - 1; i++) {
 		ctx.save();
 		
 		ctx.beginPath();
-		ctx.moveTo(40, boxSize * i);
-		ctx.lineTo(g_canvas.width - 40, boxSize * i);
+		ctx.moveTo(20, boxSize * i);
+		ctx.lineTo(g_canvas.width, boxSize * i);
 		ctx.strokeStyle = 'Red';
 		ctx.stroke();
 		

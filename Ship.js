@@ -167,10 +167,10 @@ Ship.prototype.computeSpeedVertical = function () {
     
     var speed = 0;
     
-    if (keys[this.KEY_UP] && this.cy >0 + this.sprite.height / 2.5) {
+    if (keys[this.KEY_UP] && this.cy >0 + g_canvas.height / 30) {
         speed -= NOMINAL_THRUST;
     }
-    if (keys[this.KEY_DOWN] && this.cy < g_canvas.height-this.sprite.height / 2.5) {
+    if (keys[this.KEY_DOWN] && this.cy < g_canvas.height-g_canvas.height / 10) {
         speed += NOMINAL_THRUST;
     }
     
@@ -183,10 +183,10 @@ Ship.prototype.computeSpeedHorizontal = function () {
     
     var speed = 0;
     
-    if (keys[this.KEY_LEFT] && this.cx >0+this.sprite.width / 2.5) {
+    if (keys[this.KEY_LEFT] && this.cx >0+g_canvas.width / 10) {
         speed -= speedHorizontal;
     }
-    if (keys[this.KEY_RIGHT] && this.cx <g_canvas.width-this.sprite.width / 2.5) {
+    if (keys[this.KEY_RIGHT] && this.cx <g_canvas.width-g_canvas.width / 20) {
         speed += speedHorizontal;
     }
     
