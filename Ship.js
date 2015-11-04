@@ -92,7 +92,6 @@ Ship.prototype._updateWarp = function (du) {
 };
 
 Ship.prototype._moveToASafePlace = function () {
-    debugger;
     // Move to a safe place some suitable distance away
     var origX = this.cx,
         origY = this.cy,
@@ -133,8 +132,8 @@ Ship.prototype.update = function (du) {
     }
     
     spatialManager.unregister(this);
-    if (this._isDeadNow) 
-        return entityManager.KILL_ME_NOW;
+    //if (this._isDeadNow) 
+    //    return entityManager.KILL_ME_NOW;
 
     // Perform movement substeps
     var steps = this.numSubSteps;
@@ -146,9 +145,9 @@ Ship.prototype.update = function (du) {
     // Handle firing
     this.maybeFireBullet();
 
-    if(this.findHitEntity())
-        this.warp();
-    else
+   // if(this.findHitEntity())
+   //     this.warp();
+   // else
         spatialManager.register(this);
 
 };
