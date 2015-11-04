@@ -1,0 +1,23 @@
+{
+  "name": "gridrunner",
+  "version": "1.0.0",
+  "description": "Lokaverkefni í tölvuleikjaforritun",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hlynurf/gridrunner.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hlynurf/gridrunner/issues"
+  },
+  "homepage": "https://github.com/hlynurf/gridrunner#readme",
+  "dependencies": {
+    "browser-sync": "^2.9.11",
+    "gulp": "^3.9.0"
+  }
+}
