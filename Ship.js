@@ -29,6 +29,7 @@ function Ship(descr) {
     this._lastBullet = Date.now();
     this._bulletDifference = 100;
 	this._lives = 3;
+	this._gunType = 1; //Default, simple gun
 };
 
 Ship.prototype = new Entity();
@@ -198,8 +199,18 @@ Ship.prototype.computeSpeedHorizontal = function () {
     return speed;
 };
 
+var GUN_1 = '1'.charCodeAt(0);
+var GUN_2 = '2'.charCodeAt(0);
+var GUN_3 = '3'.charCodeAt(0);
+var GUN_4 = '4'.charCodeAt(0);
+
 Ship.prototype.maybeFireBullet = function () {
-    if (Date.now() > this._lastBullet + this._bulletDifference) {
+    if (eatKey(GUN_1)) this._gunType = 1;
+    if (eatKey(GUN_2)) this._gunType = 2;
+    if (eatKey(GUN_3)) this._gunType = 3;
+    if (eatKey(GUN_4)) this._gunType = 4;
+	
+	if (Date.now() > this._lastBullet + this._bulletDifference) {
         var dX = +Math.sin(this.rotation);
         var dY = -Math.cos(this.rotation);
         var launchDist = this.getRadius() * 2;
@@ -212,8 +223,53 @@ Ship.prototype.maybeFireBullet = function () {
            this.cx + dX * launchDist, this.cy + dY * launchDist,
            this.velX + relVelX, this.velY + relVelY,
            this.rotation, false);
+		switch (this._gunType) {
+			case 1:
+				break;
+			case 2:
+				for (var i = 1; i <= 3; i++) {
+					var angle = this.rotation + i * Math.PI/2;
+					dX = +Math.sin(angle);
+					dY = -Math.cos(angle);
+					relVelX = dX * relVel;
+					relVelY = dY * relVel;
+					entityManager.fireBullet(
+						this.cx + dX * launchDist, this.cy + dY * launchDist,
+						this.velX + relVelX, this.velY + relVelY,
+						angle);
+				}
+				break;
+			case 3:
+				for (var i = 1; i <= 20; i++) {
+					var angle = this.rotation + i * Math.PI/10;
+					dX = +Math.sin(angle);
+					dY = -Math.cos(angle);
+					relVelX = dX * relVel;
+					relVelY = dY * relVel;
+					entityManager.fireBullet(
+						this.cx + dX * launchDist, this.cy + dY * launchDist,
+						this.velX + relVelX, this.velY + relVelY,
+						angle);
+				}
+				break;
+			case 4:
+				for (var i = -1; i <= 1; i+=2) {
+					var angle = this.rotation + i * Math.PI/10;
+					dX = +Math.sin(angle);
+					dY = -Math.cos(angle);
+					relVelX = dX * relVel;
+					relVelY = dY * relVel;
+					entityManager.fireBullet(
+						this.cx + dX * launchDist, this.cy + dY * launchDist,
+						this.velX + relVelX, this.velY + relVelY,
+						angle);
+				}
+				break;
+			default:
+				break;
+		}
         this._lastBullet = Date.now();
-    }      
+    }
 };
 
 Ship.prototype.getRadius = function () {
