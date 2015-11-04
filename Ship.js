@@ -92,7 +92,6 @@ Ship.prototype._updateWarp = function (du) {
 };
 
 Ship.prototype._moveToASafePlace = function () {
-    debugger;
     // Move to a safe place some suitable distance away
     var origX = this.cx,
         origY = this.cy,

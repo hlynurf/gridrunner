@@ -29,7 +29,7 @@ var entityManager = {
 
 _bullets : [],
 _ships   : [],
-
+_enemies : [],
 
 // "PRIVATE" METHODS
 
@@ -77,15 +77,14 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [ this._bullets, this._ships];
+    this._categories = [ this._bullets, this._ships, this._enemies];
 },
 
 init: function() {
-    //this._generateShip();
+    this._enemies.push(new SideEnemy({cx: 0, cy: 200}));
 },
 
 fireBullet: function(cx, cy, velX, velY, rotation) {
-    console.log('hello')
     this._bullets.push(new Bullet({
         cx   : cx,
         cy   : cy,
