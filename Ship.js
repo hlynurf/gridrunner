@@ -24,7 +24,7 @@ function Ship(descr) {
     this.sprite = this.sprite || g_sprites.ship;
     
     // Set normal drawing scale, and warp state off
-    this._scale = 1;
+    this._scale = 0.2;
     this._isWarping = false;
 };
 
@@ -60,7 +60,7 @@ Ship.prototype.warpSound = new Audio(
 Ship.prototype.warp = function () {
 
     this._isWarping = true;
-    this._scaleDirn = -1;
+    this._scaleDirn = -0.2;
     this.warpSound.play();
     
     // Unregister me from my old posistion
@@ -73,15 +73,15 @@ Ship.prototype._updateWarp = function (du) {
     var SHRINK_RATE = 3 / SECS_TO_NOMINALS;
     this._scale += this._scaleDirn * SHRINK_RATE * du;
     
-    if (this._scale < 0.2) {
+    if (this._scale < 0.04) {
     
         this._moveToASafePlace();
         this.halt();
-        this._scaleDirn = 1;
+        this._scaleDirn = 0.2;
         
-    } else if (this._scale > 1) {
+    } else if (this._scale > 0.2) {
     
-        this._scale = 1;
+        this._scale = 0.2;
         this._isWarping = false;
         
         // Reregister me from my old posistion
@@ -157,7 +157,6 @@ Ship.prototype.computeSubStep = function (du) {
     
     var speedY = this.computeSpeedVertical();
     var speedX = this.computeSpeedHorizontal();
-
     this.cx += speedX;
     this.cy += speedY;
 
@@ -171,10 +170,10 @@ Ship.prototype.computeSpeedVertical = function () {
     
     var speed = 0;
     
-    if (keys[this.KEY_THRUST]) {
+    if (keys[this.KEY_THRUST] && this.cy >0) {
         speed -= NOMINAL_THRUST;
     }
-    if (keys[this.KEY_RETRO]) {
+    if (keys[this.KEY_RETRO] && this.cy < g_canvas.height) {
         speed += NOMINAL_THRUST;
     }
     
@@ -187,10 +186,10 @@ Ship.prototype.computeSpeedHorizontal = function () {
     
     var speed = 0;
     
-    if (keys[this.KEY_LEFT]) {
+    if (keys[this.KEY_LEFT] && this.cx >0) {
         speed -= speedHorizontal;
     }
-    if (keys[this.KEY_RIGHT]) {
+    if (keys[this.KEY_RIGHT] && this.cx <g_canvas.width) {
         speed += speedHorizontal;
     }
     
@@ -203,7 +202,7 @@ Ship.prototype.maybeFireBullet = function () {
     
         var dX = +Math.sin(this.rotation);
         var dY = -Math.cos(this.rotation);
-        var launchDist = this.getRadius() * 1.2;
+        var launchDist = this.getRadius() * 2;
         
         var relVel = this.launchVel;
         var relVelX = dX * relVel;
@@ -219,7 +218,7 @@ Ship.prototype.maybeFireBullet = function () {
 };
 
 Ship.prototype.getRadius = function () {
-    return (this.sprite.width / 2) * 0.9;
+    return (this.sprite.width / 10) * 0.9;
 };
 
 Ship.prototype.takeBulletHit = function () {
@@ -237,8 +236,6 @@ Ship.prototype.halt = function () {
     this.velX = 0;
     this.velY = 0;
 };
-
-var NOMINAL_ROTATE_RATE = 0.1;
 
 
 Ship.prototype.render = function (ctx) {

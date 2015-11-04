@@ -130,7 +130,8 @@ function preloadDone() {
 
     g_sprites.ship  = new Sprite(g_images.ship);
     g_sprites.bullet = new Sprite(g_images.bullet);
-    g_sprites.bullet.scale = 0.5;
+    g_sprites.bullet.scale = 0.25;
+
 
     entityManager.init();
     createInitialShips();
