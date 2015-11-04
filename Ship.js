@@ -132,8 +132,8 @@ Ship.prototype.update = function (du) {
     }
     
     spatialManager.unregister(this);
-    if (this._isDeadNow) 
-        return entityManager.KILL_ME_NOW;
+    //if (this._isDeadNow) 
+    //    return entityManager.KILL_ME_NOW;
 
     // Perform movement substeps
     var steps = this.numSubSteps;
@@ -145,9 +145,9 @@ Ship.prototype.update = function (du) {
     // Handle firing
     this.maybeFireBullet();
 
-    if(this.findHitEntity())
-        this.warp();
-    else
+   // if(this.findHitEntity())
+   //     this.warp();
+   // else
         spatialManager.register(this);
 
 };
