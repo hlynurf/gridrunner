@@ -34,6 +34,8 @@ function Caterpillar(descr) {
 
 
 Caterpillar.prototype = new Entity();
+// The time the caterpillar enters the level
+Caterpillar.prototype.timestamp = 0;
 
 Caterpillar.prototype.randomisePosition = function () {
     // Caterpillar randomisation defaults (if nothing otherwise specified)

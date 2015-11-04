@@ -30,6 +30,7 @@ var entityManager = {
 _bullets : [],
 _ships   : [],
 _enemies : [],
+_caterpillars: [],
 
 // "PRIVATE" METHODS
 
