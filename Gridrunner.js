@@ -102,6 +102,8 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
+	drawBackground(ctx);
+	
     entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
