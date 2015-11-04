@@ -28,6 +28,7 @@ function Ship(descr) {
     this._isWarping = false;
     this._lastBullet = Date.now();
     this._bulletDifference = 100;
+	this._lives = 3;
 };
 
 Ship.prototype = new Entity();
@@ -145,9 +146,11 @@ Ship.prototype.update = function (du) {
     // Handle firing
     this.maybeFireBullet();
 
-   // if(this.findHitEntity())
-   //     this.warp();
-   // else
+	// if(this.findHitEntity()) {
+	//		this.warp();
+	// 		this.lives--;
+	// }
+	// else
         spatialManager.register(this);
 
 };
@@ -236,4 +239,20 @@ Ship.prototype.render = function (ctx) {
 	ctx, this.cx, this.cy, this.rotation
     );
     this.sprite.scale = origScale;
+	
+	this.renderLives(ctx);
+};
+
+Ship.prototype.renderLives = function(ctx) {
+	var lifeSprite = g_sprites.life;
+	// var origScale = lifeSprite.scale;
+    // lifeSprite.scale = .2;
+	var w = lifeSprite.width;
+	var h = lifeSprite.height;
+	for (var i = 0; i < this._lives; i++) {
+		lifeSprite.drawWrappedCentredAt(
+		ctx, g_canvas.width - w - i * w, g_canvas.height - h, 0
+		);
+	}
+    //lifeSprite.scale = origScale;
 };

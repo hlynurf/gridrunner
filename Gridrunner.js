@@ -120,7 +120,8 @@ function requestPreloads() {
 
     var requiredImages = {
         ship   : "images/kenneyImg/PNG/playerShip1_orange.png",
-        bullet  : "images/kenneyImg/PNG/Lasers/laserGreen05.png"
+        bullet  : "images/kenneyImg/PNG/Lasers/laserGreen05.png",
+		life : "images/kenneyImg/PNG/UI/playerLife1_orange.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -133,7 +134,7 @@ function preloadDone() {
     g_sprites.ship  = new Sprite(g_images.ship);
     g_sprites.bullet = new Sprite(g_images.bullet);
     g_sprites.bullet.scale = 0.5;
-
+	g_sprites.life = new Sprite(g_images.life);
 
     entityManager.init();
     createInitialShips();
