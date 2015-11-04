@@ -7,7 +7,7 @@ function drawBackground(ctx) {
 		ctx.save();
 		
 		ctx.beginPath();
-		ctx.moveTo(boxSize * i, 0);
+		ctx.moveTo(boxSize * i, 20);
 		ctx.lineTo(boxSize * i, g_canvas.height - 40);
 		ctx.strokeStyle = 'Red';
 		ctx.stroke();
@@ -32,13 +32,28 @@ function drawSideEnemy(ctx, x, y) {
 	var width = 40;
 	var height = 30;
 	y = y - height / 4 - 1;
-	// height 30
-	util.fillBox(ctx, x, y, 20, 2, 'Purple');
-	util.fillBox(ctx, x, y + height / 2, 20, 2, 'Purple');
 
-	util.fillBox(ctx, x + width * 0.3, y, 3, 6, 'Purple');
-	util.fillBox(ctx, x + width * 0.3, y + height / 3, 3, 6, 'Purple');
+	util.fillBox(ctx, x, y, 20, 2, 'Yellow');
+	util.fillBox(ctx, x, y + height / 2, 20, 2, 'Yellow');
 
-	util.fillBox(ctx, x + width * 0.45, y + height * 0.125, 3, 10, 'Purple');
-	util.fillBox(ctx, x + width * 0.45, y + height * 0.25 , 12, 3, 'Purple');
+	util.fillBox(ctx, x + width * 0.3, y, 3, 6, 'Yellow');
+	util.fillBox(ctx, x + width * 0.3, y + height / 3, 3, 6, 'Yellow');
+
+	util.fillBox(ctx, x + width * 0.45, y + height * 0.125, 3, 10, 'Yellow');
+	util.fillBox(ctx, x + width * 0.45, y + height * 0.25 -1 , 12, 4, 'Yellow');
+}
+
+function drawUpEnemy(ctx, x, y) {
+	var width = 30;
+	var height = 40;
+	x = x - width / 4 - 1;
+
+	util.fillBox(ctx, x, y, 2, 20, 'Yellow');
+	util.fillBox(ctx, x + width / 2, y, 2, 20, 'Yellow');
+
+	util.fillBox(ctx, x, y + height * 0.3, 6, 3, 'Yellow');
+	util.fillBox(ctx, x + width / 3, y + height * 0.3, 6, 3, 'Yellow');
+
+	util.fillBox(ctx, x + width * 0.125, y + height * 0.45, 10, 3, 'Yellow');
+	util.fillBox(ctx, x + width * 0.25 - 1, y + height * 0.45 , 4, 12, 'Yellow');
 }

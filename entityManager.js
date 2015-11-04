@@ -82,6 +82,7 @@ deferredSetup : function () {
 
 init: function() {
     this._enemies.push(new SideEnemy({cx: 0, cy: 200}));
+    this._enemies.push(new UpEnemy({cx: 200, cy: 0}));
 },
 
 fireBullet: function(cx, cy, velX, velY, rotation) {
