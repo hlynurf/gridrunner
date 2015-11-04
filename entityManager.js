@@ -85,6 +85,7 @@ init: function() {
 },
 
 fireBullet: function(cx, cy, velX, velY, rotation) {
+    console.log('hello')
     this._bullets.push(new Bullet({
         cx   : cx,
         cy   : cy,

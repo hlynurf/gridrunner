@@ -26,6 +26,8 @@ function Ship(descr) {
     // Set normal drawing scale, and warp state off
     this._scale = 0.4;
     this._isWarping = false;
+    this._lastBullet = Date.now();
+    this._bulletDifference = 100;
 };
 
 Ship.prototype = new Entity();
@@ -41,8 +43,6 @@ Ship.prototype.KEY_UP = 'W'.charCodeAt(0);
 Ship.prototype.KEY_DOWN  = 'S'.charCodeAt(0);
 Ship.prototype.KEY_LEFT   = 'A'.charCodeAt(0);
 Ship.prototype.KEY_RIGHT  = 'D'.charCodeAt(0);
-
-Ship.prototype.KEY_FIRE   = ' '.charCodeAt(0);
 
 // Initial, inheritable, default values
 Ship.prototype.rotation = 0;
@@ -92,7 +92,7 @@ Ship.prototype._updateWarp = function (du) {
 };
 
 Ship.prototype._moveToASafePlace = function () {
-
+    debugger;
     // Move to a safe place some suitable distance away
     var origX = this.cx,
         origY = this.cy,
@@ -195,9 +195,7 @@ Ship.prototype.computeSpeedHorizontal = function () {
 };
 
 Ship.prototype.maybeFireBullet = function () {
-
-    if (keys[this.KEY_FIRE]) {
-    
+    if (Date.now() > this._lastBullet + this._bulletDifference) {
         var dX = +Math.sin(this.rotation);
         var dY = -Math.cos(this.rotation);
         var launchDist = this.getRadius() * 2;
@@ -210,17 +208,12 @@ Ship.prototype.maybeFireBullet = function () {
            this.cx + dX * launchDist, this.cy + dY * launchDist,
            this.velX + relVelX, this.velY + relVelY,
            this.rotation);
-           
-    }
-    
+        this._lastBullet = Date.now();
+    }      
 };
 
 Ship.prototype.getRadius = function () {
     return (this.sprite.width / 5) * 0.9;
-};
-
-Ship.prototype.takeBulletHit = function () {
-    this.warp();
 };
 
 Ship.prototype.reset = function () {
