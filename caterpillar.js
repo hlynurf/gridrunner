@@ -51,8 +51,12 @@ Caterpillar.prototype.update = function (du) {
     this.cy += this.velY * du;
 
     this.wrapPosition();
-
-    spatialManager.register(this);
+    var isHit = this.findHitEntity();
+    if (isHit) {
+        if(!isHit.killShip) {
+            return entityManager.KILL_ME_NOW;
+        }
+    } else spatialManager.register(this);
 
 };
 

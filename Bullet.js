@@ -57,23 +57,7 @@ Bullet.prototype.update = function (du, ctx) {
     this.cy += this.velY * du * 4;
     var canvasPadding = 5;
     if (this.cy<5) return entityManager.KILL_ME_NOW;
-    if (this.cy>g_canvas.height-5) return entityManager.KILL_ME_NOW;
-    if (this.cx<canvasPadding) return entityManager.KILL_ME_NOW;
     if (this.cx>g_canvas.width - canvasPadding) return entityManager.KILL_ME_NOW;
-    //this.rotation += 1 * du;
-    //this.rotation = util.wrapRange(this.rotation,
-    //                               0, consts.FULL_CIRCLE);
-
-    // TODO? NO, ACTUALLY, I JUST DID THIS BIT FOR YOU! :-)
-    //
-    // Handle collisions
-    //
-    //var hitEntity = this.findHitEntity();
-    //if (hitEntity) {
-    //    var canTakeHit = hitEntity.takeBulletHit;
-    //    if (canTakeHit) canTakeHit.call(hitEntity); 
-    //    return entityManager.KILL_ME_NOW;
-    //}
     
     spatialManager.register(this);
 

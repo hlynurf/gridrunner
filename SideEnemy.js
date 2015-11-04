@@ -70,7 +70,7 @@ SideEnemy.prototype.computeSubStep = function (du) {
     if (this._goingDown) this.cy += 2;
     else this.cy -= 2;
     if (this.cy > g_canvas.height - 40) this._goingDown = false;
-    if (this.cy < 0) this._goingDown = true;
+    if (this.cy < 20) this._goingDown = true;
 };
 
 var NOMINAL_THRUST = +5;
