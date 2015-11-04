@@ -83,15 +83,16 @@ deferredSetup : function () {
 init: function() {
     this._enemies.push(new SideEnemy({cx: 0, cy: 200}));
     this._enemies.push(new UpEnemy({cx: 200, cy: 0}));
+    this._enemies.push(new Caterpillar({cx: 0, cy: 0}));
 },
 
-fireBullet: function(cx, cy, velX, velY, rotation) {
+fireBullet: function(cx, cy, velX, velY, rotation, killShip) {
     this._bullets.push(new Bullet({
         cx   : cx,
         cy   : cy,
         velX : velX,
         velY : velY,
-
+        killShip: killShip,
         rotation : rotation
     }));
 },

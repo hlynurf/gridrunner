@@ -91,7 +91,7 @@ SideEnemy.prototype.maybeFireBullet = function () {
         entityManager.fireBullet(
            this.cx + dX * launchDist, this.cy + dY * launchDist,
            this.velX + relVelX, this.velY + relVelY,
-           this.rotation);
+           this.rotation, true);
         this._lastBullet = Date.now();
     }      
 };

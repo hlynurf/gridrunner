@@ -145,12 +145,14 @@ Ship.prototype.update = function (du) {
 
     // Handle firing
     this.maybeFireBullet();
-
-	// if(this.findHitEntity()) {
-	//		this.warp();
-	// 		this.lives--;
-	// }
-	// else
+    var isHit = this.findHitEntity();
+    if (isHit) {
+        if (isHit.killShip) {
+            this.warp();
+            this._lives--;
+        }
+    }
+    else
         spatialManager.register(this);
 
 };
@@ -209,7 +211,7 @@ Ship.prototype.maybeFireBullet = function () {
         entityManager.fireBullet(
            this.cx + dX * launchDist, this.cy + dY * launchDist,
            this.velX + relVelX, this.velY + relVelY,
-           this.rotation);
+           this.rotation, false);
         this._lastBullet = Date.now();
     }      
 };
