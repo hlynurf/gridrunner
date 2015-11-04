@@ -55,8 +55,9 @@ Bullet.prototype.update = function (du, ctx) {
 
     this.cx += this.velX * du * 4;
     this.cy += this.velY * du * 4;
-
+    var canvasPadding = 5;
     if (this.cy<5) return entityManager.KILL_ME_NOW;
+    if (this.cx>g_canvas.width - canvasPadding) return entityManager.KILL_ME_NOW;
     //this.rotation += 1 * du;
     //this.rotation = util.wrapRange(this.rotation,
     //                               0, consts.FULL_CIRCLE);
