@@ -41,6 +41,8 @@ Bullet.prototype.zappedSound = new Audio(
 Bullet.prototype.rotation = 0;
 Bullet.prototype.cx = 200;
 Bullet.prototype.cy = 200;
+Bullet.prototype.velX = 110;
+Bullet.prototype.velY = 100;
 
 // Convert times from milliseconds to "nominal" time units.
 Bullet.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
@@ -51,7 +53,8 @@ Bullet.prototype.update = function (du, ctx) {
     //if (this._isDeadNow) 
     //    return entityManager.KILL_ME_NOW;
 
-    this.cy -= 10;
+    this.cx += this.velX * du * 4;
+    this.cy += this.velY * du * 4;
 
     if (this.cy<5) return entityManager.KILL_ME_NOW;
     //this.rotation += 1 * du;
