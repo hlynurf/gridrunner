@@ -112,6 +112,12 @@ function renderSimulation(ctx) {
     if (g_renderSpatialDebug) spatialManager.render(ctx);
 }
 
+function renderGameOverScreen(ctx) {
+    drawBackground(ctx);
+    drawGameOverScreen(ctx);
+
+}
+
 
 // =============
 // PRELOAD STUFF

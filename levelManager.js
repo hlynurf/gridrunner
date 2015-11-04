@@ -19,9 +19,9 @@ var levelManager = {
 
 // "PRIVATE" DATA
 
-_levels = [],
-_currentLevelIdx,
-_currentLevel,
+_levels : [],
+_currentLevelIdx : 0,
+_currentLevel : {},
 
 // PRIVATE METHODS
 

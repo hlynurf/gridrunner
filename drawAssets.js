@@ -7,8 +7,8 @@ function drawBackground(ctx) {
 		ctx.save();
 		
 		ctx.beginPath();
-		ctx.moveTo(boxSize * i, 20);
-		ctx.lineTo(boxSize * i, g_canvas.height - 40);
+		ctx.moveTo(boxSize * i, boxSize);
+		ctx.lineTo(boxSize * i, g_canvas.height - 2*boxSize);
 		ctx.strokeStyle = 'Red';
 		ctx.stroke();
 		
@@ -18,8 +18,8 @@ function drawBackground(ctx) {
 		ctx.save();
 		
 		ctx.beginPath();
-		ctx.moveTo(20, boxSize * i);
-		ctx.lineTo(g_canvas.width, boxSize * i);
+		ctx.moveTo(boxSize, boxSize * i);
+		ctx.lineTo(g_canvas.width-boxSize, boxSize * i);
 		ctx.strokeStyle = 'Red';
 		ctx.stroke();
 		
@@ -63,4 +63,11 @@ function drawCircleEnemy(ctx, x, y) {
 	// height 30
 	ctx.fillStyle = 'Orange';
 	util.fillCircle(ctx,x,y, radius);
+}
+
+function drawGameOverScreen(ctx) {
+	util.borderedCenteredText(ctx, g_canvas.width/2, 3*g_canvas.height/7, 'Yellow', 'Red', '80px Impact', 2, 'GAME OVER');
+	util.borderedCenteredText(ctx, g_canvas.width/2, 8.5*g_canvas.height/15, 'Yellow', 'Red', '40px Impact', 1.2, 'Final score:');
+	// TODO insert score?
+	util.borderedCenteredText(ctx, g_canvas.width/2, 10*g_canvas.height/15, 'Yellow', 'Red', '60px Impact', 1.6, '1.000.000.000');
 }

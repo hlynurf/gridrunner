@@ -62,19 +62,20 @@ main._iterCore = function (dt) {
     // Handle QUIT
     if (requestedQuit()) {
         this.gameOver();
-        return;
+        //return;
     }
     
     gatherInputs();
     update(dt);
-    render(g_ctx);
+    render(g_ctx, this._isGameOver);
 };
 
 main._isGameOver = false;
 
 main.gameOver = function () {
     this._isGameOver = true;
-    console.log("gameOver: quitting...");
+    // Play game over sound?
+    //console.log("gameOver: quitting...");
 };
 
 // Simple voluntary quit mechanism
