@@ -119,7 +119,7 @@ var g_images = {};
 function requestPreloads() {
 
     var requiredImages = {
-        ship   : "images/kenneyImg/PNG/playerShip1_orange.png",
+        ship   : "images/ship.png",
         bullet  : "images/kenneyImg/PNG/Lasers/laserGreen05.png",
 		life : "images/kenneyImg/PNG/UI/playerLife1_orange.png"
     };

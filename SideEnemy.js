@@ -19,7 +19,7 @@ function SideEnemy(descr) {
     this._scale = 0.4;
     this._isWarping = false;
     this._lastBullet = Date.now();
-    this._bulletDifference = 100;
+    this._bulletDifference = 1000;
     this._goingDown = true;
 };
 
@@ -69,7 +69,7 @@ SideEnemy.prototype.computeSubStep = function (du) {
     // this.cx += 5;
     if (this._goingDown) this.cy += 2;
     else this.cy -= 2;
-    if (this.cy > g_canvas.height) this._goingDown = false;
+    if (this.cy > g_canvas.height - 40) this._goingDown = false;
     if (this.cy < 0) this._goingDown = true;
 };
 
