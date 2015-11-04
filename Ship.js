@@ -29,7 +29,7 @@ function Ship(descr) {
     this._lastBullet = Date.now();
     this._bulletDifference = 100;
 	this._lives = 3;
-	this._gunType = 4; //Default, simple gun
+	this._gunType = 1; //Default, simple gun
 };
 
 Ship.prototype = new Entity();
