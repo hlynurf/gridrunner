@@ -69,8 +69,4 @@ function render(ctx) {
     if (g_undoBox) ctx.clearRect(200, 200, 50, 50);
     
     ++g_frameCounter;
-	
-	
-	
-	drawBackground(ctx);
 }
