@@ -29,6 +29,12 @@ function createInitialShips() {
     
 }
 
+function createInitialStars() {
+	for (var i = 0; i < 50; i++) { 
+		particleManager.makeStar();
+	}
+}
+
 // =============
 // GATHER INPUTS
 // =============
@@ -57,6 +63,8 @@ function updateSimulation(du) {
     processDiagnostics();
     
     entityManager.update(du);
+	
+	particleManager.update(du);
 
     // Prevent perpetual firing!
     eatKey(Ship.prototype.KEY_FIRE);
@@ -105,6 +113,7 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
+	drawScrollingBackground(ctx);
 	drawBackground(ctx);
 	
     entityManager.render(ctx);
@@ -147,6 +156,7 @@ function preloadDone() {
 
     entityManager.init();
     createInitialShips();
+	createInitialStars();
 
     main.init();
 }

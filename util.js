@@ -45,6 +45,21 @@ randRange: function(min, max) {
     return (min + Math.random() * (max - min));
 },
 
+getStarColor: function() {	// Returns red, yellow or magenta
+	var color = Math.floor(Math.random()*5);
+	switch(color) {
+		case 0:
+			return 'Red';
+		case 1:
+			return 'Yellow';
+		case 2:
+			return 'Magenta';
+		case 3:
+			return 'Blue';
+		case 4:
+			return 'Orange';
+	}
+},
 
 // MISC
 // ====
@@ -79,7 +94,7 @@ wrappedDistSq: function(x1, y1, x2, y2, xWrap, yWrap) {
 
 clearCanvas: function (ctx) {
     var prevfillStyle = ctx.fillStyle;
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "Black";
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.fillStyle = prevfillStyle;
 },

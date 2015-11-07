@@ -1,5 +1,5 @@
-function drawBackground(ctx) {
-	util.fillBox(ctx, 0, 0, g_canvas.width, g_canvas.height, 'Black');
+function drawBackground(ctx) {	// Draws the grid
+	// util.fillBox(ctx, 0, 0, g_canvas.width, g_canvas.height, 'Black');
 	var boxSize = 20;
 	var vertLines = g_canvas.width / boxSize;
 	var horLines = g_canvas.height / boxSize;
@@ -70,4 +70,17 @@ function drawGameOverScreen(ctx) {
 	util.borderedCenteredText(ctx, g_canvas.width/2, 8.5*g_canvas.height/15, 'Yellow', 'Red', '40px Impact', 1.2, 'Final score:');
 	// TODO insert score?
 	util.borderedCenteredText(ctx, g_canvas.width/2, 10*g_canvas.height/15, 'Yellow', 'Red', '60px Impact', 1.6, '1.000.000.000');
+}
+
+function drawScrollingBackground(ctx) {	// Draws the stars
+	util.fillBox(ctx, 0, 0, g_canvas.width, g_canvas.height, 'Black');
+	particleManager.renderStars(ctx);
+}
+
+function drawMenuBackground(ctx) {
+	
+}
+
+function drawMenuButton(ctx, text) {
+	
 }
