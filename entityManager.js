@@ -31,6 +31,7 @@ _bullets : [],
 _ships   : [],
 _enemies : [],
 _caterpillars: [],
+_landMines: [],
 
 // "PRIVATE" METHODS
 
@@ -78,7 +79,7 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [ this._bullets, this._ships, this._enemies];
+    this._categories = [ this._bullets, this._ships, this._enemies, this._landMines];
 },
 
 init: function() {
@@ -100,6 +101,14 @@ fireBullet: function(cx, cy, velX, velY, rotation, killShip) {
 
 generateShip : function(descr) {
     this._ships.push(new Ship(descr));
+},
+
+createLandMine : function(cx, cy) {
+    this._landMines.push(new LandMine({
+        cx: cx,
+        cy: cy,
+        killShip: true
+    }));
 },
 
 killNearestShip : function(xPos, yPos) {
