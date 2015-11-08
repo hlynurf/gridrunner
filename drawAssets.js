@@ -77,6 +77,13 @@ function drawScrollingBackground(ctx) {	// Draws the stars
 	particleManager.renderStars(ctx);
 }
 
+function drawScore(ctx) {
+	ctx.save();
+	ctx.font = '20px Impact';
+	ctx.fillText('Score: ' + g_score, 20, g_canvas.height - 15);
+	ctx.restore();
+}
+
 function drawMenuBackground(ctx) {
 	
 }

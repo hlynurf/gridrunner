@@ -56,6 +56,7 @@ Caterpillar.prototype.update = function (du) {
     var isHit = this.findHitEntity();
     if (isHit) {
         if(!isHit.killShip) {
+            g_score += 100;
             return entityManager.KILL_ME_NOW;
         }
     } else spatialManager.register(this);

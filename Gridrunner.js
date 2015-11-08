@@ -9,7 +9,7 @@
 
 var g_canvas = document.getElementById("myCanvas");
 var g_ctx = g_canvas.getContext("2d");
-
+var g_score = 0;// ideally it would be wise to not make this global
 /*
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -33,14 +33,6 @@ function createInitialStars() {
 	for (var i = 0; i < 50; i++) { 
 		particleManager.makeStar();
 	}
-}
-
-// =============
-// GATHER INPUTS
-// =============
-
-function gatherInputs() {
-
 }
 
 
@@ -115,7 +107,8 @@ function renderSimulation(ctx) {
 
 	drawScrollingBackground(ctx);
 	drawBackground(ctx);
-	
+	drawScore(ctx);
+    
     entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);

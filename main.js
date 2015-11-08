@@ -64,8 +64,6 @@ main._iterCore = function (dt) {
         this.gameOver();
         //return;
     }
-    
-    gatherInputs();
     update(dt);
     render(g_ctx, this._isGameOver);
 };
