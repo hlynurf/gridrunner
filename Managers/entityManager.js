@@ -85,7 +85,15 @@ deferredSetup : function () {
 init: function() {
     this._enemies.push(new SideEnemy({cx: 0, cy: 200}));
     this._enemies.push(new UpEnemy({cx: 200, cy: 0}));
-    this._enemies.push(new Caterpillar({cx: 0, cy: 0}));
+    //Randoms X pos of catapillar insider the box
+    var posX = (g_canvas.width / 10)+Math.random() * (g_canvas.width-g_canvas.width / 5);  
+    var posY=0;
+    for(var i=0; i<5; i++)
+    {
+    this._enemies.push(new Caterpillar({cx: posX, cy: posY}));
+    posY+=25;
+    posX+=5;
+    }
 },
 
 fireBullet: function(cx, cy, velX, velY, rotation, killShip) {

@@ -18,8 +18,6 @@ function Caterpillar(descr) {
     // Common inherited setup logic from Entity
     this.setup(descr);
 
-    this.randomisePosition();
-      
     // Default sprite and scale, if not otherwise specified
     this.sprite = this.sprite || g_sprites.Caterpillar;
     this.scale  = this.scale  || 1;
@@ -32,18 +30,15 @@ function Caterpillar(descr) {
 
 };
 
-
+var moveRight=100;
+var moveLeft=-1;
 Caterpillar.prototype = new Entity();
 // The time the caterpillar enters the level
 Caterpillar.prototype.timestamp = 0;
 
-Caterpillar.prototype.randomisePosition = function () {
-    // Caterpillar randomisation defaults (if nothing otherwise specified)
-    this.cx = this.cx || Math.random() * g_canvas.width;
-    this.cy = 5;
-};
 Caterpillar.prototype.radius = 10;
-Caterpillar.prototype.velY = 2;
+Caterpillar.prototype.velX = 1;
+Caterpillar.prototype.velY = 1;
 Caterpillar.prototype.update = function (du) {
 
     spatialManager.unregister(this);
@@ -51,8 +46,23 @@ Caterpillar.prototype.update = function (du) {
         return entityManager.KILL_ME_NOW;
 
     this.cy += this.velY * du;
+    if(this.cy>g_canvas.height){
+        return entityManager.KILL_ME_NOW;
+    }
+    if(moveRight<=100 && moveRight>=0){
+    this.cx += 0.5;
+    moveRight-=1;
+    if(moveRight==0)
+        moveLeft=100;
+    }
+    if(moveLeft<=100 && moveLeft>=0){
+        this.cx -= 0.5;
+        moveLeft-=1;
+        if(moveLeft==0)
+            moveRight=100;
+    }
 
-    this.wrapPosition();
+
     var isHit = this.findHitEntity();
     if (isHit) {
         if(!isHit.killShip) {

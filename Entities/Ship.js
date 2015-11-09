@@ -175,11 +175,12 @@ var NOMINAL_THRUST = +5;
 Ship.prototype.computeSpeedVertical = function () {
     
     var speed = 0;
-    
-    if (keys[this.KEY_UP] && this.cy >0 + g_canvas.height / 30) {
+    var oneGridY=g_canvas.height / 30;
+    var shipHeight=this.sprite.height*0.4/2;
+    if (keys[this.KEY_UP] && this.cy >oneGridY + shipHeight ) {
         speed -= NOMINAL_THRUST;
     }
-    if (keys[this.KEY_DOWN] && this.cy < g_canvas.height-g_canvas.height / 10) {
+    if (keys[this.KEY_DOWN] && this.cy < g_canvas.height-(2*oneGridY)- shipHeight) {
         speed += NOMINAL_THRUST;
     }
     
@@ -191,11 +192,13 @@ var speedHorizontal = +5;
 Ship.prototype.computeSpeedHorizontal = function () {
     
     var speed = 0;
-    
-    if (keys[this.KEY_LEFT] && this.cx >0+g_canvas.width / 10) {
+    var oneGridX=g_canvas.width / 20;
+    //0.4 er scale, eh sem þarf að laga
+    var shipWidth=this.sprite.width*0.4/2;
+    if (keys[this.KEY_LEFT] && this.cx > oneGridX+shipWidth) {
         speed -= speedHorizontal;
     }
-    if (keys[this.KEY_RIGHT] && this.cx <g_canvas.width-g_canvas.width / 20) {
+    if (keys[this.KEY_RIGHT] && this.cx <g_canvas.width-oneGridX-shipWidth) {
         speed += speedHorizontal;
     }
     

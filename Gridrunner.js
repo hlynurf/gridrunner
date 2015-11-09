@@ -119,6 +119,9 @@ function renderGameOverScreen(ctx) {
     drawGameOverScreen(ctx);
 
 }
+function renderGamePaused(ctx){
+    drawGamePaused(ctx); 
+}
 
 
 // =============

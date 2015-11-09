@@ -1,10 +1,9 @@
 // GENERIC RENDERING
-
 var g_doClear = true;
 var g_doBox = false;
 var g_undoBox = false;
 var g_doFlipFlop = false;
-var g_doRender = true;
+var g_doMouse = false;
 
 var g_frameCounter = 1;
 
@@ -12,7 +11,7 @@ var TOGGLE_CLEAR = 'C'.charCodeAt(0);
 var TOGGLE_BOX = 'B'.charCodeAt(0);
 var TOGGLE_UNDO_BOX = 'U'.charCodeAt(0);
 var TOGGLE_FLIPFLOP = 'F'.charCodeAt(0);
-var TOGGLE_RENDER = 'R'.charCodeAt(0);
+var TOGGLE_MOUSE = 'Z'.charCodeAt(0);
 
 function render(ctx, gameOver) {
     
@@ -22,11 +21,11 @@ function render(ctx, gameOver) {
     if (eatKey(TOGGLE_BOX)) g_doBox = !g_doBox;
     if (eatKey(TOGGLE_UNDO_BOX)) g_undoBox = !g_undoBox;
     if (eatKey(TOGGLE_FLIPFLOP)) g_doFlipFlop = !g_doFlipFlop;
-    if (eatKey(TOGGLE_RENDER)) g_doRender = !g_doRender;
-    
+    if (eatKey(TOGGLE_MOUSE)) g_doMouse = !g_doMouse;
     // I've pulled the clear out of `renderSimulation()` and into
     // here, so that it becomes part of our "diagnostic" wrappers
     //
+    console.log(g_doMouse);
     if (g_doClear) util.clearCanvas(ctx);
     
     // The main purpose of the box is to demonstrate that it is
@@ -40,9 +39,11 @@ function render(ctx, gameOver) {
     
     // The core rendering of the actual game / simulation
     //
-    if (gameOver && g_doRender) renderGameOverScreen(ctx);
-    else if (g_doRender) renderSimulation(ctx);
+    if (gameOver) renderGameOverScreen(ctx);
+    else renderSimulation(ctx);
     
+    if(g_isUpdatePaused)
+        renderGamePaused(ctx);
     
     // This flip-flip mechanism illustrates the pattern of alternation
     // between frames, which provides a crude illustration of whether

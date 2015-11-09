@@ -72,6 +72,10 @@ function drawGameOverScreen(ctx) {
 	util.borderedCenteredText(ctx, g_canvas.width/2, 10*g_canvas.height/15, 'Yellow', 'Red', '60px Impact', 1.6, g_score.toLocaleString());
 }
 
+function drawGamePaused(ctx) {
+	util.borderedCenteredText(ctx, g_canvas.width/2, 3*g_canvas.height/7, 'Yellow', 'Red', '80px Impact', 2, 'PAUSED');
+}
+
 function drawScrollingBackground(ctx) {	// Draws the stars
 	util.fillBox(ctx, 0, 0, g_canvas.width, g_canvas.height, 'Black');
 	particleManager.renderStars(ctx);
