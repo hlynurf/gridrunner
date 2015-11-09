@@ -58,10 +58,16 @@ function drawUpEnemy(ctx, x, y) {
 	util.fillBox(ctx, x + width * 0.25 - 1, y + height * 0.45 , 4, 12, 'Yellow');
 }
 
-function drawCircleEnemy(ctx, x, y) {
+function drawCaterpillar(ctx, x, y) {
 	var radius = 10;
 	// height 30
 	ctx.fillStyle = 'Orange';
+	util.fillCircle(ctx,x,y, radius);
+}
+function drawBulletPowerup(ctx, x, y){
+	var radius = 15;
+	// height 30
+	ctx.fillStyle = 'Pink';
 	util.fillCircle(ctx,x,y, radius);
 }
 

@@ -104,7 +104,6 @@ function renderSimulation(ctx) {
 	drawScrollingBackground(ctx);
 	drawBackground(ctx);
 	drawScore(ctx);
-
     entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
