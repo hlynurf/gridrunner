@@ -15,7 +15,7 @@ var g_mouseX = 0,
     g_mouseY = 0;
 
 function handleMouse(evt) {
-	if(g_doMouse){
+	if(g_doMouse && !g_isUpdatePaused ){
 		if(evt.clientX >g_canvas.width / 10 && evt.clientX <g_canvas.width-g_canvas.width / 20)
    			g_mouseX = evt.clientX - g_canvas.offsetLeft;
 		if(evt.clientY >g_canvas.height / 15 && evt.clientY < g_canvas.height-g_canvas.height / 15)

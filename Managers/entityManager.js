@@ -85,17 +85,23 @@ deferredSetup : function () {
 init: function() {
     this._enemies.push(new SideEnemy({cx: 0, cy: 200}));
     this._enemies.push(new UpEnemy({cx: 200, cy: 0}));
+    setInterval(function(){
     //Randoms X pos of catapillar insider the box
     var posX = (g_canvas.width / 10)+Math.random() * (g_canvas.width-g_canvas.width / 5);  
     var posY=0;
     for(var i=0; i<5; i++)
     {
-    this._enemies.push(new Caterpillar({cx: posX, cy: posY}));
+    entityManager.createCaterpillar(posX,posY);
     posY+=25;
     posX+=5;
     }
+    }, 5000);
 },
 
+createCaterpillar: function(cx,cy){
+    this._enemies.push(new Caterpillar({cx: cx, cy: cy}));
+
+},
 fireBullet: function(cx, cy, velX, velY, rotation, killShip) {
     this._bullets.push(new Bullet({
         cx   : cx,

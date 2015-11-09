@@ -70,16 +70,12 @@ var g_useAveVel = true;
 var g_renderSpatialDebug = false;
 var g_muted = false;
 
-var KEY_MIXED   = keyCode('M');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
 var KEY_MUTE = keyCode('N');
 
 
 function processDiagnostics() {
-
-    if (eatKey(KEY_MIXED))
-        g_allowMixedActions = !g_allowMixedActions;
 
     if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
 
@@ -108,7 +104,7 @@ function renderSimulation(ctx) {
 	drawScrollingBackground(ctx);
 	drawBackground(ctx);
 	drawScore(ctx);
-    
+
     entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
