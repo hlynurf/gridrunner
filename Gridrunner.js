@@ -49,17 +49,29 @@ function createInitialStars() {
 
 
 // GAME-SPECIFIC UPDATE LOGIC
+var lastCaterpillar = Date.now();
 
 function updateSimulation(du) {
     
     processDiagnostics();
     
     entityManager.update(du);
-	
-	particleManager.update(du);
 
-    // Prevent perpetual firing!
-    eatKey(Ship.prototype.KEY_FIRE);
+    var caterpillerGap = 2000;
+    if(Date.now() > lastCaterpillar + caterpillerGap){
+        if(!g_isUpdatePaused){
+        //Randoms X pos of catapillar insider the box
+        var posX = (g_canvas.width / 10)+Math.random() * (g_canvas.width-g_canvas.width / 5);  
+        var posY=0;
+        for(var i=0; i<5; i++){
+            entityManager.createCaterpillar(posX,posY);
+            posY+=25;
+            posX+=5;
+        }
+        lastCaterpillar = Date.now();
+        }
+    }
+	particleManager.update(du);
 }
 
 // GAME-SPECIFIC DIAGNOSTICS

@@ -49,11 +49,12 @@ Caterpillar.prototype.update = function (du) {
     if(this.cy>g_canvas.height){
         return entityManager.KILL_ME_NOW;
     }
+    //Move left and right, do it better...
     if(moveRight<=100 && moveRight>=0){
-    this.cx += 0.5;
-    moveRight-=1;
-    if(moveRight==0)
-        moveLeft=100;
+        this.cx += 0.5;
+        moveRight-=1;
+        if(moveRight==0)
+            moveLeft=100;
     }
     if(moveLeft<=100 && moveLeft>=0){
         this.cx -= 0.5;
@@ -62,13 +63,12 @@ Caterpillar.prototype.update = function (du) {
             moveRight=100;
     }
 
-
     var isHit = this.findHitEntity();
     if (isHit) {
         if(!isHit.killShip) {
             g_score += 100;
             if(Math.random()<0.1)
-            entityManager.createBulletPowerup(this.cx,this.cy);
+            entityManager.createBulletPowerup(this.cx,this.cy,false);
             return entityManager.KILL_ME_NOW;
         }
     } else spatialManager.register(this);

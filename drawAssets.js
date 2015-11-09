@@ -65,10 +65,12 @@ function drawCaterpillar(ctx, x, y) {
 	util.fillCircle(ctx,x,y, radius);
 }
 function drawBulletPowerup(ctx, x, y){
-	var radius = 15;
+	var radius = 5;
 	// height 30
-	ctx.fillStyle = 'Pink';
+	ctx.fillStyle = 'Purple';
 	util.fillCircle(ctx,x,y, radius);
+	ctx.strokeStyle = '#fff';
+    ctx.stroke();
 }
 
 function drawGameOverScreen(ctx) {

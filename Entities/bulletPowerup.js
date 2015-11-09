@@ -10,7 +10,7 @@
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
-
+BulletPowerup.prototype.BulletPowerupIsHit=false;
 
 // A generic contructor which accepts an arbitrary descriptor object
 function BulletPowerup(descr) {
@@ -20,7 +20,6 @@ function BulletPowerup(descr) {
 
     // Default sprite and scale, if not otherwise specified
     this.scale  = this.scale  || 1;
-    this.kill();
 /*
     // Diagnostics to check inheritance stuff
     this._BulletPowerupProperty = true;
@@ -32,8 +31,9 @@ function BulletPowerup(descr) {
 BulletPowerup.prototype = new Entity();
 // The time the BulletPowerup enters the level
 BulletPowerup.prototype.timestamp = 0;
+BulletPowerup.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
+BulletPowerup.prototype.radius = 5;
 
-BulletPowerup.prototype.radius = 10;
 BulletPowerup.prototype.update = function (du) {
 
 
@@ -41,15 +41,7 @@ BulletPowerup.prototype.update = function (du) {
 
     this.lifeSpan -= du;
     if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
-   
-    var isHit = this.findHitEntity(); 
-    //console.log(isHit); 
-    //if (isHit) {
-    //    if (isHit.kill) {
-    //       this.kill();
-    //    }
-    //}
-    //else
+        var isHit = this.findHitEntity();
 
     spatialManager.register(this);
 
@@ -59,16 +51,6 @@ BulletPowerup.prototype.getRadius = function () {
     return this.scale * (this.radius) ;
 };
 
-
-
-BulletPowerup.prototype._spawnFragment = function () {
-    entityManager.generateBulletPowerup({
-        cx : this.cx,
-        cy : this.cy,
-        scale : this.scale /2
-    });
-};
-BulletPowerup.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
 BulletPowerup.prototype.render = function (ctx) {
 
     var fadeThresh = BulletPowerup.prototype.lifeSpan / 3;

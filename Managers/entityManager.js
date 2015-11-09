@@ -86,25 +86,15 @@ deferredSetup : function () {
 init: function() {
     this._enemies.push(new SideEnemy({cx: 0, cy: 200}));
     this._enemies.push(new UpEnemy({cx: 200, cy: 0}));
-    setInterval(function(){
-    //Randoms X pos of catapillar insider the box
-    var posX = (g_canvas.width / 10)+Math.random() * (g_canvas.width-g_canvas.width / 5);  
-    var posY=0;
-    for(var i=0; i<5; i++)
-    {
-    entityManager.createCaterpillar(posX,posY);
-    posY+=25;
-    posX+=5;
-    }
-    }, 2000);
+
 },
 
 createCaterpillar: function(cx,cy){
     this._enemies.push(new Caterpillar({cx: cx, cy: cy}));
 
 },
-createBulletPowerup: function(cx,cy){
-    this._bulletPowerup.push(new BulletPowerup({cx: cx, cy: cy}));
+createBulletPowerup: function(cx,cy,killBulletPowerup){
+    this._bulletPowerup.push(new BulletPowerup({cx: cx, cy: cy, killBulletPowerup:killBulletPowerup}));
 
 },
 fireBullet: function(cx, cy, velX, velY, rotation, killShip) {
@@ -183,10 +173,6 @@ render: function(ctx) {
     for (var c = 0; c < this._categories.length; ++c) {
 
         var aCategory = this._categories[c];
-
-        if (!this._bShowRocks && 
-            aCategory == this._rocks)
-            continue;
 
         for (var i = 0; i < aCategory.length; ++i) {
 

@@ -38,9 +38,6 @@ Bullet.prototype.zappedSound = new Audio(
     "sounds/bulletZapped.ogg");
     
 // Initial, inheritable, default values
-Bullet.prototype.rotation = 0;
-Bullet.prototype.cx = 200;
-Bullet.prototype.cy = 200;
 Bullet.prototype.velX = 110;
 Bullet.prototype.velY = 100;
 

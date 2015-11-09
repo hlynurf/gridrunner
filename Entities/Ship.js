@@ -149,7 +149,6 @@ Ship.prototype.update = function (du) {
     var isHit = this.findHitEntity();
     if (isHit) {
         if (isHit.killShip) {
-            console.log(isHit.killShip);
             this.warp();
             this._lives--;
             if (this._lives < 0) {
