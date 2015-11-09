@@ -19,7 +19,7 @@ function UpEnemy(descr) {
     this._scale = 0.4;
     this._isWarping = false;
     this._lastBullet = Date.now();
-    this._bulletDifference = 1000;
+    this._bulletDifference = 4000;
     this._goingRight = true;
 };
 
@@ -87,11 +87,7 @@ UpEnemy.prototype.maybeFireBullet = function () {
         var relVel = this.launchVel;
         var relVelX = dX * relVel;
         var relVelY = dY * relVel;
-
-        entityManager.fireBullet(
-           this.cx + dX * launchDist, this.cy + dY * launchDist,
-           this.velX + relVelX, this.velY + relVelY,
-           this.rotation, true);
+        entityManager.fireLightning(this.cx + dX, this.cy + dY);
         this._lastBullet = Date.now();
     }      
 };

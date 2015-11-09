@@ -92,6 +92,7 @@ function drawScrollingBackground(ctx) {	// Draws the stars
 function drawScore(ctx) {
 	ctx.save();
 	ctx.font = '20px Impact';
+	ctx.fillStyle = 'Orange';
 	ctx.fillText('Score: ' + g_score, 20, g_canvas.height - 15);
 	ctx.restore();
 }

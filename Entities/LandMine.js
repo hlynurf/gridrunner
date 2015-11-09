@@ -31,7 +31,7 @@ function LandMine(descr) {
 LandMine.prototype = new Entity();
 
 LandMine.prototype.velX = 2;
-LandMine.prototype.radius = 5;
+LandMine.prototype.radius = 7;
 LandMine.prototype.update = function (du) {
 
     spatialManager.unregister(this);
@@ -45,7 +45,11 @@ LandMine.prototype.update = function (du) {
     if (isHit) {
         if(!isHit.killShip) {
             g_score += 50;
-            return entityManager.KILL_ME_NOW;
+            if (this.scale < 0.7) {
+              return entityManager.KILL_ME_NOW;  
+            } else {
+                this.scale *= 0.7;
+            }
         }
     } else spatialManager.register(this);
 
@@ -69,6 +73,6 @@ LandMine.prototype.takeBulletHit = function () {
 LandMine.prototype.render = function (ctx) {
     ctx.save();
     ctx.fillStyle = 'Orange';
-    util.fillCircle(ctx, this.cx, this.cy, 5);
+    util.fillCircle(ctx, this.cx, this.cy, this.getRadius());
     ctx.restore();
 };

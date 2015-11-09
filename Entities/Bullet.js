@@ -40,6 +40,8 @@ Bullet.prototype.zappedSound = new Audio(
 // Initial, inheritable, default values
 Bullet.prototype.velX = 110;
 Bullet.prototype.velY = 100;
+Bullet.prototype.width = 4;
+Bullet.prototype.height = 20;
 
 // Convert times from milliseconds to "nominal" time units.
 Bullet.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
@@ -62,10 +64,6 @@ Bullet.prototype.update = function (du, ctx) {
 
 };
 
-Bullet.prototype.getRadius = function () {
-    return 4;
-};
-
 Bullet.prototype.takeBulletHit = function () {
     this.kill();
     
@@ -74,9 +72,12 @@ Bullet.prototype.takeBulletHit = function () {
 };
 
 Bullet.prototype.render = function (ctx) {
-
-    g_sprites.bullet.drawWrappedCentredAt(
-        ctx, this.cx, this.cy, this.rotation
-    );
-
+    ctx.save();
+    ctx.beginPath();
+    ctx.lineWidth = this.width;
+    ctx.moveTo(this.cx, this.cy - this.height / 2);
+    ctx.lineTo(this.cx, this.cy + this.height / 2);
+    ctx.strokeStyle = 'rgb(113, 201, 55)';
+    ctx.stroke();
+    ctx.restore();
 };

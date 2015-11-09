@@ -1,10 +1,5 @@
 /*
 
-entityManager.js
-
-A module which handles arbitrary entity-management for "Asteroids"
-
-
 We create this module as a single global object, and initialise it
 with suitable 'data' and 'methods'.
 
@@ -33,6 +28,7 @@ _enemies : [],
 _caterpillars: [],
 _bulletPowerup: [],
 _landMines: [],
+_lightnings: [],
 
 // "PRIVATE" METHODS
 
@@ -80,7 +76,7 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [ this._bullets, this._ships, this._enemies, this._landMines, this._bulletPowerup];
+    this._categories = [ this._bullets, this._ships, this._enemies, this._landMines, this._bulletPowerup, this._lightnings];
 },
 
 init: function() {
@@ -112,19 +108,21 @@ generateShip : function(descr) {
     this._ships.push(new Ship(descr));
 },
 
+fireLightning : function(cx, cy) {
+    this._lightnings.push(new Lightning({
+        cx: cx,
+        cy: cy,
+        killShip: true,
+        isLightning: true,
+    }));
+},
+
 createLandMine : function(cx, cy) {
     this._landMines.push(new LandMine({
         cx: cx,
         cy: cy,
         killShip: true
     }));
-},
-
-killNearestShip : function(xPos, yPos) {
-    var theShip = this._findNearestShip(xPos, yPos).theShip;
-    if (theShip) {
-        theShip.kill();
-    }
 },
 
 yoinkNearestShip : function(xPos, yPos) {

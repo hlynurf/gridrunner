@@ -38,7 +38,7 @@ getNewSpatialID : function() {
 register: function(entity) {
     var pos = entity.getPos();
     var spatialID = entity.getSpatialID();
-    this._entities[spatialID] = { posX: pos.posX, posY: pos.posY, radius: entity.getRadius(), entity: entity };
+    this._entities[spatialID] = { posX: pos.posX, posY: pos.posY, radius: entity.getRadius(), isLightning: entity.isLightning, entity: entity };
 },
 
 unregister: function(entity) {
@@ -46,13 +46,21 @@ unregister: function(entity) {
     delete this._entities[spatialID];
 },
 
-findEntityInRange: function(posX, posY, radius) {
+findEntityInRange: function(posX, posY, radius, isLightning) {
     // like in the render function we go through the entites
     for (var ID in this._entities) {
         var e = this._entities[ID];
-        // it's a collision! 
-        if(util.wrappedDistSq(posX, posY, e.posX, e.posY, g_canvas.width, g_canvas.height) < util.square(e.radius + radius)) 
-            return e.entity;
+        // it's a collision!
+        if (e.isLightning) {
+            if (e.posX > posX - radius && e.posX < posX + radius) {
+                return e.entity;
+            }
+        } else {
+            if(util.wrappedDistSq(posX, posY, e.posX, e.posY, g_canvas.width, g_canvas.height) < util.square(e.radius + radius)) {
+                return e.entity;
+            }
+        }
+        
         // else it is no collision and nothing happens
     }
 },
