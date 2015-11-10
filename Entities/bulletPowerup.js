@@ -20,18 +20,13 @@ function BulletPowerup(descr) {
 
     // Default sprite and scale, if not otherwise specified
     this.scale  = this.scale  || 1;
-/*
-    // Diagnostics to check inheritance stuff
-    this._BulletPowerupProperty = true;
-    console.dir(this);
-*/
 
 };
 
 BulletPowerup.prototype = new Entity();
 // The time the BulletPowerup enters the level
 BulletPowerup.prototype.timestamp = 0;
-BulletPowerup.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
+BulletPowerup.prototype.lifeSpan = 10000 / NOMINAL_UPDATE_INTERVAL;
 BulletPowerup.prototype.radius = 5;
 
 BulletPowerup.prototype.update = function (du) {
@@ -42,18 +37,16 @@ BulletPowerup.prototype.update = function (du) {
     if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
         
     var isHit = this.findHitEntity();
-    if(isHit){
-        
-
-        console.log(isHit.killBulletPowerup);
-    if(isHit.killBulletPowerup) {
-        return entityManager.KILL_ME_NOW;
-    }
-    }
- 
+    if(isHit){       
+        if(isHit.killBulletPowerup) {
+            gunType = 1+ Math.round(Math.random()*2)
+            // Tímabundið
+            setTimeout(function(){ gunType = 0; }, 10000);
+            return entityManager.KILL_ME_NOW;
+        }
+    } 
 
     spatialManager.register(this);
-
 };
 
 BulletPowerup.prototype.getRadius = function () {

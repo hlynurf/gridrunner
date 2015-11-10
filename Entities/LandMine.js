@@ -46,7 +46,9 @@ LandMine.prototype.update = function (du) {
         if(!isHit.killShip) {
             g_score += 50;
             if (this.scale < 0.7) {
-              return entityManager.KILL_ME_NOW;  
+                if(Math.random()<0.1)
+                    entityManager.createBulletPowerup(this.cx,this.cy,false);
+                return entityManager.KILL_ME_NOW;  
             } else {
                 this.scale *= 0.7;
             }

@@ -20,16 +20,8 @@ function Caterpillar(descr) {
     // Default sprite and scale, if not otherwise specified
     this.scale  = this.scale  || 1;
     this.killShip = true;
-/*
-    // Diagnostics to check inheritance stuff
-    this._CaterpillarProperty = true;
-    console.dir(this);
-*/
-
 };
 
-var moveRight=100;
-var moveLeft=-1;
 Caterpillar.prototype = new Entity();
 // The time the caterpillar enters the level
 Caterpillar.prototype.timestamp = 0;
@@ -39,8 +31,8 @@ Caterpillar.prototype.velX = 1;
 Caterpillar.prototype.velY = 1;
 Caterpillar.prototype.update = function (du) {
 
-
     spatialManager.unregister(this);
+    
     if (this._isDeadNow) 
         return entityManager.KILL_ME_NOW;
 
@@ -62,25 +54,6 @@ Caterpillar.prototype.update = function (du) {
 
 Caterpillar.prototype.getRadius = function () {
     return this.scale * (this.radius) ;
-};
-
-
-Caterpillar.prototype.takeBulletHit = function () {
-    this.kill();
-    
-    if (this.scale > 0.25) {
-        this._spawnFragment();
-        this._spawnFragment();
-        
-    }
-};
-
-Caterpillar.prototype._spawnFragment = function () {
-    entityManager.generateCaterpillar({
-        cx : this.cx,
-        cy : this.cy,
-        scale : this.scale /2
-    });
 };
 
 Caterpillar.prototype.render = function (ctx) {

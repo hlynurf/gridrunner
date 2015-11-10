@@ -55,12 +55,12 @@ findEntityInRange: function(posX, posY, radius, isLightning) {
             if (e.posX > posX - radius && e.posX < posX + radius) {
                 return e.entity;
             }
-        } else {
+        } 
             if(util.wrappedDistSq(posX, posY, e.posX, e.posY, g_canvas.width, g_canvas.height) < util.square(e.radius + radius)) {
                 return e.entity;
             }
-        }
         
+    
         // else it is no collision and nothing happens
     }
 },

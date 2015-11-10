@@ -86,7 +86,11 @@ init: function() {
 },
 
 createCaterpillar: function(cx,cy){
-    this._enemies.push(new Caterpillar({cx: cx, cy: cy}));
+    this._enemies.push(new Caterpillar({
+        cx: cx, 
+        cy: cy,
+        killBulletPowerup:false,
+    }));
 
 },
 createBulletPowerup: function(cx,cy,killBulletPowerup){

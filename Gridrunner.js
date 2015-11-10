@@ -55,7 +55,7 @@ function updateSimulation(du) {
     
     entityManager.update(du);
 
-    var caterpillerGap = 2000;
+    var caterpillerGap = 500;
     if(Date.now() > lastCaterpillar + caterpillerGap){
         if(!g_isUpdatePaused){
         //Randoms X pos of catapillar insider the box

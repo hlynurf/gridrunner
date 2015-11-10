@@ -156,8 +156,7 @@ Ship.prototype.update = function (du) {
             }
         }
     }
-    else
-        spatialManager.register(this);
+    spatialManager.register(this);
 
 };
 
@@ -204,18 +203,11 @@ Ship.prototype.computeSpeedHorizontal = function () {
     
     return speed;
 };
-
-var GUN_1 = '1'.charCodeAt(0);
-var GUN_2 = '2'.charCodeAt(0);
-var GUN_3 = '3'.charCodeAt(0);
-var GUN_4 = '4'.charCodeAt(0);
+var gunType=0;
 
 Ship.prototype.maybeFireBullet = function () {
-    if (eatKey(GUN_1)) this._gunType = 1;
-    if (eatKey(GUN_2)) this._gunType = 2;
-    if (eatKey(GUN_3)) this._gunType = 3;
-    if (eatKey(GUN_4)) this._gunType = 4;
-	
+    this._gunType = gunType;
+
 	if (Date.now() > this._lastBullet + this._bulletDifference) {
         var dX = +Math.sin(this.rotation);
         var dY = -Math.cos(this.rotation);
@@ -230,9 +222,9 @@ Ship.prototype.maybeFireBullet = function () {
            this.velX + relVelX, this.velY + relVelY,
            this.rotation, false);
 		switch (this._gunType) {
-			case 1:
+			case 0:
 				break;
-			case 2:
+			case 1:
 				for (var i = 1; i <= 3; i++) {
 					var angle = this.rotation + i * Math.PI/2;
 					dX = +Math.sin(angle);
@@ -245,7 +237,7 @@ Ship.prototype.maybeFireBullet = function () {
 						angle);
 				}
 				break;
-			case 3:
+			case 2:
 				for (var i = 1; i <= 20; i++) {
 					var angle = this.rotation + i * Math.PI/10;
 					dX = +Math.sin(angle);
@@ -258,7 +250,7 @@ Ship.prototype.maybeFireBullet = function () {
 						angle);
 				}
 				break;
-			case 4:
+			case 3:
 				for (var i = -1; i <= 1; i+=2) {
 					var angle = this.rotation + i * Math.PI/10;
 					dX = +Math.sin(angle);
