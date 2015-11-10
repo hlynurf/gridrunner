@@ -285,7 +285,6 @@ Ship.prototype.getRadius = function () {
 Ship.prototype.reset = function () {
     this.setPos(this.reset_cx, this.reset_cy);
     this.rotation = this.reset_rotation;
-    
     this.halt();
 };
 

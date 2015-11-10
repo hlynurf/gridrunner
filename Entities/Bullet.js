@@ -49,14 +49,12 @@ Bullet.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
 Bullet.prototype.update = function (du, ctx) {
 
     spatialManager.unregister(this);
-    //if (this._isDeadNow) 
-    //    return entityManager.KILL_ME_NOW;
 
     this.cx += this.velX * du * 4;
     this.cy += this.velY * du * 4;
     var canvasPadding = 5;
-    if (this.cy<5) return entityManager.KILL_ME_NOW;
-    if (this.cy>g_canvas.height-5) return entityManager.KILL_ME_NOW;
+    if (this.cy<canvasPadding) return entityManager.KILL_ME_NOW;
+    if (this.cy>g_canvas.height-canvasPadding) return entityManager.KILL_ME_NOW;
     if (this.cx<canvasPadding) return entityManager.KILL_ME_NOW;
     if (this.cx>g_canvas.width - canvasPadding) return entityManager.KILL_ME_NOW;
     
@@ -69,6 +67,10 @@ Bullet.prototype.takeBulletHit = function () {
     
     // Make a noise when I am zapped by another bullet
     this.zappedSound.play();
+};
+
+Bullet.prototype.getRadius = function () {
+   return this.width;
 };
 
 Bullet.prototype.render = function (ctx) {

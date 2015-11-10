@@ -40,7 +40,6 @@ Caterpillar.prototype.velY = 1;
 Caterpillar.prototype.update = function (du) {
 
 
-
     spatialManager.unregister(this);
     if (this._isDeadNow) 
         return entityManager.KILL_ME_NOW;
@@ -49,20 +48,6 @@ Caterpillar.prototype.update = function (du) {
     if(this.cy>g_canvas.height){
         return entityManager.KILL_ME_NOW;
     }
-    //Move left and right, do it better...
-    if(moveRight<=100 && moveRight>=0){
-        this.cx += 0.5;
-        moveRight-=1;
-        if(moveRight==0)
-            moveLeft=100;
-    }
-    if(moveLeft<=100 && moveLeft>=0){
-        this.cx -= 0.5;
-        moveLeft-=1;
-        if(moveLeft==0)
-            moveRight=100;
-    }
-
     var isHit = this.findHitEntity();
     if (isHit) {
         if(!isHit.killShip) {

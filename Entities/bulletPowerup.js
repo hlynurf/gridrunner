@@ -36,12 +36,21 @@ BulletPowerup.prototype.radius = 5;
 
 BulletPowerup.prototype.update = function (du) {
 
-
     spatialManager.unregister(this);
 
     this.lifeSpan -= du;
     if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
-        var isHit = this.findHitEntity();
+        
+    var isHit = this.findHitEntity();
+    if(isHit){
+        
+
+        console.log(isHit.killBulletPowerup);
+    if(isHit.killBulletPowerup) {
+        return entityManager.KILL_ME_NOW;
+    }
+    }
+ 
 
     spatialManager.register(this);
 

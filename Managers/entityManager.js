@@ -90,7 +90,10 @@ createCaterpillar: function(cx,cy){
 
 },
 createBulletPowerup: function(cx,cy,killBulletPowerup){
-    this._bulletPowerup.push(new BulletPowerup({cx: cx, cy: cy, killBulletPowerup:killBulletPowerup}));
+    this._bulletPowerup.push(new BulletPowerup({
+        cx: cx, 
+        cy: cy
+    }));
 
 },
 fireBullet: function(cx, cy, velX, velY, rotation, killShip) {
@@ -100,12 +103,17 @@ fireBullet: function(cx, cy, velX, velY, rotation, killShip) {
         velX : velX,
         velY : velY,
         killShip: killShip,
+        killBulletPowerup:false,
         rotation : rotation
     }));
 },
 
-generateShip : function(descr) {
-    this._ships.push(new Ship(descr));
+generateShip : function(killBulletPowerup) {
+    this._ships.push(new Ship({
+        cx: 200,
+        cy: 200,
+        killBulletPowerup:killBulletPowerup
+    }));
 },
 
 fireLightning : function(cx, cy) {
@@ -114,6 +122,7 @@ fireLightning : function(cx, cy) {
         cy: cy,
         killShip: true,
         isLightning: true,
+        killBulletPowerup:false
     }));
 },
 
@@ -121,7 +130,8 @@ createLandMine : function(cx, cy) {
     this._landMines.push(new LandMine({
         cx: cx,
         cy: cy,
-        killShip: true
+        killShip: true,
+        killBulletPowerup:false
     }));
 },
 

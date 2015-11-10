@@ -22,10 +22,8 @@ var g_score = 0;// ideally it would be wise to not make this global
 
 function createInitialShips() {
 
-    entityManager.generateShip({
-        cx : 200,
-        cy : 200
-    });
+    entityManager.generateShip(true);
+    console.log(entityManager._ships);
     
 }
 

@@ -36,7 +36,7 @@ Lightning.prototype.width = 4;
 Lightning.prototype.height = g_canvas.height;
 
 // Convert times from milliseconds to "nominal" time units.
-Lightning.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
+Lightning.prototype.lifeSpan = 1000 / NOMINAL_UPDATE_INTERVAL;
 
 Lightning.prototype.update = function (du, ctx) {
 
