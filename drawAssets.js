@@ -89,10 +89,14 @@ function drawBulletPowerup(ctx, x, y){
 }
 
 function drawGameOverScreen(ctx) {
-	util.borderedCenteredText(ctx, g_canvas.width/2, 3*g_canvas.height/7, 'Yellow', 'Red', '80px Impact', 2, 'GAME OVER');
-	util.borderedCenteredText(ctx, g_canvas.width/2, 8.5*g_canvas.height/15, 'Yellow', 'Red', '40px Impact', 1.2, 'Final score:');
-	util.borderedCenteredText(ctx, g_canvas.width/2, 10*g_canvas.height/15, 'Yellow', 'Red', '60px Impact', 1.6, g_score.toLocaleString());
-	util.borderedCenteredText(ctx, g_canvas.width/2, 4*g_canvas.height/5, 'Yellow', 'Red', '30px Impact', 1, 'Press SPACE to play again!');
+	util.borderedCenteredText(ctx, g_canvas.width/2, 6*g_canvas.height/15, 'Yellow', 'Red', '80px Impact', 2, 'GAME OVER');
+
+	util.borderedCenteredText(ctx, g_canvas.width/2, 7.5*g_canvas.height/15, 'Yellow', 'Red', '40px Impact', 1.2, 'Final score:');
+	util.borderedCenteredText(ctx, g_canvas.width/2, 9*g_canvas.height/15, 'Yellow', 'Red', '60px Impact', 1.6, g_score.toLocaleString());
+
+	util.borderedCenteredText(ctx, g_canvas.width/2, 11*g_canvas.height/15, 'Yellow', 'Red', '30px Impact', 1, 'Highest combo: ' + g_highest_combo);
+
+	util.borderedCenteredText(ctx, g_canvas.width/2, 6*g_canvas.height/7, 'Yellow', 'Red', '30px Impact', 1, 'Press SPACE to play again!');
 }
 
 function drawGamePaused(ctx) {
@@ -110,6 +114,10 @@ function drawScore(ctx) {
 	ctx.fillStyle = 'Orange';
 	ctx.fillText('Score: ' + g_score, 20, g_canvas.height - 15);
 	ctx.restore();
+}
+
+function drawCombo(ctx) {
+	util.centeredText(ctx, g_canvas.width/2, g_canvas.height - 15, 'Orange', '20px Impact', g_combo + ' combo (x' + g_combo_multiplier + ')');
 }
 
 function drawMenuBackground(ctx) {

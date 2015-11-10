@@ -44,7 +44,7 @@ LandMine.prototype.update = function (du) {
     var isHit = this.findHitEntity();
     if (isHit) {
         if(!isHit.killShip) {
-            g_score += 50;
+            updateScore(50);
             if (this.scale < 0.7) {
                 if(Math.random()<0.1)
                     entityManager.createBulletPowerup(this.cx,this.cy,false);

@@ -52,7 +52,7 @@ Caterpillar.prototype.update = function (du) {
     var isHit = this.findHitEntity();
     if (isHit) {
         if(!isHit.killShip) {
-            g_score += 100;
+            updateScore(100);
             if(Math.random()<0.1)
             entityManager.createBulletPowerup(this.cx,this.cy,false);
             return entityManager.KILL_ME_NOW;

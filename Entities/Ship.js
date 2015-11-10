@@ -151,6 +151,7 @@ Ship.prototype.update = function (du) {
         if (isHit.killShip) {
             this.warp();
             this._lives--;
+            loseCombo();
             if (this._lives < 0) {
                 main.gameOver();
             }

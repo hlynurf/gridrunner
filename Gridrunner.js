@@ -9,7 +9,11 @@
 
 var g_canvas = document.getElementById("myCanvas");
 var g_ctx = g_canvas.getContext("2d");
+
 var g_score = 0;// ideally it would be wise to not make this global
+var g_combo = 0;
+var g_combo_multiplier = 1;
+var g_highest_combo = 0;
 /*
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -64,6 +68,31 @@ function updateSimulation(du) {
 	particleManager.update(du);
 }
 
+function updateScore(points) {
+    g_score += points*g_combo_multiplier;
+    increaseCombo();
+}
+
+function increaseCombo() {
+    g_combo += 1;
+    if(g_combo % 25 === 0 && g_combo_multiplier < 4) {
+        g_combo_multiplier += 1;
+    }
+    g_highest_combo = Math.max(g_highest_combo, g_combo);
+}
+
+function loseCombo() {
+    g_combo = 0;
+    g_combo_multiplier = 1;
+}
+
+function resetScore() {
+    g_score = 0;
+    g_combo = 0;
+    g_combo_multiplier = 1;
+    g_highest_combo = 0;
+}
+
 // GAME-SPECIFIC DIAGNOSTICS
 
 var g_allowMixedActions = true;
@@ -106,6 +135,7 @@ function renderSimulation(ctx) {
 	drawScrollingBackground(ctx);
 	drawBackground(ctx);
 	drawScore(ctx);
+    if (g_combo_multiplier > 1) drawCombo(ctx);
     entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);

@@ -87,7 +87,7 @@ main.gameOver = function () {
 main.newGame = function () {
     entityManager.init();
     createInitialShips();
-    g_score = 0;
+    resetScore();
     this._isGameOver = false;
 }
 

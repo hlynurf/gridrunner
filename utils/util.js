@@ -132,6 +132,17 @@ borderedCenteredText: function (ctx, w, h, fillStyle, strokeStyle, font, borderW
     ctx.restore();
 },
 
+centeredText: function (ctx, w, h, fillStyle, font, text) {
+    ctx.save();
+
+    ctx.fillStyle = fillStyle;
+    ctx.font = font;
+    ctx.textAlign = 'center';
+    ctx.fillText(text, w, h);
+
+    ctx.restore();
+},
+
 // PLAY SOUNDS
 // ===========
 

@@ -86,12 +86,10 @@ init: function() {
 },
 
 resetCategories: function() {
-    console.log("reseting shit");
     for (var c = 0; c < this._categories.length; ++c) {
         var cat = this._categories[c];
         while(cat.length){
             var entity = cat.pop();
-            console.log(entity);
         }
     }
 },
