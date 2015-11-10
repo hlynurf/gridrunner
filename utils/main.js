@@ -44,7 +44,7 @@ main.iter = function (frameTime) {
     this._debugRender(g_ctx);
     
     // Request the next iteration if needed
-    if (!this._isGameOver) this._requestNextIteration();
+    /*if (!this._isGameOver)*/ this._requestNextIteration();
 };
 
 main._updateClocks = function (frameTime) {
@@ -60,11 +60,17 @@ main._updateClocks = function (frameTime) {
 main._iterCore = function (dt) {
     
     // Handle QUIT
-    if (requestedQuit()) {
+    if (!this._isGameOver && requestedQuit()) {
         this.gameOver();
-        //return;
     }
-    update(dt);
+    // Handle NEW GAME
+    if (this._isGameOver && requestedNewGame()) {
+        this.newGame();
+    }
+
+    if (!this._isGameOver) {
+        update(dt);
+    }
     render(g_ctx, this._isGameOver);
 };
 
@@ -73,14 +79,28 @@ main._isGameOver = false;
 main.gameOver = function () {
     this._isGameOver = true;
     // Play game over sound?
+    entityManager.resetCategories();
+    spatialManager.resetEntities();
     //console.log("gameOver: quitting...");
 };
+
+main.newGame = function () {
+    entityManager.init();
+    createInitialShips();
+    g_score = 0;
+    this._isGameOver = false;
+}
 
 // Simple voluntary quit mechanism
 //
 var KEY_QUIT = 'Q'.charCodeAt(0);
 function requestedQuit() {
     return keys[KEY_QUIT];
+}
+
+var KEY_NEW_GAME = ' '.charCodeAt(0);
+function requestedNewGame() {
+    return keys[KEY_NEW_GAME];
 }
 
 // Annoying shim for Firefox and Safari

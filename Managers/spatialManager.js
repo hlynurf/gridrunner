@@ -46,6 +46,10 @@ unregister: function(entity) {
     delete this._entities[spatialID];
 },
 
+resetEntities: function() {
+    this._entities = [];
+},
+
 findEntityInRange: function(posX, posY, radius, isLightning) {
     // like in the render function we go through the entites
     for (var ID in this._entities) {

@@ -85,6 +85,17 @@ init: function() {
 
 },
 
+resetCategories: function() {
+    console.log("reseting shit");
+    for (var c = 0; c < this._categories.length; ++c) {
+        var cat = this._categories[c];
+        while(cat.length){
+            var entity = cat.pop();
+            console.log(entity);
+        }
+    }
+},
+
 createCaterpillar: function(){
     //Randoms X pos of catapillar insider the box
     var posX = (g_canvas.width / 10)+Math.random() * (g_canvas.width-g_canvas.width / 5);  
