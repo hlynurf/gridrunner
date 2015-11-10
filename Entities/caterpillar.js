@@ -35,20 +35,19 @@ Caterpillar.prototype.update = function (du) {
     if (this._isDeadNow) 
         return entityManager.KILL_ME_NOW;
     // Caterpillar movement
-    var range=15;
-    for(var i=0; i<5;i++){
-        if(this.position == i)
-        {  
-            if(this.cx == this.startX+range)
-                this.velX=-1;
-            if(this.cx == this.startX-range)
-                this.velX=1;
-            this.cx+=this.velX;
+    var range = 15;
+    for(var i = 0; i < 5; i++) {
+        if (this.position === i) {
+            if (this.cx === this.startX + range)
+                this.velX =- 1;
+            if (this.cx === this.startX - range)
+                this.velX = 1;
+            this.cx += this.velX;
         }
     }
 
     this.cy += this.velY * du;
-    if(this.cy>g_canvas.height){
+    if(this.cy > g_canvas.height){
         return entityManager.KILL_ME_NOW;
     }
     var isHit = this.findHitEntity();

@@ -89,16 +89,17 @@ createCaterpillar: function(){
     //Randoms X pos of catapillar insider the box
     var posX = (g_canvas.width / 10)+Math.random() * (g_canvas.width-g_canvas.width / 5);  
     var posY=0;
-    for(var i=0; i<5; i++){
-        this._enemies.push(new Caterpillar({
+    for(var i = 0; i < 5; i++) {   
+        var num = i;
+        setTimeout(function () {
+            this._enemies.push(new Caterpillar({
             cx: posX, 
             cy: posY,
-            startX:posX,
-            velX:1,
-            position:i,
+            startX: posX,
+            velX: 1,
+            position: num,
             killBulletPowerup:false,
-        }));
-        posY+=25;
+        }));}.bind(this, num), i * 6000 / NOMINAL_UPDATE_INTERVAL);
     }
 },
 createBulletPowerup: function(cx,cy){
