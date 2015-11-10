@@ -74,12 +74,5 @@ Bullet.prototype.getRadius = function () {
 };
 
 Bullet.prototype.render = function (ctx) {
-    ctx.save();
-    ctx.beginPath();
-    ctx.lineWidth = this.width;
-    ctx.moveTo(this.cx, this.cy - this.height / 2);
-    ctx.lineTo(this.cx, this.cy + this.height / 2);
-    ctx.strokeStyle = 'rgb(113, 201, 55)';
-    ctx.stroke();
-    ctx.restore();
+    drawBullets(ctx, this.cx, this.cy, this.width, this.height);
 };

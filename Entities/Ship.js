@@ -218,7 +218,7 @@ Ship.prototype.maybeFireBullet = function () {
         var relVelY = dY * relVel;
 
         entityManager.fireBullet(
-           this.cx + dX * launchDist, this.cy + dY * launchDist,
+           this.cx + dX * launchDist , this.cy + dY * launchDist,
            this.velX + relVelX, this.velY + relVelY,
            this.rotation, false);
 		switch (this._gunType) {

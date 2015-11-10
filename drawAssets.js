@@ -27,7 +27,16 @@ function drawBackground(ctx) {	// Draws the grid
 	}
 	
 }
-
+function drawBullets(ctx, x, y, width, height) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.lineWidth = width;
+    ctx.moveTo(x, y - height / 2);
+    ctx.lineTo(x, y + height / 2);
+    ctx.strokeStyle = 'rgb(113, 201, 55)';
+    ctx.stroke();
+    ctx.restore();
+}
 function drawSideEnemy(ctx, x, y) {
 	var width = 40;
 	var height = 30;
@@ -60,13 +69,11 @@ function drawUpEnemy(ctx, x, y) {
 
 function drawCaterpillar(ctx, x, y) {
 	var radius = 10;
-	// height 30
 	ctx.fillStyle = 'Orange';
 	util.fillCircle(ctx,x,y, radius);
 }
 function drawBulletPowerup(ctx, x, y){
 	var radius = 5;
-	// height 30
 	ctx.fillStyle = 'Purple';
 	util.fillCircle(ctx,x,y, radius);
 	ctx.strokeStyle = '#fff';

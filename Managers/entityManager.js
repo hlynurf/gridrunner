@@ -93,7 +93,7 @@ createCaterpillar: function(cx,cy){
     }));
 
 },
-createBulletPowerup: function(cx,cy,killBulletPowerup){
+createBulletPowerup: function(cx,cy){
     this._bulletPowerup.push(new BulletPowerup({
         cx: cx, 
         cy: cy
