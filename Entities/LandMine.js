@@ -74,10 +74,9 @@ LandMine.prototype.takeBulletHit = function () {
 
 LandMine.prototype.render = function (ctx) {
     ctx.save();
-    ctx.fillStyle = 'Red';
+    ctx.fillStyle = 'Gray';
     util.fillCircle(ctx, this.cx, this.cy, this.getRadius());
-    ctx.lineWidth=5;
-    ctx.strokeStyle = 'Gray';
-    ctx.stroke();
+    ctx.fillStyle = 'Red';
+    util.fillCircle(ctx, this.cx, this.cy, this.getRadius()/2);
     ctx.restore();
 };

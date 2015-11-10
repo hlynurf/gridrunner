@@ -26,7 +26,7 @@ function BulletPowerup(descr) {
 BulletPowerup.prototype = new Entity();
 // The time the BulletPowerup enters the level
 BulletPowerup.prototype.timestamp = 0;
-BulletPowerup.prototype.lifeSpan = 10000 / NOMINAL_UPDATE_INTERVAL;
+BulletPowerup.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
 BulletPowerup.prototype.radius = 5;
 
 BulletPowerup.prototype.update = function (du) {

@@ -27,7 +27,6 @@ Caterpillar.prototype = new Entity();
 Caterpillar.prototype.timestamp = 0;
 Caterpillar.prototype.radius = 10;
 Caterpillar.prototype.velY = 1;
-var goRightLeft=true;
 Caterpillar.prototype.update = function (du) {
 
     spatialManager.unregister(this);
@@ -35,13 +34,13 @@ Caterpillar.prototype.update = function (du) {
     if (this._isDeadNow) 
         return entityManager.KILL_ME_NOW;
     // Caterpillar movement
-    var range = 15;
+    var range = 8;
     for(var i = 0; i < 5; i++) {
         if (this.position === i) {
             if (this.cx === this.startX + range)
-                this.velX =- 1;
+                this.velX =- 0.5;
             if (this.cx === this.startX - range)
-                this.velX = 1;
+                this.velX = 0.5;
             this.cx += this.velX;
         }
     }
@@ -67,5 +66,8 @@ Caterpillar.prototype.getRadius = function () {
 };
 
 Caterpillar.prototype.render = function (ctx) {
+    if (this.position === 0)
+    drawCaterpillarHead(ctx, this.cx, this.cy);
+    else
     drawCaterpillar(ctx, this.cx, this.cy);
 };

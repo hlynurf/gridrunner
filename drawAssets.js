@@ -66,11 +66,19 @@ function drawUpEnemy(ctx, x, y) {
 	util.fillBox(ctx, x + width * 0.125, y + height * 0.45, 10, 3, 'Yellow');
 	util.fillBox(ctx, x + width * 0.25 - 1, y + height * 0.45 , 4, 12, 'Yellow');
 }
-
+function drawCaterpillarHead(ctx, x, y) {
+	var radius = 10;
+	ctx.fillStyle = 'Orange';
+	util.fillCircle(ctx,x,y, radius);
+	ctx.fillStyle = '#000';
+	util.fillCircle(ctx,x-2,y+2, 3);
+}
 function drawCaterpillar(ctx, x, y) {
 	var radius = 10;
 	ctx.fillStyle = 'Orange';
 	util.fillCircle(ctx,x,y, radius);
+	 ctx.strokeStyle = '#000';
+    ctx.stroke();
 }
 function drawBulletPowerup(ctx, x, y){
 	var radius = 5;

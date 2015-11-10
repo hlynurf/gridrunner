@@ -19,7 +19,7 @@ function SideEnemy(descr) {
     this._scale = 0.4;
     this._isWarping = false;
     this._lastBullet = Date.now();
-    this._bulletDifference = 3000;
+    this._bulletDifference = 5000;
     this._goingDown = true;
 };
 
