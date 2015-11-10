@@ -23,8 +23,7 @@ var g_score = 0;// ideally it would be wise to not make this global
 function createInitialShips() {
 
     entityManager.generateShip(true);
-    console.log(entityManager._ships);
-    
+ 
 }
 
 function createInitialStars() {
@@ -58,14 +57,7 @@ function updateSimulation(du) {
     var caterpillerGap = 3000;
     if(Date.now() > lastCaterpillar + caterpillerGap){
         if(!g_isUpdatePaused){
-        //Randoms X pos of catapillar insider the box
-        var posX = (g_canvas.width / 10)+Math.random() * (g_canvas.width-g_canvas.width / 5);  
-        var posY=0;
-        for(var i=0; i<5; i++){
-            entityManager.createCaterpillar(posX,posY);
-            posY+=25;
-            posX+=5;
-        }
+            entityManager.createCaterpillar();
         lastCaterpillar = Date.now();
         }
     }
