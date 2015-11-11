@@ -13,7 +13,7 @@ var TOGGLE_UNDO_BOX = 'U'.charCodeAt(0);
 var TOGGLE_FLIPFLOP = 'F'.charCodeAt(0);
 var TOGGLE_MOUSE = 'M'.charCodeAt(0);
 
-function render(ctx, gameOver) {
+function render(ctx, gameOver, mainMenu) {
     
     // Process various option toggles
     //
@@ -39,6 +39,7 @@ function render(ctx, gameOver) {
     // The core rendering of the actual game / simulation
     //
     if (gameOver) renderGameOverScreen(ctx);
+    else if (mainMenu) drawMainMenu(ctx);
     else renderSimulation(ctx);
     
     if(g_isUpdatePaused)

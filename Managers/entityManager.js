@@ -96,6 +96,15 @@ resetCategories: function() {
     }
 },
 
+sendKamikaze: function(){
+	this._enemies.push(new Kamikaze({
+        cx: (g_canvas.width / 10) + Math.random() * (g_canvas.width - g_canvas.width / 5), 
+        cy: 0,
+		targetY: (g_canvas.height / 10) + Math.random() * (g_canvas.height / 2 - g_canvas.height / 5),
+		killBulletPowerup: false
+	}));
+},
+
 createCaterpillar: function(){
     // Randoms starting Y position of catapillar in the upper 1-6 grid
     var posY = ( g_canvas.height / 30 ) + Math.random() * ( g_canvas.width/30 * 5 ); 
@@ -145,6 +154,16 @@ fireBullet: function(cx, cy, velX, velY, rotation, killShip) {
         killBulletPowerup:false,
         rotation : rotation,
         timestamp : main.getCurrTime()
+    }));
+},
+
+fireball: function(cx, cy, velX, velY) {
+	this._enemies.push(new Fireball({
+        cx   : cx,
+        cy   : cy,
+        velX : velX,
+        velY : velY,
+        killBulletPowerup: false
     }));
 },
 

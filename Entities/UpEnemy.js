@@ -19,8 +19,10 @@ function UpEnemy(descr) {
     this._scale = 0.4;
     this._isWarping = false;
     this._lastBullet = Date.now();
-    this._bulletDifference = 4000;
+    this._nextStop = 4000 / NOMINAL_UPDATE_INTERVAL;
+    this._stopTime = 0;
     this._goingRight = true;
+    this._hasFired = false;
 };
 
 UpEnemy.prototype = new Entity();
@@ -42,15 +44,7 @@ UpEnemy.prototype.numSubSteps = 1;
     
 UpEnemy.prototype.update = function (du) {
 
-    // Handle warping
-    if (this._isWarping) {
-        this._updateWarp(du);
-        return;
-    }
-    
     spatialManager.unregister(this);
-    if (this._isDeadNow) 
-        return entityManager.KILL_ME_NOW;
 
     // Perform movement substeps
     var steps = this.numSubSteps;
@@ -59,38 +53,31 @@ UpEnemy.prototype.update = function (du) {
         this.computeSubStep(dStep);
     }
 
-    // Handle firing
-    this.maybeFireBullet();
-
 };
 
 UpEnemy.prototype.computeSubStep = function (du) {
 
     // this.cx += 5;
-    if (this._goingRight) this.cx += 2;
-    else this.cx -= 2;
-    if (this.cx > g_canvas.width) this._goingRight = false;
-    if (this.cx < 40) this._goingRight = true;
+    this._nextStop -= du;
+    if (this._nextStop < 0) {
+        if (this._stopTime < 2000 / NOMINAL_UPDATE_INTERVAL) {
+            this._stopTime += du;
+        } else {
+            this._stopTime = 0;
+            this._nextStop = 4000 / NOMINAL_UPDATE_INTERVAL;
+            this._hasFired = false;
+        }
+    } else {
+        if (this._goingRight) this.cx += 2;
+        else this.cx -= 2;
+        if (this.cx > g_canvas.width - 40) this._goingRight = false;
+        if (this.cx < 40) this._goingRight = true;
+    }
 };
 
 var NOMINAL_THRUST = +5;
 
 var speedHorizontal = +5;
-
-
-UpEnemy.prototype.maybeFireBullet = function () {
-    if (Date.now() > this._lastBullet + this._bulletDifference) {
-        var dX = +Math.sin(this.rotation);
-        var dY = -Math.cos(this.rotation);
-        var launchDist = this.getRadius() * 2;
-        
-        var relVel = this.launchVel;
-        var relVelX = dX * relVel;
-        var relVelY = dY * relVel;
-        entityManager.fireLightning(this.cx + dX, this.cy + dY);
-        this._lastBullet = Date.now();
-    }      
-};
 
 UpEnemy.prototype.getRadius = function () {
     return (this.sprite.width / 5) * 0.9;
@@ -110,5 +97,28 @@ UpEnemy.prototype.halt = function () {
 
 
 UpEnemy.prototype.render = function (ctx) {
-    drawUpEnemy(ctx, this.cx, this.cy);
+    var width = 30;
+    var height = 40;
+    var x = this.cx - width / 4 - 1;
+    var dX = +Math.sin(this.rotation);
+    var dY = -Math.cos(this.rotation);
+    ctx.save();
+    if (this._stopTime !== 0 && this._stopTime < 1000 / NOMINAL_UPDATE_INTERVAL) {
+        ctx.fillStyle = 'rgb(113, 201, 55)';
+        util.fillCircle(ctx, this.cx, this.cy + 40, this._stopTime / 5);
+    } else if (this._stopTime > 1000 / NOMINAL_UPDATE_INTERVAL) {
+        if (!this._hasFired) {
+            entityManager.fireLightning(this.cx + dX, this.cy + dY);
+            this._hasFired = true;
+        }
+    }
+    util.fillBox(ctx, x, this.cy, 2, 20, 'Yellow');
+    util.fillBox(ctx, x + width / 2, this.cy, 2, 20, 'Yellow');
+
+    util.fillBox(ctx, x, this.cy + height * 0.3, 6, 3, 'Yellow');
+    util.fillBox(ctx, x + width / 3, this.cy + height * 0.3, 6, 3, 'Yellow');
+
+    util.fillBox(ctx, x + width * 0.125, this.cy + height * 0.45, 10, 3, 'Yellow');
+    util.fillBox(ctx, x + width * 0.25 - 1, this.cy + height * 0.45 , 4, 12, 'Yellow');
+    ctx.restore();
 };

@@ -38,7 +38,7 @@ getNewSpatialID : function() {
 register: function(entity) {
     var pos = entity.getPos();
     var spatialID = entity.getSpatialID();
-    this._entities[spatialID] = { posX: pos.posX, posY: pos.posY, radius: entity.getRadius(), isLightning: entity.isLightning, entity: entity };
+    if (!entity._isDeadNow) this._entities[spatialID] = { posX: pos.posX, posY: pos.posY, radius: entity.getRadius(), isLightning: entity.isLightning, entity: entity };
 },
 
 unregister: function(entity) {

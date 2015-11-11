@@ -14,6 +14,8 @@ var g_score = 0;// ideally it would be wise to not make this global
 var g_combo = 0;
 var g_highest_combo = 0;
 var g_last_combo_hit_timestamp = 0;
+var g_nextCaterPillar = 3000 / NOMINAL_UPDATE_INTERVAL;
+var g_nextKamiKaze = 10000 / NOMINAL_UPDATE_INTERVAL;
 /*
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -50,21 +52,25 @@ function createInitialStars() {
 
 
 // GAME-SPECIFIC UPDATE LOGIC
-var lastCaterpillar = Date.now();
 
 function updateSimulation(du) {
     
     processDiagnostics();
     
     entityManager.update(du);
-
-    var caterpillerGap = 3000;
-    if(Date.now() > lastCaterpillar + caterpillerGap){
-        if(!g_isUpdatePaused){
+    if (!g_isUpdatePaused && !main._mainMenu){
+        g_nextCaterPillar -= du;
+        g_nextKamiKaze -= du;
+        if (g_nextCaterPillar < 0){
             entityManager.createCaterpillar();
-        lastCaterpillar = Date.now();
+            g_nextCaterPillar = 4000 / NOMINAL_UPDATE_INTERVAL;
+        }
+        if (g_nextKamiKaze < 0) {
+            entityManager.sendKamikaze();
+            g_nextKamiKaze = 10000 / NOMINAL_UPDATE_INTERVAL;
         }
     }
+	
 	particleManager.update(du);
 }
 
@@ -176,10 +182,6 @@ function preloadDone() {
     g_sprites.bullet = new Sprite(g_images.bullet);
     g_sprites.bullet.scale = 0.5;
 	g_sprites.life = new Sprite(g_images.life);
-
-    entityManager.init();
-    createInitialShips();
-	createInitialStars();
 
     main.init();
 }

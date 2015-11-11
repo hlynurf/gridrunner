@@ -1,5 +1,5 @@
 // ======
-// BULLET
+// Fireball
 // ======
 
 "use strict";
@@ -13,7 +13,7 @@
 
 
 // A generic contructor which accepts an arbitrary descriptor object
-function Bullet(descr) {
+function Fireball(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
@@ -26,27 +26,27 @@ function Bullet(descr) {
     this._bulletProperty = true;
     console.dir(this);
 */
-
+	this.killShip = true;
 }
 
-Bullet.prototype = new Entity();
+Fireball.prototype = new Entity();
 
 // HACKED-IN AUDIO (no preloading)
-Bullet.prototype.fireSound = new Audio(
+Fireball.prototype.fireSound = new Audio(
     "sounds/bulletFire.ogg");
-Bullet.prototype.zappedSound = new Audio(
+Fireball.prototype.zappedSound = new Audio(
     "sounds/bulletZapped.ogg");
     
 // Initial, inheritable, default values
-Bullet.prototype.timestamp = 0;
-Bullet.prototype.velX = 110;
-Bullet.prototype.velY = 100;
-Bullet.prototype.radius = 4;
+Fireball.prototype.timestamp = 0;
+Fireball.prototype.velX = 110;
+Fireball.prototype.velY = 100;
+Fireball.prototype.radius = 4;
 
 // Convert times from milliseconds to "nominal" time units.
-Bullet.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
+Fireball.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
 
-Bullet.prototype.update = function (du, ctx) {
+Fireball.prototype.update = function (du, ctx) {
 
     spatialManager.unregister(this);
 
@@ -68,27 +68,22 @@ Bullet.prototype.update = function (du, ctx) {
 
 };
 
-Bullet.prototype.takeBulletHit = function () {
+Fireball.prototype.takeBulletHit = function () {
     this.kill();
     
-    // Make a noise when I am zapped by another bullet
+    // Make a noise when I am zapped by another Fireball
     this.zappedSound.play();
 };
 
-Bullet.prototype.getRadius = function () {
+Fireball.prototype.getRadius = function () {
    return this.radius;
 };
 
-Bullet.prototype.render = function (ctx) {
+Fireball.prototype.render = function (ctx) {
     ctx.save();
 	
-	var rot = this.rotation + Math.PI/2;
-    ctx.beginPath();
-    ctx.lineWidth = 4;
-    ctx.moveTo(this.cx + 10 * Math.cos(rot), this.cy + 10 * Math.sin(rot));
-    ctx.lineTo(this.cx - 10 * Math.cos(rot), this.cy - 10 * Math.sin(rot));
-    ctx.strokeStyle = 'rgb(113, 201, 55)';
-    ctx.stroke();
+	ctx.fillStyle = 'Red';
+    util.fillCircle(ctx, this.cx, this.cy, this.getRadius());
 	
     ctx.restore();
 };
