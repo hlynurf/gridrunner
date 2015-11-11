@@ -26,7 +26,7 @@ function Kamikaze(descr) {
 Kamikaze.prototype = new Entity();
 // The time the Kamikaze enters the level
 Kamikaze.prototype.timestamp = 0;
-Kamikaze.prototype.radius = 10;
+Kamikaze.prototype.radius = 15;
 Kamikaze.prototype.angle = 0;
 Kamikaze.prototype.scaleX = 15;
 Kamikaze.prototype.scaleY = 15;
@@ -57,11 +57,10 @@ Kamikaze.prototype.update = function (du) {
 			this.explode();
             return entityManager.KILL_ME_NOW;
 		}
-    } else spatialManager.register(this);
-	if (this.cy > this.targetY) {
+    } else if (this.cy > this.targetY) {
 		this.explode();
 		return entityManager.KILL_ME_NOW;
-	}
+	} else spatialManager.register(this);
 };
 
 Kamikaze.prototype.getRadius = function () {
