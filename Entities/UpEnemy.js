@@ -70,8 +70,8 @@ UpEnemy.prototype.computeSubStep = function (du) {
     } else {
         if (this._goingRight) this.cx += 2;
         else this.cx -= 2;
-        if (this.cx > g_canvas.width - 40) this._goingRight = false;
-        if (this.cx < 40) this._goingRight = true;
+        if (this.cx > g_canvas.width - 20) this._goingRight = false;
+        if (this.cx < 20) this._goingRight = true;
     }
 };
 
