@@ -33,7 +33,9 @@ _lightnings: [],
 _points: [],
 
 // "PRIVATE" METHODS
-
+_nextCaterpillar: 0,
+_creatingCaterpillars: false,
+_caterPillarStuff: {},
 
 _findNearestShip : function(posX, posY) {
     var closestShip = null,
@@ -106,31 +108,19 @@ sendKamikaze: function(){
 },
 
 createCaterpillar: function(){
+    this._creatingCaterpillars = true;
     // Randoms starting Y position of catapillar in the upper 1-6 grid
-    var posY = ( g_canvas.height / 30 ) + Math.random() * ( g_canvas.width/30 * 5 ); 
+    this._caterPillarStuff.posY = ( g_canvas.height / 30 ) + Math.random() * ( g_canvas.width/30 * 5 ); 
     // Random how long right and left the caterpillar goes
-    var randomRight = g_canvas.width/2 + Math.random() * ( g_canvas.width/2 );
-    var randomLeft = Math.random()*(g_canvas.width/2);
-    var num = 0;
-    var wormLength = 3 + Math.round( Math.random() * 7 )
-    for( var i = 0 ; i < wormLength ; i++ ) {   
-        setTimeout(function () {
-            this._enemies.push(new Caterpillar({
-            cx: 0, 
-            cy: posY,
-            startY: posY,
-            velY: 0.5,                // For moving up and down in a worm way
-            velX: 1,
-            wormLength: wormLength,
-            direction: true,          // If true he is going right, if false he is going left
-            randomRight: randomRight, // What distance í goes right 
-            randomLeft: randomLeft,   // What distance í goes left
-            position: num,            // Number of caterpillar peace
-            killBulletPowerup:false
-        }));
-        num++;
-        }.bind(this, num), i * 6000 / NOMINAL_UPDATE_INTERVAL);
-    }
+    this._caterPillarStuff.randomRight = g_canvas.width/2 + Math.random() * ( g_canvas.width/2 );
+    this._caterPillarStuff.randomLeft = Math.random()*(g_canvas.width/2);
+    this._caterPillarStuff.num = 0;
+    this._caterPillarStuff.wormLength = 3 + Math.round( Math.random() * 7 );
+    // for (var i = 0 ; i < wormLength ; i++ ) {   
+    //     setTimeout(function () {
+            
+    //     }.bind(this, num), i * 6000 / NOMINAL_UPDATE_INTERVAL);
+    // }
 },
 createBulletPowerup: function(cx,cy){
     this._bulletPowerups.push(new BulletPowerup({
@@ -216,9 +206,35 @@ resetShips: function() {
 haltShips: function() {
     this._forEachOf(this._ships, Ship.prototype.halt);
 },	
-
+checkForCaterPillars: function(du) {
+    if (this._nextCaterpillar <= 0 && this._creatingCaterpillars) {
+        this._enemies.push(new Caterpillar({
+            cx: 0, 
+            cy: this._caterPillarStuff.posY,
+            startY: this._caterPillarStuff.posY,
+            velY: 0.5, // For moving up and down in a worm way
+            velX: 1,
+            wormLength: this._caterPillarStuff.wormLength,
+            direction: true, // If true he is going right, if false he is going left
+            randomRight: this._caterPillarStuff.randomRight, // What distance í goes right 
+            randomLeft: this._caterPillarStuff.randomLeft,   // What distance í goes left
+            position: this._caterPillarStuff.num, // Number of caterpillar peace
+            killBulletPowerup: false
+        }));
+        this._caterPillarStuff.num++;
+        this._nextCaterpillar -= du;
+        if (this._caterPillarStuff.num === this._caterPillarStuff.wormLength) {
+            this._creatingCaterpillars = false;
+            this._nextCaterpillar = 0;
+        } else {
+            this._nextCaterpillar = 300 / NOMINAL_UPDATE_INTERVAL;
+        }
+    } else if (this._creatingCaterpillars) {
+        this._nextCaterpillar -= du;
+    } 
+},
 update: function(du) {
-
+    this.checkForCaterPillars(du);
     for (var c = 0; c < this._categories.length; ++c) {
 
         var aCategory = this._categories[c];
