@@ -140,10 +140,8 @@ Ship.prototype.update = function (du) {
         this._updateWarp(du);
         return;
     }
-    
     spatialManager.unregister(this);
-    //if (this._isDeadNow) 
-    //    return entityManager.KILL_ME_NOW;
+    
 
     // Perform movement substeps
     var steps = this.numSubSteps;
@@ -160,6 +158,7 @@ Ship.prototype.update = function (du) {
             this.warp();
             this._lives--;
             if (this._lives < 0) {
+                this.kill();
                 main.gameOver();
             }
         }
@@ -175,7 +174,7 @@ Ship.prototype.update = function (du) {
         }
     }
     spatialManager.register(this);
-
+    if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 };
 
 Ship.prototype.computeSubStep = function (du) {
