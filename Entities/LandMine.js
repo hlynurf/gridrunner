@@ -21,7 +21,6 @@ function LandMine(descr) {
     this.posX = util.randRange(100, g_canvas.width - 40);
       
     // Default sprite and scale, if not otherwise specified
-    this.sprite = this.sprite || g_sprites.LandMine;
     this.scale  = this.scale  || 1;
     this.killShip = true;
 

@@ -32,7 +32,7 @@ Caterpillar.prototype.update = function (du) {
     if (this._isDeadNow) 
         return entityManager.KILL_ME_NOW;
 
-    if(this.cy > g_canvas.height){
+    if(this.cy > g_canvas.height - g_canvas.height/10){
         return entityManager.KILL_ME_NOW;
     }
 

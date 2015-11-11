@@ -110,10 +110,10 @@ sendKamikaze: function(){
 createCaterpillar: function(id){
     this._creatingCaterpillars = true;
     // Randoms starting Y position of catapillar in the upper 1-6 grid
-    this._caterPillarStuff.posY = ( g_canvas.height / 30 ) + Math.random() * ( g_canvas.width/30 * 5 ); 
+    this._caterPillarStuff.posY = Math.round(( g_canvas.height / 30 ) + Math.random() * ( g_canvas.width/30 * 5 )); 
     // Random how long right and left the caterpillar goes
     this._caterPillarStuff.randomRight = g_canvas.width/2 + Math.random() * ( g_canvas.width/2 );
-    this._caterPillarStuff.randomLeft = Math.random()*(g_canvas.width/2);
+    this._caterPillarStuff.randomLeft = g_canvas.width/20 + Math.random()*(g_canvas.width/2);
     this._caterPillarStuff.positionNum = 0;
     this._caterPillarStuff.id = id;
     this._caterPillarStuff.wormLength = 3 + Math.round( Math.random() * 7 );
