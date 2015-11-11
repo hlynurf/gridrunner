@@ -41,7 +41,7 @@ Bullet.prototype.zappedSound = new Audio(
 Bullet.prototype.timestamp = 0;
 Bullet.prototype.velX = 110;
 Bullet.prototype.velY = 100;
-Bullet.prototype.radius = 10;
+Bullet.prototype.radius = 4;
 
 // Convert times from milliseconds to "nominal" time units.
 Bullet.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
@@ -85,8 +85,8 @@ Bullet.prototype.render = function (ctx) {
 	var rot = this.rotation + Math.PI/2;
     ctx.beginPath();
     ctx.lineWidth = 4;
-    ctx.moveTo(this.cx + this.radius * Math.cos(rot), this.cy + this.radius * Math.sin(rot));
-    ctx.lineTo(this.cx - this.radius * Math.cos(rot), this.cy - this.radius * Math.sin(rot));
+    ctx.moveTo(this.cx + 10 * Math.cos(rot), this.cy + 10 * Math.sin(rot));
+    ctx.lineTo(this.cx - 10 * Math.cos(rot), this.cy - 10 * Math.sin(rot));
     ctx.strokeStyle = 'rgb(113, 201, 55)';
     ctx.stroke();
 	

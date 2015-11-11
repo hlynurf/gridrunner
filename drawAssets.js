@@ -65,6 +65,77 @@ function drawShipPowerup(ctx, x, y){
 	ctx.restore();
 }
 
+function drawRocket(ctx) {
+
+	function drawFin(ctx) {
+		ctx.beginPath();
+		ctx.moveTo(150,150);
+		ctx.bezierCurveTo(250,150,250,250,250,250);
+		ctx.bezierCurveTo(200,200,150,200,150,200);
+		ctx.closePath();
+		ctx.fillStyle='MediumBlue';
+		ctx.fill();
+		ctx.stroke();
+	}
+
+	function drawFinAt(ctx, cx, cy, scaleX, scaleY, angle) {
+		ctx.save();
+		ctx.translate(cx, cy);
+		ctx.rotate(angle);
+		ctx.scale(scaleX/150, scaleY/150);
+		ctx.translate(-200, -200);
+		drawFin(ctx);
+		ctx.restore();
+	}
+
+	function drawHull(ctx) {
+		ctx.beginPath();
+		ctx.moveTo(150,300);
+		ctx.bezierCurveTo(100,150,150,100,200,50);
+		ctx.bezierCurveTo(250,100,300,150,250,300);
+		ctx.closePath();
+		ctx.fillStyle='Crimson';
+		ctx.fill();
+		ctx.stroke();
+	}
+
+	function drawHullAt(ctx, cx, cy, scaleX, scaleY, angle) {
+		ctx.save();
+		ctx.translate(cx, cy);
+		ctx.rotate(angle);
+		ctx.scale(scaleX/150, scaleY/150);
+		ctx.translate(-200, -200);
+		drawHull(ctx);
+		ctx.restore();
+	}
+
+	function drawFlame(ctx, style) {
+		ctx.beginPath();
+		ctx.moveTo(175,200);
+		ctx.bezierCurveTo(100,150,200,100,200,50);
+		ctx.bezierCurveTo(200,100,300,150,225,200);
+		ctx.fillStyle=style;
+		ctx.fill();
+		ctx.stroke();
+	}
+
+	function drawFlameAt(ctx, cx, cy, scaleX, scaleY, angle, style) {
+		ctx.save();
+		ctx.translate(cx, cy);
+		ctx.rotate(angle);
+		ctx.scale(scaleX/150, scaleY/150);
+		ctx.translate(-200, -200);
+		drawFlame(ctx,style);
+		ctx.restore();
+	}
+
+	drawFinAt(ctx,300,150,150,-150,0);
+	drawFinAt(ctx,100,150,-150,-150,0);
+	drawHullAt(ctx,200,240,150,-150,0);
+	drawFlameAt(ctx,200,140,150,150,0,'Red');
+	drawFlameAt(ctx,200,140,75,75,0,'Yellow');
+}
+
 function drawGameOverScreen(ctx) {
 	util.borderedCenteredText(ctx, g_canvas.width/2, 6*g_canvas.height/15, 'Yellow', 'Red', '80px Impact', 2, 'GAME OVER');
 
