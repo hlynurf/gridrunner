@@ -29,7 +29,12 @@ var main = {
     _frameTime_ms : null,
     _frameTimeDelta_ms : null,
 
+    _currTime_ms : 0
 };
+
+main.getCurrTime = function() {
+    return this._currTime_ms;
+}
 
 // Perform one iteration of the mainloop
 main.iter = function (frameTime) {
@@ -55,6 +60,7 @@ main._updateClocks = function (frameTime) {
     // Track frameTime and its delta
     this._frameTimeDelta_ms = frameTime - this._frameTime_ms;
     this._frameTime_ms = frameTime;
+    this._currTime_ms += frameTime;
 };
 
 main._iterCore = function (dt) {

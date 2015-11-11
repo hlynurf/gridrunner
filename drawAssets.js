@@ -67,25 +67,40 @@ function drawUpEnemy(ctx, x, y) {
 	util.fillBox(ctx, x + width * 0.25 - 1, y + height * 0.45 , 4, 12, 'Yellow');
 }
 function drawCaterpillarHead(ctx, x, y) {
+	ctx.save();
 	var radius = 10;
 	ctx.fillStyle = 'Orange';
 	util.fillCircle(ctx,x,y, radius);
 	ctx.fillStyle = '#000';
 	util.fillCircle(ctx,x-2,y+2, 3);
+	ctx.restore();
 }
 function drawCaterpillar(ctx, x, y) {
+	ctx.save();
 	var radius = 10;
 	ctx.fillStyle = 'Orange';
 	util.fillCircle(ctx,x,y, radius);
 	 ctx.strokeStyle = '#000';
     ctx.stroke();
+	ctx.restore();
 }
 function drawBulletPowerup(ctx, x, y){
+	ctx.save();
 	var radius = 5;
 	ctx.fillStyle = 'Purple';
 	util.fillCircle(ctx,x,y, radius);
 	ctx.strokeStyle = '#fff';
     ctx.stroke();
+	ctx.restore();
+}
+function drawShipPowerup(ctx, x, y){
+	ctx.save();
+	var radius = 5;
+	ctx.fillStyle = 'Yellow';
+	util.fillCircle(ctx,x,y, radius);
+	ctx.strokeStyle = '#fff';
+    ctx.stroke();
+	ctx.restore();
 }
 
 function drawGameOverScreen(ctx) {
@@ -117,7 +132,7 @@ function drawScore(ctx) {
 }
 
 function drawCombo(ctx) {
-	util.centeredText(ctx, g_canvas.width/2, g_canvas.height - 15, 'Orange', '20px Impact', g_combo + ' combo (x' + g_combo_multiplier + ')');
+	util.centeredText(ctx, g_canvas.width/2, g_canvas.height - 15, 'Orange', '20px Impact', 'combo x' + g_combo);
 }
 
 function drawMenuBackground(ctx) {

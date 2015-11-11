@@ -12,8 +12,8 @@ var g_ctx = g_canvas.getContext("2d");
 
 var g_score = 0;// ideally it would be wise to not make this global
 var g_combo = 0;
-var g_combo_multiplier = 1;
 var g_highest_combo = 0;
+var g_last_combo_hit_timestamp = 0;
 /*
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -68,28 +68,28 @@ function updateSimulation(du) {
 	particleManager.update(du);
 }
 
-function updateScore(points) {
-    g_score += points*g_combo_multiplier;
-    increaseCombo();
+function updateScore(points, timestamp) {
+    increaseCombo(timestamp);
+    score = points*g_combo;
+    g_score += score;
+    return score;
 }
 
-function increaseCombo() {
+function increaseCombo(timestamp) {
     g_combo += 1;
-    if(g_combo % 25 === 0 && g_combo_multiplier < 4) {
-        g_combo_multiplier += 1;
-    }
     g_highest_combo = Math.max(g_highest_combo, g_combo);
+    g_last_combo_hit_timestamp = timestamp;
 }
 
-function loseCombo() {
-    g_combo = 0;
-    g_combo_multiplier = 1;
+function loseCombo(timestamp) {
+    if(timestamp >= g_last_combo_hit_timestamp) {
+        g_combo = 0;
+    }
 }
 
 function resetScore() {
     g_score = 0;
     g_combo = 0;
-    g_combo_multiplier = 1;
     g_highest_combo = 0;
 }
 
@@ -99,7 +99,7 @@ var g_allowMixedActions = true;
 var g_useGravity = false;
 var g_useAveVel = true;
 var g_renderSpatialDebug = false;
-var g_muted = false;
+var g_muted = true; //false;
 
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
@@ -135,7 +135,7 @@ function renderSimulation(ctx) {
 	drawScrollingBackground(ctx);
 	drawBackground(ctx);
 	drawScore(ctx);
-    if (g_combo_multiplier > 1) drawCombo(ctx);
+    if (g_combo > 1) drawCombo(ctx);
     entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);

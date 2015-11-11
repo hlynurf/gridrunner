@@ -38,6 +38,7 @@ Bullet.prototype.zappedSound = new Audio(
     "sounds/bulletZapped.ogg");
     
 // Initial, inheritable, default values
+Bullet.prototype.timestamp = 0;
 Bullet.prototype.velX = 110;
 Bullet.prototype.velY = 100;
 Bullet.prototype.width = 4;
@@ -53,10 +54,16 @@ Bullet.prototype.update = function (du, ctx) {
     this.cx += this.velX * du * 4;
     this.cy += this.velY * du * 4;
     var canvasPadding = 5;
-    if (this.cy<canvasPadding) return entityManager.KILL_ME_NOW;
-    if (this.cy>g_canvas.height-canvasPadding) return entityManager.KILL_ME_NOW;
-    if (this.cx<canvasPadding) return entityManager.KILL_ME_NOW;
-    if (this.cx>g_canvas.width - canvasPadding) return entityManager.KILL_ME_NOW;
+
+    if(this._isDeadNow) return entityManager.KILL_ME_NOW;
+
+    if (this.cy<canvasPadding
+            || this.cy>g_canvas.height-canvasPadding
+            || this.cx<canvasPadding
+            || this.cx>g_canvas.width - canvasPadding) {
+        loseCombo(this.timestamp);
+        return entityManager.KILL_ME_NOW;
+    }
     
     spatialManager.register(this);
 

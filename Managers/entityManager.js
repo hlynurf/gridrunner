@@ -29,6 +29,7 @@ _caterpillars: [],
 _bulletPowerup: [],
 _landMines: [],
 _lightnings: [],
+_points: [],
 
 // "PRIVATE" METHODS
 
@@ -76,7 +77,7 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [ this._bullets, this._ships, this._enemies, this._landMines, this._bulletPowerup, this._lightnings];
+    this._categories = [ this._bullets, this._ships, this._enemies, this._landMines, this._bulletPowerup, this._lightnings, this._points];
 },
 
 init: function() {
@@ -128,7 +129,8 @@ fireBullet: function(cx, cy, velX, velY, rotation, killShip) {
         velY : velY,
         killShip: killShip,
         killBulletPowerup:false,
-        rotation : rotation
+        rotation : rotation,
+        timestamp : main.getCurrTime()
     }));
 },
 
@@ -156,6 +158,14 @@ createLandMine : function(cx, cy) {
         cy: cy,
         killShip: true,
         killBulletPowerup:false
+    }));
+},
+
+makePointsAppear : function(cx, cy, amount) {
+    this._points.push(new Points({
+        cx: cx,
+        cy: cy,
+        amount: amount
     }));
 },
 

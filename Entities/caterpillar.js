@@ -52,9 +52,12 @@ Caterpillar.prototype.update = function (du) {
     var isHit = this.findHitEntity();
     if (isHit) {
         if(!isHit.killShip) {
-            updateScore(100);
+            var points = updateScore(100, isHit.timestamp);
+            entityManager.makePointsAppear(this.cx, this.cy, points);
             if(Math.random()<0.1)
-            entityManager.createBulletPowerup(this.cx,this.cy,false);
+                entityManager.createBulletPowerup(this.cx,this.cy,false);
+            // Kill the bullet!
+            isHit.kill();
             return entityManager.KILL_ME_NOW;
         }
     } else spatialManager.register(this);
