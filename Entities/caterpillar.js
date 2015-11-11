@@ -31,59 +31,50 @@ Caterpillar.prototype.update = function (du) {
 
     if (this._isDeadNow) 
         return entityManager.KILL_ME_NOW;
-    // Caterpillar movement
-    var range = 3;
-    for(var i = 0; i < this.wormLength; i++) {
-        if (this.position === i) {
-            // Makes the bounching effect
-            if (this.cy >= this.startY + range ){
-                this.velY = -0.5;
-            }
-            if (this.cy < this.startY - range ){
-                this.velY = 0.5;
-            }
-            // Moving it down when it hits its barrier
-            if(this.cx>this.randomRight && this.direction) {
-                this.velX=0;
-                this.cy+=2;
-                // After moving down, reverse direction
-                if(this.cy >= this.startY+20){
-                    this.startY+=20;
-                    this.velX=-1;
-                    this.direction=false;
-                    if(this.position === this.wormLength)
-                    this.randomRight=g_canvas.width/2 + Math.random()*(g_canvas.width/2);
-                }
-            }
-            // Moving it down when it hits its barrier
-            if(this.cx<this.randomLeft && !this.direction) {
-                this.velX=0;
-                this.cy+=2;
-                // After moving down, reverse direction
-                if(this.cy >= this.startY+20) {
-                    this.startY+=20;
-                    this.velX=1;
-                    this.direction=true;
-                    if(this.position === this.wormLength)
-                    this.randomLeft=Math.random()*(g_canvas.width/2);
-                }
-            }       
-        }
-    }
-    this.cy += this.velY;
-    this.cx += this.velX * du;    
+
     if(this.cy > g_canvas.height){
         return entityManager.KILL_ME_NOW;
     }
+
+    /* Caterpillar movement */
+
+    // Makes the bounching effect
+    var range = 3;
+    if (this.cy >= this.startY + range ){
+        this.velY = -0.5;
+    }
+    if (this.cy < this.startY - range ){
+        this.velY = 0.5;
+    }
+    // Moving it down when it hits its barrier
+    if ( this.cx > this.randomRight && this.direction || this.cx < this.randomLeft && !this.direction ) {
+        this.velX = 0;
+        this.cy += 4;
+        // After moving down, reverse direction
+        if (this.cy >= this.startY + 20 && this.direction) {
+            this.startY += 20;
+            this.velX =- 4;
+            this.direction = false;
+        }
+        if (this.cy >= this.startY + 20 && !this.direction) {
+            this.startY += 20;
+            this.velX = 4;
+            this.direction = true;
+        }
+    }
+    this.cy += this.velY;
+    this.cx += this.velX * du;
+
+    // Collusion
     var isHit = this.findHitEntity();
     if (isHit) {
         if(!isHit.killShip) {
             var points = updateScore(100, isHit.timestamp);
             entityManager.makePointsAppear(this.cx, this.cy, points);
             if(Math.random()<0.1)
-                entityManager.createBulletPowerup(this.cx,this.cy,false);
+                entityManager.createBulletPowerup(this.cx,this.cy);
             else if (Math.random()<0.1)
-                entityManager.createShipPowerup(this.cx,this.cy,false);
+                entityManager.createShipPowerup(this.cx,this.cy);
             // Kill the bullet!
             isHit.kill();
             return entityManager.KILL_ME_NOW;

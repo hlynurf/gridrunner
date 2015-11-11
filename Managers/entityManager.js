@@ -105,13 +105,14 @@ sendKamikaze: function(){
 	}));
 },
 
-createCaterpillar: function(){
-    // Randoms starting Y position of catapillar in the upper 1-6 grid
-    var posY = ( g_canvas.height / 30 ) + Math.random() * ( g_canvas.width/30 * 5 ); 
+createCaterpillar: function(id){
+    // Randoms starting Y position of catapillar in the upper 1-10 grid
+    var posY = ( g_canvas.height / 30 ) + Math.random() * ( g_canvas.width/30 * 9 ); 
     // Random how long right and left the caterpillar goes
     var randomRight = g_canvas.width/2 + Math.random() * ( g_canvas.width/2 );
     var randomLeft = Math.random()*(g_canvas.width/2);
-    var num = 0;
+    var positionNum = 0;
+    // Worm length from 3-10
     var wormLength = 3 + Math.round( Math.random() * 7 )
     for( var i = 0 ; i < wormLength ; i++ ) {   
         setTimeout(function () {
@@ -120,16 +121,17 @@ createCaterpillar: function(){
             cy: posY,
             startY: posY,
             velY: 0.5,                // For moving up and down in a worm way
-            velX: 1,
+            velX: 4,
+            id: id,
             wormLength: wormLength,
             direction: true,          // If true he is going right, if false he is going left
-            randomRight: randomRight, // What distance í goes right 
-            randomLeft: randomLeft,   // What distance í goes left
-            position: num,            // Number of caterpillar peace
+            randomRight: randomRight, // What distance it goes right 
+            randomLeft: randomLeft,   // What distance it goes left
+            position: positionNum,    // Number of caterpillar peace
             killBulletPowerup:false
         }));
-        num++;
-        }.bind(this, num), i * 6000 / NOMINAL_UPDATE_INTERVAL);
+        positionNum++;
+        }.bind(this, positionNum), i * 1800 / NOMINAL_UPDATE_INTERVAL);
     }
 },
 createBulletPowerup: function(cx,cy){
@@ -151,7 +153,6 @@ fireBullet: function(cx, cy, velX, velY, rotation, killShip) {
         velX : velX,
         velY : velY,
         killShip: killShip,
-        killBulletPowerup:false,
         rotation : rotation,
         timestamp : main.getCurrTime()
     }));
@@ -162,16 +163,16 @@ fireball: function(cx, cy, velX, velY) {
         cx   : cx,
         cy   : cy,
         velX : velX,
-        velY : velY,
-        killBulletPowerup: false
+        velY : velY
     }));
 },
 
-generateShip : function(killBulletPowerup) {
+generateShip : function(killBulletPowerup, killShipPowerup) {
     this._ships.push(new Ship({
         cx: 200,
         cy: 200,
-        killBulletPowerup:killBulletPowerup
+        killBulletPowerup : killBulletPowerup,
+        killShipPowerup : killShipPowerup
     }));
 },
 
@@ -180,8 +181,7 @@ fireLightning : function(cx, cy) {
         cx: cx,
         cy: cy,
         killShip: true,
-        isLightning: true,
-        killBulletPowerup:false
+        isLightning: true
     }));
 },
 
@@ -189,8 +189,7 @@ createLandMine : function(cx, cy) {
     this._landMines.push(new LandMine({
         cx: cx,
         cy: cy,
-        killShip: true,
-        killBulletPowerup:false
+        killShip: true
     }));
 },
 

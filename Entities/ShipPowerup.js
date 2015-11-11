@@ -28,6 +28,7 @@ ShipPowerup.prototype = new Entity();
 ShipPowerup.prototype.timestamp = 0;
 ShipPowerup.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
 ShipPowerup.prototype.radius = 5;
+ShipPowerup.prototype.velY = 3;
 
 ShipPowerup.prototype.update = function (du) {
 
@@ -35,12 +36,19 @@ ShipPowerup.prototype.update = function (du) {
 
     this.lifeSpan -= du;
     if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
-        
+
+    if(this.cy > g_canvas.height){
+        return entityManager.KILL_ME_NOW;
+    }
+    
+    this.cy += this.velY * du;
+
     var isHit = this.findHitEntity();
     if(isHit){       
-        if(isHit.killBulletPowerup) {
+        if(isHit.killShipPowerup) {
             //TODO
             isHit.makeEnlarged();
+            return entityManager.KILL_ME_NOW;
         }
     } 
 
@@ -58,7 +66,12 @@ ShipPowerup.prototype.render = function (ctx) {
     if (this.lifeSpan < fadeThresh) {
         ctx.globalAlpha = this.lifeSpan / fadeThresh;
     }
-    drawShipPowerup(ctx, this.cx, this.cy);
+    ctx.save();
+    ctx.fillStyle = 'White';
+    util.fillCircle(ctx, this.cx, this.cy, this.radius);
+    ctx.fillStyle = 'Yellow';
+    util.fillCircle(ctx, this.cx, this.cy, this.radius/1.5);
+    ctx.restore();
 
     ctx.globalAlpha = 1;
 };
