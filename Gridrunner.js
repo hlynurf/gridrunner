@@ -51,6 +51,7 @@ function createInitialStars() {
 
 // GAME-SPECIFIC UPDATE LOGIC
 var lastCaterpillar = Date.now();
+var lastKamikaze = Date.now();
 
 function updateSimulation(du) {
     
@@ -62,9 +63,18 @@ function updateSimulation(du) {
     if(Date.now() > lastCaterpillar + caterpillerGap){
         if(!g_isUpdatePaused){
             entityManager.createCaterpillar();
-        lastCaterpillar = Date.now();
+			lastCaterpillar = Date.now();
         }
     }
+	
+	var kamikazeGap = 1e4;
+	if (Date.now() > lastKamikaze + kamikazeGap) {
+		if (!g_isUpdatePaused) {
+			entityManager.sendKamikaze();
+			lastKamikaze = Date.now();
+		}
+	}
+	
 	particleManager.update(du);
 }
 
