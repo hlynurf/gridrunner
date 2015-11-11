@@ -27,16 +27,7 @@ function drawBackground(ctx) {	// Draws the grid
 	}
 	
 }
-function drawBullets(ctx, x, y, width, height) {
-    ctx.save();
-    ctx.beginPath();
-    ctx.lineWidth = width;
-    ctx.moveTo(x, y - height / 2);
-    ctx.lineTo(x, y + height / 2);
-    ctx.strokeStyle = 'rgb(113, 201, 55)';
-    ctx.stroke();
-    ctx.restore();
-}
+
 function drawSideEnemy(ctx, x, y) {
 	var width = 40;
 	var height = 30;
