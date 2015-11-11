@@ -26,7 +26,8 @@ _bullets : [],
 _ships   : [],
 _enemies : [],
 _caterpillars: [],
-_bulletPowerup: [],
+_bulletPowerups: [],
+_shipPowerups: [],
 _landMines: [],
 _lightnings: [],
 _points: [],
@@ -77,7 +78,7 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [ this._bullets, this._ships, this._enemies, this._landMines, this._bulletPowerup, this._lightnings, this._points];
+    this._categories = [ this._bullets, this._ships, this._enemies, this._landMines, this._bulletPowerups, this._shipPowerups, this._lightnings, this._points];
 },
 
 init: function() {
@@ -115,11 +116,16 @@ createCaterpillar: function(){
     }
 },
 createBulletPowerup: function(cx,cy){
-    this._bulletPowerup.push(new BulletPowerup({
+    this._bulletPowerups.push(new BulletPowerup({
         cx: cx, 
         cy: cy
     }));
-
+},
+createShipPowerup: function(cx,cy){
+    this._bulletPowerups.push(new ShipPowerup({
+        cx: cx, 
+        cy: cy
+    }));
 },
 fireBullet: function(cx, cy, velX, velY, rotation, killShip) {
     this._bullets.push(new Bullet({

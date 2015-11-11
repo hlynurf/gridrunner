@@ -49,6 +49,8 @@ LandMine.prototype.update = function (du) {
             if (this.scale < 0.7) {
                 if(Math.random()<0.1)
                     entityManager.createBulletPowerup(this.cx,this.cy,false);
+                else if (Math.random()<0.1)
+                    entityManager.createShipPowerup(this.cx,this.cy,false);
                 // Kill the bullet!
                 isHit.kill();
                 return entityManager.KILL_ME_NOW;

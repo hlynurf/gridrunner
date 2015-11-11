@@ -30,6 +30,7 @@ function Ship(descr) {
     this._bulletDifference = 100;
 	this._lives = 3;
 	this._gunType = 1; //Default, simple gun
+    this.killShip = true;
 };
 
 Ship.prototype = new Entity();
@@ -54,6 +55,9 @@ Ship.prototype.velX = 0;
 Ship.prototype.velY = 0;
 Ship.prototype.launchVel = 2;
 Ship.prototype.numSubSteps = 1;
+
+// BOOST!
+Ship.prototype.enlargedDuration = 0;
 
 // HACKED-IN AUDIO (no preloading)
 Ship.prototype.warpSound = new Audio(
@@ -126,6 +130,10 @@ Ship.prototype._moveToASafePlace = function () {
 };
     
 Ship.prototype.update = function (du) {
+    // Handle powerups
+    if (this.enlargedDuration > 0) {
+        this.enlargedDuration -= du;
+    }
 
     // Handle warping
     if (this._isWarping) {
@@ -148,12 +156,22 @@ Ship.prototype.update = function (du) {
     this.maybeFireBullet();
     var isHit = this.findHitEntity();
     if (isHit) {
-        if (isHit.killShip) {
+        if (isHit.killShip && this.enlargedDuration<=0) {
             this.warp();
             this._lives--;
             if (this._lives < 0) {
                 main.gameOver();
             }
+        }
+        if (this.enlargedDuration>0 && isHit.killShip && !isHit.isLightning) {
+            if(isHit instanceof Caterpillar) {
+                var points = updateScore(100, main.getCurrTime());
+                entityManager.makePointsAppear(isHit.cx, isHit.cy, points);
+            } else if (isHit instanceof LandMine) {
+                var points = updateScore(50, main.getCurrTime());
+                entityManager.makePointsAppear(isHit.cx, isHit.cy, points);
+            }
+            isHit.kill();
         }
     }
     spatialManager.register(this);
@@ -271,6 +289,9 @@ Ship.prototype.maybeFireBullet = function () {
 };
 
 Ship.prototype.getRadius = function () {
+    if (this.enlargedDuration>0) {
+        return (this.sprite.width / 5) * 0.9 * 3;
+    }
     return (this.sprite.width / 5) * 0.9;
 };
 
@@ -289,13 +310,18 @@ Ship.prototype.halt = function () {
 Ship.prototype.render = function (ctx) {
     var origScale = this.sprite.scale;
     // pass my scale into the sprite, for drawing
-    this.sprite.scale = this._scale;
+    if(this.enlargedDuration>0) {
+        this.sprite.scale = this.scale * 3;
+    } else {
+        this.sprite.scale = this._scale;
+    }
     this.sprite.drawWrappedCentredAt(
 	ctx, this.cx, this.cy, this.rotation
     );
     this.sprite.scale = origScale;
 	
 	this.renderLives(ctx);
+    this.renderEnlargedCountdown(ctx);
 };
 
 Ship.prototype.renderLives = function(ctx) {
@@ -311,3 +337,15 @@ Ship.prototype.renderLives = function(ctx) {
 	}
     //lifeSprite.scale = origScale;
 };
+
+Ship.prototype.makeEnlarged = function() {
+    this.enlargedDuration = 5000 / NOMINAL_UPDATE_INTERVAL;
+}
+
+Ship.prototype.renderEnlargedCountdown = function(ctx) {
+    var enlargedSecs = Math.ceil(this.enlargedDuration / SECS_TO_NOMINALS)
+    if(enlargedSecs > 0) {
+        var boxSize = 20;
+        util.borderedCenteredText(ctx, g_canvas.width-boxSize-30, g_canvas.height-boxSize-30, 'Yellow', 'Red', '60px Impact', 1.2, enlargedSecs);
+    }
+}

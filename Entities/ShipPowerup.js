@@ -40,10 +40,7 @@ ShipPowerup.prototype.update = function (du) {
     if(isHit){       
         if(isHit.killBulletPowerup) {
             //TODO
-            /*gunType = 1+ Math.round(Math.random()*2)
-            // Tímabundið
-            setTimeout(function(){ gunType = 0; }, 10000);
-            return entityManager.KILL_ME_NOW;*/
+            isHit.makeEnlarged();
         }
     } 
 

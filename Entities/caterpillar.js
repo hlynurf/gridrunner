@@ -56,6 +56,8 @@ Caterpillar.prototype.update = function (du) {
             entityManager.makePointsAppear(this.cx, this.cy, points);
             if(Math.random()<0.1)
                 entityManager.createBulletPowerup(this.cx,this.cy,false);
+            else if (Math.random()<0.1)
+                entityManager.createShipPowerup(this.cx,this.cy,false);
             // Kill the bullet!
             isHit.kill();
             return entityManager.KILL_ME_NOW;
