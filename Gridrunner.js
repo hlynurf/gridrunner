@@ -184,7 +184,7 @@ function preloadDone() {
     g_sprites.bullet = new Sprite(g_images.bullet);
     g_sprites.bullet.scale = 0.5;
 	g_sprites.life = new Sprite(g_images.life);
-
+    createInitialStars();
     main.init();
 }
 

@@ -152,6 +152,7 @@ function drawCombo(ctx) {
 }
 
 function drawMainMenu(ctx) {
+	drawScrollingBackground(ctx);
 	util.borderedCenteredText(ctx, g_canvas.width/2, g_canvas.height * 0.45, 'Yellow', 'Red', '60px Impact', 2, 'GRIDRUNNER');
 	util.borderedCenteredText(ctx, g_canvas.width/2 , g_canvas.height * 0.6, 'Yellow', 'Red', '30px Impact', 2, 'Click SPACE to PLAY');
 }
