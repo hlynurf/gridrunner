@@ -70,17 +70,18 @@ main._iterCore = function (dt) {
         this.gameOver();
     }
     // Handle NEW GAME
-    if (this._isGameOver && requestedNewGame()) {
+    if ((this._isGameOver || this._mainMenu) && requestedNewGame()) {
         this.newGame();
     }
 
     if (!this._isGameOver) {
         update(dt);
     }
-    render(g_ctx, this._isGameOver);
+    render(g_ctx, this._isGameOver, this._mainMenu);
 };
 
 main._isGameOver = false;
+main._mainMenu = true;
 
 main.gameOver = function () {
     this._isGameOver = true;
@@ -90,10 +91,12 @@ main.gameOver = function () {
     //console.log("gameOver: quitting...");
 };
 
+
 main.newGame = function () {
     entityManager.init();
     createInitialShips();
     resetScore();
+    this._mainMenu = false;
     this._isGameOver = false;
 }
 

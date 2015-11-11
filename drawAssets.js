@@ -28,21 +28,6 @@ function drawBackground(ctx) {	// Draws the grid
 	
 }
 
-function drawSideEnemy(ctx, x, y) {
-	var width = 40;
-	var height = 30;
-	y = y - height / 4 - 1;
-
-	util.fillBox(ctx, x, y, 20, 2, 'Yellow');
-	util.fillBox(ctx, x, y + height / 2, 20, 2, 'Yellow');
-
-	util.fillBox(ctx, x + width * 0.3, y, 3, 6, 'Yellow');
-	util.fillBox(ctx, x + width * 0.3, y + height / 3, 3, 6, 'Yellow');
-
-	util.fillBox(ctx, x + width * 0.45, y + height * 0.125, 3, 10, 'Yellow');
-	util.fillBox(ctx, x + width * 0.45, y + height * 0.25 -1 , 12, 4, 'Yellow');
-}
-
 function drawCaterpillarHead(ctx, x, y) {
 	ctx.save();
 	var radius = 10;
@@ -112,8 +97,9 @@ function drawCombo(ctx) {
 	util.centeredText(ctx, g_canvas.width/2, g_canvas.height - 15, 'Orange', '20px Impact', 'combo x' + g_combo);
 }
 
-function drawMenuBackground(ctx) {
-	
+function drawMainMenu(ctx) {
+	util.borderedCenteredText(ctx, g_canvas.width/2, g_canvas.height * 0.45, 'Yellow', 'Red', '60px Impact', 2, 'GRIDRUNNER');
+	util.borderedCenteredText(ctx, g_canvas.width/2 , g_canvas.height * 0.6, 'Yellow', 'Red', '30px Impact', 2, 'Click SPACE to PLAY');
 }
 
 function drawMenuButton(ctx, text) {
