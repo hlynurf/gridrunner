@@ -16,11 +16,11 @@ function SideEnemy(descr) {
     this.sprite = this.sprite || g_sprites.ship;
     
     // Set normal drawing scale, and warp state off
-    this._scale = 0.4;
-    this._isWarping = false;
-    this._lastBullet = Date.now();
     this._bulletDifference = 5000;
     this._goingDown = true;
+    this._nextStop = 4000 / NOMINAL_UPDATE_INTERVAL;
+    this._stopTime = 0;
+    this._hasFired = false;
 };
 
 SideEnemy.prototype = new Entity();
@@ -59,18 +59,25 @@ SideEnemy.prototype.update = function (du) {
         this.computeSubStep(dStep);
     }
 
-    // Handle firing
-    this.maybeFireBullet();
-
 };
 
 SideEnemy.prototype.computeSubStep = function (du) {
 
-    // this.cx += 5;
-    if (this._goingDown) this.cy += 2;
-    else this.cy -= 2;
-    if (this.cy > g_canvas.height - 40) this._goingDown = false;
-    if (this.cy < 20) this._goingDown = true;
+    this._nextStop -= du;
+    if (this._nextStop < 0) {
+        if (this._stopTime < 2000 / NOMINAL_UPDATE_INTERVAL) {
+            this._stopTime += du;
+        } else {
+            this._stopTime = 0;
+            this._nextStop = 4000 / NOMINAL_UPDATE_INTERVAL;
+            this._hasFired = false;
+        }
+    } else {
+        if (this._goingDown) this.cy += 2;
+        else this.cy -= 2;
+        if (this.cy > g_canvas.height - 40) this._goingDown = false;
+        if (this.cy < 20) this._goingDown = true;
+    }
 };
 
 var NOMINAL_THRUST = +5;
@@ -115,5 +122,23 @@ SideEnemy.prototype.halt = function () {
 
 
 SideEnemy.prototype.render = function (ctx) {
-    drawSideEnemy(ctx, this.cx, this.cy);
+    var width = 40;
+    var height = 30;
+    var y = this.cy - height / 4 - 1;
+    ctx.save();
+    if (this._stopTime > 500 / NOMINAL_UPDATE_INTERVAL && this._stopTime < 2000 / NOMINAL_UPDATE_INTERVAL) {
+        if (!this._hasFired) {
+            entityManager.createLandMine(this.cx + 30, this.cy);
+            this._hasFired = true;
+        }
+    }
+    util.fillBox(ctx, this.cx, y, 20, 2, 'Yellow');
+    util.fillBox(ctx, this.cx, y + height / 2, 20, 2, 'Yellow');
+
+    util.fillBox(ctx, this.cx + width * 0.3, y, 3, 6, 'Yellow');
+    util.fillBox(ctx, this.cx + width * 0.3, y + height / 3, 3, 6, 'Yellow');
+
+    util.fillBox(ctx, this.cx + width * 0.45, y + height * 0.125, 3, 10, 'Yellow');
+    util.fillBox(ctx, this.cx + width * 0.45, y + height * 0.25 -1 , 12, 4, 'Yellow');
+    ctx.restore();
 };
