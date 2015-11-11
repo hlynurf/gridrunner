@@ -54,23 +54,14 @@ Kamikaze.prototype.update = function (du) {
                 entityManager.createShipPowerup(this.cx,this.cy,false);
             // Kill the bullet!
             isHit.kill();
-			
-			for (var i = 2; i < 15; i++) {
-				var angle = i * Math.PI/8;
-				var dX = +Math.sin(angle);
-				var dY = -Math.cos(angle);
-				var relVelX = dX * .5;
-				var relVelY = dY * .5;
-				entityManager.fireBullet(
-					this.cx, this.cy,
-					relVelX, .5 + relVelY,
-					angle);
-			}
-			
+			this.explode();
             return entityManager.KILL_ME_NOW;
 		}
     } else spatialManager.register(this);
-
+	if (this.cy > this.targetY) {
+		this.explode();
+		return entityManager.KILL_ME_NOW;
+	}
 };
 
 Kamikaze.prototype.getRadius = function () {
@@ -87,4 +78,17 @@ Kamikaze.prototype.render = function (ctx) {
     drawRocket(ctx);
 	
     ctx.restore();
+};
+
+Kamikaze.prototype.explode = function() {
+	for (var i = 2; i < 15; i++) {
+		var angle = i * Math.PI/8;
+		var dX = +Math.sin(angle);
+		var dY = -Math.cos(angle);
+		var relVelX = dX * .5;
+		var relVelY = dY * .5;
+		entityManager.fireball(
+			this.cx, this.cy,
+			relVelX, .5 + relVelY);
+	}
 };

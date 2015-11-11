@@ -149,6 +149,16 @@ fireBullet: function(cx, cy, velX, velY, rotation, killShip) {
     }));
 },
 
+fireball: function(cx, cy, velX, velY) {
+	this._enemies.push(new Fireball({
+        cx   : cx,
+        cy   : cy,
+        velX : velX,
+        velY : velY,
+        killBulletPowerup: false
+    }));
+},
+
 generateShip : function(killBulletPowerup) {
     this._ships.push(new Ship({
         cx: 200,
