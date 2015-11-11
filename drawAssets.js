@@ -43,20 +43,6 @@ function drawSideEnemy(ctx, x, y) {
 	util.fillBox(ctx, x + width * 0.45, y + height * 0.25 -1 , 12, 4, 'Yellow');
 }
 
-function drawUpEnemy(ctx, x, y) {
-	var width = 30;
-	var height = 40;
-	x = x - width / 4 - 1;
-
-	util.fillBox(ctx, x, y, 2, 20, 'Yellow');
-	util.fillBox(ctx, x + width / 2, y, 2, 20, 'Yellow');
-
-	util.fillBox(ctx, x, y + height * 0.3, 6, 3, 'Yellow');
-	util.fillBox(ctx, x + width / 3, y + height * 0.3, 6, 3, 'Yellow');
-
-	util.fillBox(ctx, x + width * 0.125, y + height * 0.45, 10, 3, 'Yellow');
-	util.fillBox(ctx, x + width * 0.25 - 1, y + height * 0.45 , 4, 12, 'Yellow');
-}
 function drawCaterpillarHead(ctx, x, y) {
 	ctx.save();
 	var radius = 10;
