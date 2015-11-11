@@ -63,7 +63,7 @@ function drawCaterpillarHead(ctx, x, y) {
 	ctx.fillStyle = 'Orange';
 	util.fillCircle(ctx,x,y, radius);
 	ctx.fillStyle = '#000';
-	util.fillCircle(ctx,x-2,y+2, 3);
+	util.fillCircle(ctx,x+2,y, 3);
 	ctx.restore();
 }
 function drawCaterpillar(ctx, x, y) {

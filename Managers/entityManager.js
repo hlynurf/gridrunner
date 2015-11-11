@@ -97,19 +97,27 @@ resetCategories: function() {
 },
 
 createCaterpillar: function(){
-    //Randoms X pos of catapillar insider the box
-    var posX = (g_canvas.width / 10)+Math.random() * (g_canvas.width-g_canvas.width / 5);  
-    var posY=0;
-    var num=0;
-    for(var i = 0; i < 5; i++) {   
+    // Randoms starting Y position of catapillar in the upper 1-6 grid
+    var posY = ( g_canvas.height / 30 ) + Math.random() * ( g_canvas.width/30 * 5 ); 
+    // Random how long right and left the caterpillar goes
+    var randomRight = g_canvas.width/2 + Math.random() * ( g_canvas.width/2 );
+    var randomLeft = Math.random()*(g_canvas.width/2);
+    var num = 0;
+    var wormLength = 3 + Math.round( Math.random() * 7 )
+    for( var i = 0 ; i < wormLength ; i++ ) {   
         setTimeout(function () {
             this._enemies.push(new Caterpillar({
-            cx: posX, 
+            cx: 0, 
             cy: posY,
-            startX: posX,
-            velX: 0.5,
-            position: num,
-            killBulletPowerup:false,
+            startY: posY,
+            velY: 0.5,                // For moving up and down in a worm way
+            velX: 1,
+            wormLength: wormLength,
+            direction: true,          // If true he is going right, if false he is going left
+            randomRight: randomRight, // What distance í goes right 
+            randomLeft: randomLeft,   // What distance í goes left
+            position: num,            // Number of caterpillar peace
+            killBulletPowerup:false
         }));
         num++;
         }.bind(this, num), i * 6000 / NOMINAL_UPDATE_INTERVAL);

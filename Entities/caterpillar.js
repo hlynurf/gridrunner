@@ -11,7 +11,6 @@
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
 
-
 // A generic contructor which accepts an arbitrary descriptor object
 function Caterpillar(descr) {
 
@@ -26,7 +25,6 @@ Caterpillar.prototype = new Entity();
 // The time the caterpillar enters the level
 Caterpillar.prototype.timestamp = 0;
 Caterpillar.prototype.radius = 10;
-Caterpillar.prototype.velY = 1;
 Caterpillar.prototype.update = function (du) {
 
     spatialManager.unregister(this);
@@ -34,18 +32,46 @@ Caterpillar.prototype.update = function (du) {
     if (this._isDeadNow) 
         return entityManager.KILL_ME_NOW;
     // Caterpillar movement
-    var range = 8;
-    for(var i = 0; i < 5; i++) {
+    var range = 3;
+    for(var i = 0; i < this.wormLength; i++) {
         if (this.position === i) {
-            if (this.cx === this.startX + range)
-                this.velX =- 0.5;
-            if (this.cx === this.startX - range)
-                this.velX = 0.5;
-            this.cx += this.velX;
+            // Makes the bounching effect
+            if (this.cy >= this.startY + range ){
+                this.velY = -0.5;
+            }
+            if (this.cy < this.startY - range ){
+                this.velY = 0.5;
+            }
+            // Moving it down when it hits its barrier
+            if(this.cx>this.randomRight && this.direction) {
+                this.velX=0;
+                this.cy+=2;
+                // After moving down, reverse direction
+                if(this.cy >= this.startY+20){
+                    this.startY+=20;
+                    this.velX=-1;
+                    this.direction=false;
+                    if(this.position === this.wormLength)
+                    this.randomRight=g_canvas.width/2 + Math.random()*(g_canvas.width/2);
+                }
+            }
+            // Moving it down when it hits its barrier
+            if(this.cx<this.randomLeft && !this.direction) {
+                this.velX=0;
+                this.cy+=2;
+                // After moving down, reverse direction
+                if(this.cy >= this.startY+20) {
+                    this.startY+=20;
+                    this.velX=1;
+                    this.direction=true;
+                    if(this.position === this.wormLength)
+                    this.randomLeft=Math.random()*(g_canvas.width/2);
+                }
+            }       
         }
     }
-
-    this.cy += this.velY * du;
+    this.cy += this.velY;
+    this.cx += this.velX * du;    
     if(this.cy > g_canvas.height){
         return entityManager.KILL_ME_NOW;
     }

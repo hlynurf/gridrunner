@@ -225,7 +225,6 @@ var gunType=0;
 
 Ship.prototype.maybeFireBullet = function () {
     this._gunType = gunType;
-
 	if (Date.now() > this._lastBullet + this._bulletDifference) {
         var dX = +Math.sin(this.rotation);
         var dY = -Math.cos(this.rotation);

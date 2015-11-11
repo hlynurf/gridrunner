@@ -28,6 +28,7 @@ BulletPowerup.prototype = new Entity();
 BulletPowerup.prototype.timestamp = 0;
 BulletPowerup.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
 BulletPowerup.prototype.radius = 5;
+BulletPowerup.prototype.velY = 3;
 
 BulletPowerup.prototype.update = function (du) {
 
@@ -35,7 +36,13 @@ BulletPowerup.prototype.update = function (du) {
 
     this.lifeSpan -= du;
     if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
-        
+    
+    if(this.cy > g_canvas.height){
+        return entityManager.KILL_ME_NOW;
+    }
+
+    this.cy += this.velY * du;
+
     var isHit = this.findHitEntity();
     if(isHit){       
         if(isHit.killBulletPowerup) {
