@@ -37,30 +37,13 @@ function drawCaterpillarHead(ctx, x, y) {
 	util.fillCircle(ctx,x+2,y, 3);
 	ctx.restore();
 }
+
 function drawCaterpillar(ctx, x, y) {
 	ctx.save();
 	var radius = 10;
 	ctx.fillStyle = 'Orange';
 	util.fillCircle(ctx,x,y, radius);
 	 ctx.strokeStyle = '#000';
-    ctx.stroke();
-	ctx.restore();
-}
-function drawBulletPowerup(ctx, x, y){
-	ctx.save();
-	var radius = 5;
-	ctx.fillStyle = 'Purple';
-	util.fillCircle(ctx,x,y, radius);
-	ctx.strokeStyle = '#fff';
-    ctx.stroke();
-	ctx.restore();
-}
-function drawShipPowerup(ctx, x, y){
-	ctx.save();
-	var radius = 5;
-	ctx.fillStyle = 'Yellow';
-	util.fillCircle(ctx,x,y, radius);
-	ctx.strokeStyle = '#fff';
     ctx.stroke();
 	ctx.restore();
 }

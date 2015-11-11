@@ -107,20 +107,16 @@ sendKamikaze: function(){
 	}));
 },
 
-createCaterpillar: function(){
+createCaterpillar: function(id){
     this._creatingCaterpillars = true;
     // Randoms starting Y position of catapillar in the upper 1-6 grid
     this._caterPillarStuff.posY = ( g_canvas.height / 30 ) + Math.random() * ( g_canvas.width/30 * 5 ); 
     // Random how long right and left the caterpillar goes
     this._caterPillarStuff.randomRight = g_canvas.width/2 + Math.random() * ( g_canvas.width/2 );
     this._caterPillarStuff.randomLeft = Math.random()*(g_canvas.width/2);
-    this._caterPillarStuff.num = 0;
+    this._caterPillarStuff.positionNum = 0;
+    this._caterPillarStuff.id = id;
     this._caterPillarStuff.wormLength = 3 + Math.round( Math.random() * 7 );
-    // for (var i = 0 ; i < wormLength ; i++ ) {   
-    //     setTimeout(function () {
-            
-    //     }.bind(this, num), i * 6000 / NOMINAL_UPDATE_INTERVAL);
-    // }
 },
 createBulletPowerup: function(cx,cy){
     this._bulletPowerups.push(new BulletPowerup({
@@ -141,7 +137,6 @@ fireBullet: function(cx, cy, velX, velY, rotation, killShip) {
         velX : velX,
         velY : velY,
         killShip: killShip,
-        killBulletPowerup:false,
         rotation : rotation,
         timestamp : main.getCurrTime()
     }));
@@ -152,16 +147,16 @@ fireball: function(cx, cy, velX, velY) {
         cx   : cx,
         cy   : cy,
         velX : velX,
-        velY : velY,
-        killBulletPowerup: false
+        velY : velY
     }));
 },
 
-generateShip : function(killBulletPowerup) {
+generateShip : function(killBulletPowerup, killShipPowerup) {
     this._ships.push(new Ship({
         cx: 200,
         cy: 200,
-        killBulletPowerup:killBulletPowerup
+        killBulletPowerup : killBulletPowerup,
+        killShipPowerup : killShipPowerup
     }));
 },
 
@@ -170,8 +165,7 @@ fireLightning : function(cx, cy) {
         cx: cx,
         cy: cy,
         killShip: true,
-        isLightning: true,
-        killBulletPowerup:false
+        isLightning: true
     }));
 },
 
@@ -179,8 +173,7 @@ createLandMine : function(cx, cy) {
     this._landMines.push(new LandMine({
         cx: cx,
         cy: cy,
-        killShip: true,
-        killBulletPowerup:false
+        killShip: true
     }));
 },
 
@@ -213,21 +206,22 @@ checkForCaterPillars: function(du) {
             cy: this._caterPillarStuff.posY,
             startY: this._caterPillarStuff.posY,
             velY: 0.5, // For moving up and down in a worm way
-            velX: 1,
+            velX: 4,
+            id: this._caterPillarStuff.id,
             wormLength: this._caterPillarStuff.wormLength,
             direction: true, // If true he is going right, if false he is going left
             randomRight: this._caterPillarStuff.randomRight, // What distance í goes right 
             randomLeft: this._caterPillarStuff.randomLeft,   // What distance í goes left
-            position: this._caterPillarStuff.num, // Number of caterpillar peace
+            position: this._caterPillarStuff.positionNum, // Number of caterpillar peace
             killBulletPowerup: false
         }));
-        this._caterPillarStuff.num++;
+        this._caterPillarStuff.positionNum++;
         this._nextCaterpillar -= du;
-        if (this._caterPillarStuff.num === this._caterPillarStuff.wormLength) {
+        if (this._caterPillarStuff.positionNum === this._caterPillarStuff.wormLength) {
             this._creatingCaterpillars = false;
             this._nextCaterpillar = 0;
         } else {
-            this._nextCaterpillar = 300 / NOMINAL_UPDATE_INTERVAL;
+            this._nextCaterpillar = 60 / NOMINAL_UPDATE_INTERVAL;
         }
     } else if (this._creatingCaterpillars) {
         this._nextCaterpillar -= du;

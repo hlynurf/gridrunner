@@ -67,7 +67,12 @@ BulletPowerup.prototype.render = function (ctx) {
     if (this.lifeSpan < fadeThresh) {
         ctx.globalAlpha = this.lifeSpan / fadeThresh;
     }
-    drawBulletPowerup(ctx, this.cx, this.cy);
+    ctx.save();
+    ctx.fillStyle = 'White';
+    util.fillCircle(ctx, this.cx, this.cy, this.radius);
+    ctx.fillStyle = 'Purple';
+    util.fillCircle(ctx, this.cx, this.cy, this.radius/1.5);
+    ctx.restore();
 
     ctx.globalAlpha = 1;
 };
