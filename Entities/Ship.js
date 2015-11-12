@@ -231,7 +231,7 @@ Ship.prototype.maybeFireBullet = function () {
 	if (Date.now() > this._lastBullet + this._bulletDifference) {
         var dX = +Math.sin(this.rotation);
         var dY = -Math.cos(this.rotation);
-        var launchDist = this.getRadius() * 2;
+        var launchDist = this.getRadius() + 10; // 10 is default bullet halfheight
         
         var relVel = this.launchVel;
         var relVelX = dX * relVel;
@@ -318,7 +318,7 @@ Ship.prototype.renderLives = function(ctx) {
 	var lifeSprite = g_sprites.life;
 	// var origScale = lifeSprite.scale;
     // lifeSprite.scale = .2;
-	var w = this.getRadius() * 2.2;
+	var w = 15 * 2.2;	//15 is original radius
 	for (var i = 0; i < this._lives; i++) {
 		drawShipAt(ctx, g_canvas.width - w / 2- w * i, g_canvas.height - w / 2, .4);
 	}
