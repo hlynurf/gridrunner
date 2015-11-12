@@ -119,6 +119,41 @@ function drawRocket(ctx) {
 	drawFlameAt(ctx,200,140,75,75,0,'Yellow');
 }
 
+function drawShip(ctx) {
+	var shipArray = [[0,0,0,1,1],
+                 [0,0,1,1,1,1],
+                 [0,1,1,0,0,1,1],
+                 [0,0,0,1,1],
+                 [0,1,1,1,1,1,1],
+                 [1,1,1,1,1,1,1,1],
+                 [1,1,1,0,0,1,1,1],
+                 [1,1,0,0,0,0,1,1]
+                ];
+
+	for (var i = 0; i < 8; i++) {
+		for (var j = 0; j < 8; j++) {
+			if (shipArray[j][i]) {
+				util.fillBox(ctx,50*i,50*j,50,25,'Green');
+				util.fillBox(ctx,50*i,50*j+25,50,25,'DarkGreen');
+			}
+		}
+	}
+}
+
+function drawShipAt(ctx, x, y, scale) {
+	ctx.save();
+	
+	var relScale = 200*.4/15;
+	
+    ctx.translate(x, y);
+    ctx.scale(scale/relScale, scale/relScale);
+    ctx.translate(-200, -200);
+	
+	drawShip(ctx);
+	
+	ctx.restore();
+}
+
 function drawGameOverScreen(ctx) {
 	util.borderedCenteredText(ctx, g_canvas.width/2, 6*g_canvas.height/15, 'Yellow', 'Red', '80px Impact', 2, 'GAME OVER');
 

@@ -307,37 +307,8 @@ Ship.prototype.halt = function () {
 
 
 Ship.prototype.render = function (ctx) {
-    var origScale = this._scale;
-	
-	ctx.save();
-	
-	var relScale = 200*.4/15;
-	
-    ctx.translate(this.cx, this.cy);
-    ctx.scale(this._scale/relScale, this._scale/relScale);
-    ctx.translate(-200, -200);
-	
-	var shipArray = [[0,0,0,1,1],
-                 [0,0,1,1,1,1],
-                 [0,1,1,0,0,1,1],
-                 [0,0,0,1,1],
-                 [0,1,1,1,1,1,1],
-                 [1,1,1,1,1,1,1,1],
-                 [1,1,1,0,0,1,1,1],
-                 [1,1,0,0,0,0,1,1]
-                ];
-
-	for (var i = 0; i < 8; i++) {
-		for (var j = 0; j < 8; j++) {
-			if (shipArray[j][i]) {
-				util.fillBox(ctx,50*i,50*j,50,25,'Green');
-				util.fillBox(ctx,50*i,50*j+25,50,25,'DarkGreen');
-			}
-		}
-	}
-	
-	ctx.restore();
-    this._scale = origScale;
+    
+	drawShipAt(ctx, this.cx, this.cy, this._scale);
 	
 	this.renderLives(ctx);
     this.renderEnlargedCountdown(ctx);
@@ -347,12 +318,9 @@ Ship.prototype.renderLives = function(ctx) {
 	var lifeSprite = g_sprites.life;
 	// var origScale = lifeSprite.scale;
     // lifeSprite.scale = .2;
-	var w = lifeSprite.width;
-	var h = lifeSprite.height;
+	var w = this.getRadius() * 2.2;
 	for (var i = 0; i < this._lives; i++) {
-		lifeSprite.drawWrappedCentredAt(
-		ctx, g_canvas.width - w - i * w, g_canvas.height - h, 0
-		);
+		drawShipAt(ctx, g_canvas.width - w / 2- w * i, g_canvas.height - w / 2, .4);
 	}
     //lifeSprite.scale = origScale;
 };
