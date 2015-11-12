@@ -120,21 +120,21 @@ function drawRocket(ctx) {
 }
 
 function drawShip(ctx) {
-	var shipArray = [[0,0,0,1,1],
-                 [0,0,1,1,1,1],
-                 [0,1,1,0,0,1,1],
-                 [0,0,0,1,1],
-                 [0,1,1,1,1,1,1],
-                 [1,1,1,1,1,1,1,1],
-                 [1,1,1,0,0,1,1,1],
-                 [1,1,0,0,0,0,1,1]
+	var shipArray = [[0,0,0,2],
+                 [0,0,4],
+                 [0,2,0,0,0,2],
+                 [0,0,0,2],
+                 [0,6],
+                 [8],
+                 [3,0,0,0,0,3],
+                 [2,0,0,0,0,0,2]
                 ];
 
 	for (var i = 0; i < 8; i++) {
 		for (var j = 0; j < 8; j++) {
 			if (shipArray[j][i]) {
-				util.fillBox(ctx,50*i,50*j,50,25,'Green');
-				util.fillBox(ctx,50*i,50*j+25,50,25,'DarkGreen');
+				util.fillBox(ctx,50*i,50*j,50*shipArray[j][i],25,'Green');
+				util.fillBox(ctx,50*i,50*j+25,50*shipArray[j][i],25,'DarkGreen');
 			}
 		}
 	}
