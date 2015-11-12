@@ -145,6 +145,7 @@ function renderSimulation(ctx) {
 	drawScore(ctx);
     if (g_combo > 1) drawCombo(ctx);
     entityManager.render(ctx);
+	particleManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
 }

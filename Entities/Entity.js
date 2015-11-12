@@ -66,6 +66,7 @@ Entity.prototype.getSpatialID = function () {
 
 Entity.prototype.kill = function () {
     this._isDeadNow = true;
+	particleManager.triggerExplosion(this.cx, this.cy);
 };
 
 Entity.prototype.findHitEntity = function () {

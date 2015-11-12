@@ -49,7 +49,7 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._explosions, this._stars];
+    this._categories = [this._explosions];
 },
 
 init: function() {
@@ -64,6 +64,13 @@ makeStar: function() {
         velY : .5,
 		colorTimer : Math.floor(Math.random() * 60)
     }));
+},
+
+triggerExplosion: function(x, y) {
+	this._explosions.push(new Explosion({
+		cx: x,
+		cy: y
+	}));
 },
 
 update: function(du) {
@@ -87,6 +94,19 @@ update: function(du) {
             }
         }
     }
+	while (i < this._stars.length) {
+
+		var status = this._stars[i].update(du);
+
+		if (status === this.KILL_ME_NOW) {
+			// remove the dead guy, and shuffle the others down to
+			// prevent a confusing gap from appearing in the array
+			this._stars.splice(i,1);
+		}
+		else {
+			++i;
+		}
+	}
 
 },
 
