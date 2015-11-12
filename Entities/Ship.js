@@ -24,7 +24,7 @@ function Ship(descr) {
     this.sprite = this.sprite || g_sprites.ship;
     
     // Set normal drawing scale, and warp state off
-    this._scale = 0.4;
+    this._scale = .4;
     this._isWarping = false;
     this._lastBullet = Date.now();
     this._bulletDifference = 100;
@@ -133,7 +133,11 @@ Ship.prototype.update = function (du) {
     // Handle powerups
     if (this.enlargedDuration > 0) {
         this.enlargedDuration -= du;
+		this._scale = 1.2;
     }
+	else if (!this._isWarping) {
+		this._scale = .4;
+	}
 
     // Handle warping
     if (this._isWarping) {
@@ -287,10 +291,7 @@ Ship.prototype.maybeFireBullet = function () {
 };
 
 Ship.prototype.getRadius = function () {
-    if (this.enlargedDuration>0) {
-        return (this.sprite.width / 5) * 0.9 * 3;
-    }
-    return (this.sprite.width / 5) * 0.9;
+    return 15*this._scale/.4;
 };
 
 Ship.prototype.reset = function () {
@@ -306,17 +307,37 @@ Ship.prototype.halt = function () {
 
 
 Ship.prototype.render = function (ctx) {
-    var origScale = this.sprite.scale;
-    // pass my scale into the sprite, for drawing
-    if(this.enlargedDuration>0) {
-        this.sprite.scale = this.scale * 3;
-    } else {
-        this.sprite.scale = this._scale;
-    }
-    this.sprite.drawWrappedCentredAt(
-	ctx, this.cx, this.cy, this.rotation
-    );
-    this.sprite.scale = origScale;
+    var origScale = this._scale;
+	
+	ctx.save();
+	
+	var relScale = 200*.4/15;
+	
+    ctx.translate(this.cx, this.cy);
+    ctx.scale(this._scale/relScale, this._scale/relScale);
+    ctx.translate(-200, -200);
+	
+	var shipArray = [[0,0,0,1,1],
+                 [0,0,1,1,1,1],
+                 [0,1,1,0,0,1,1],
+                 [0,0,0,1,1],
+                 [0,1,1,1,1,1,1],
+                 [1,1,1,1,1,1,1,1],
+                 [1,1,1,0,0,1,1,1],
+                 [1,1,0,0,0,0,1,1]
+                ];
+
+	for (var i = 0; i < 8; i++) {
+		for (var j = 0; j < 8; j++) {
+			if (shipArray[j][i]) {
+				util.fillBox(ctx,50*i,50*j,50,25,'Green');
+				util.fillBox(ctx,50*i,50*j+25,50,25,'DarkGreen');
+			}
+		}
+	}
+	
+	ctx.restore();
+    this._scale = origScale;
 	
 	this.renderLives(ctx);
     this.renderEnlargedCountdown(ctx);
