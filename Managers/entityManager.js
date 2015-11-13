@@ -107,17 +107,6 @@ sendKamikaze: function(){
 	}));
 },
 
-createCaterpillar: function(id){
-    this._creatingCaterpillars = true;
-    // Randoms starting Y position of catapillar in the upper 1-6 grid
-    this._caterPillarStuff.posY = Math.round(( g_canvas.height / 30 ) + Math.random() * ( g_canvas.width/30 * 5 )); 
-    // Random how long right and left the caterpillar goes
-    this._caterPillarStuff.randomRight = g_canvas.width/2 + Math.random() * ( g_canvas.width/2 );
-    this._caterPillarStuff.randomLeft = g_canvas.width/20 + Math.random()*(g_canvas.width/2);
-    this._caterPillarStuff.positionNum = 0;
-    this._caterPillarStuff.id = id;
-    this._caterPillarStuff.wormLength = 3 + Math.round( Math.random() * 7 );
-},
 createPowerups: function(cx,cy){
     this._bulletPowerups.push(new BulletPowerup({
         cx: cx, 
@@ -201,22 +190,28 @@ resetShips: function() {
 
 haltShips: function() {
     this._forEachOf(this._ships, Ship.prototype.halt);
+},
+createCaterpillar: function(id){
+    this._creatingCaterpillars = true;
+    // Randoms starting Y position of catapillar in the upper 1-6 grid
+    this._caterPillarStuff.posY = Math.round(( g_canvas.height / 30 ) + Math.random() * ( g_canvas.width/30 * 5 )); 
+    // Random how long right and left the caterpillar goes
+    this._caterPillarStuff.randomRight = g_canvas.width/2 + Math.random() * ( g_canvas.width/2 );
+    this._caterPillarStuff.randomLeft = g_canvas.width/20 + Math.random()*(g_canvas.width/2);
+    this._caterPillarStuff.positionNum = 0;
+    this._caterPillarStuff.id = id;
+    this._caterPillarStuff.wormLength = 3 + Math.round( Math.random() * 7 );
 },	
 checkForCaterPillars: function(du) {
     if (this._nextCaterpillar <= 0 && this._creatingCaterpillars) {
         this._enemies.push(new Caterpillar({
-            cx: 0, 
             cy: this._caterPillarStuff.posY,
             startY: this._caterPillarStuff.posY,
-            velY: 0.5, // For moving up and down in a worm way
-            velX: 4,
             id: this._caterPillarStuff.id,
             wormLength: this._caterPillarStuff.wormLength,
-            direction: true, // If true he is going right, if false he is going left
             randomRight: this._caterPillarStuff.randomRight, // What distance í goes right 
             randomLeft: this._caterPillarStuff.randomLeft,   // What distance í goes left
             position: this._caterPillarStuff.positionNum, // Number of caterpillar peace
-            killBulletPowerup: false
         }));
         this._caterPillarStuff.positionNum++;
         this._nextCaterpillar -= du;

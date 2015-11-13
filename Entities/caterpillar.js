@@ -24,7 +24,13 @@ function Caterpillar(descr) {
 Caterpillar.prototype = new Entity();
 // The time the caterpillar enters the level
 Caterpillar.prototype.timestamp = 0;
-Caterpillar.prototype.radius = 10;
+Caterpillar.prototype.radius = 10;; 
+Caterpillar.prototype.cx = 0;
+Caterpillar.prototype.velY = 0.5;
+Caterpillar.prototype.velX = 4;
+// If true he is going right, if false he is going left
+Caterpillar.prototype.direction = true; 
+
 Caterpillar.prototype.update = function (du) {
 
     spatialManager.unregister(this);
