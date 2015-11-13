@@ -46,7 +46,7 @@ Kamikaze.prototype.update = function (du) {
     var isHit = this.findHitEntity();
     if (isHit) {
         if(!isHit.killShip) {
-            var points = updateScore(100, isHit.timestamp);
+            var points = updateScore(50, isHit.timestamp);
             entityManager.makePointsAppear(this.cx, this.cy, points);
             if(Math.random()<0.1)
                 entityManager.createBulletPowerup(this.cx,this.cy,false);

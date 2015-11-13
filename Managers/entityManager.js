@@ -159,7 +159,9 @@ generateShip : function(killBulletPowerup, killShipPowerup) {
         killShipPowerup : killShipPowerup
     }));
 },
-
+getShipCoords: function() {
+    return this._ships[0].cx;
+},
 fireLightning : function(cx, cy) {
     this._lightnings.push(new Lightning({
         cx: cx,
@@ -181,6 +183,8 @@ makePointsAppear : function(cx, cy, amount) {
     this._points.push(new Points({
         cx: cx,
         cy: cy,
+        velX:0,
+        velY:0,
         amount: amount
     }));
 },
@@ -191,7 +195,14 @@ yoinkNearestShip : function(xPos, yPos) {
         theShip.setPos(xPos, yPos);
     }
 },
-
+getRandomColor : function() {
+    var color = '#';
+    var letters = '0123456789ABCDEF'.split('');
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+},
 resetShips: function() {
     this._forEachOf(this._ships, Ship.prototype.reset);
 },

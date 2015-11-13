@@ -46,6 +46,8 @@ ShipPowerup.prototype.update = function (du) {
     var isHit = this.findHitEntity();
     if(isHit){       
         if(isHit.killShipPowerup) {
+            var points = updateScore(100, isHit.timestamp);
+            entityManager.makePointsAppear(this.cx, this.cy, points);
             //TODO
             isHit.makeEnlarged();
             return entityManager.KILL_ME_NOW;

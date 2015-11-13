@@ -46,6 +46,8 @@ BulletPowerup.prototype.update = function (du) {
     var isHit = this.findHitEntity();
     if(isHit){       
         if(isHit.killBulletPowerup) {
+            var points = updateScore(100, isHit.timestamp);
+            entityManager.makePointsAppear(this.cx, this.cy, points);
             gunType = 1+ Math.round(Math.random()*2)
             // Tímabundið
             setTimeout(function(){ gunType = 0; }, 10000);
