@@ -46,9 +46,7 @@ LandMine.prototype.update = function (du) {
             // No points for landmines
             if (this.scale < 0.7) {
                 if(Math.random()<0.1)
-                    entityManager.createBulletPowerup(this.cx,this.cy,false);
-                else if (Math.random()<0.1)
-                    entityManager.createShipPowerup(this.cx,this.cy,false);
+                    entityManager.createPowerups(this.cx,this.cy);
                 // Kill the bullet!
                 isHit.kill();
                 return entityManager.KILL_ME_NOW;

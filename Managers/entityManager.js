@@ -118,14 +118,8 @@ createCaterpillar: function(id){
     this._caterPillarStuff.id = id;
     this._caterPillarStuff.wormLength = 3 + Math.round( Math.random() * 7 );
 },
-createBulletPowerup: function(cx,cy){
+createPowerups: function(cx,cy){
     this._bulletPowerups.push(new BulletPowerup({
-        cx: cx, 
-        cy: cy
-    }));
-},
-createShipPowerup: function(cx,cy){
-    this._bulletPowerups.push(new ShipPowerup({
         cx: cx, 
         cy: cy
     }));

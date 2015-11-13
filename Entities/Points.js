@@ -46,6 +46,7 @@ Points.prototype.update = function(du) {
 Points.prototype.render = function(ctx) {
 	var updates = this.lifespan * NOMINAL_UPDATE_INTERVAL;
 	var fontSize = 20 - Math.abs(updates-750)*5/750;
-	var color = entityManager.getRandomColor();
+	if(!g_isUpdatePaused)
+		var color = entityManager.getRandomColor();
     util.centeredText(ctx, this.cx, this.cy, color, fontSize + 'px Impact', '+ ' + this.amount);
 };
