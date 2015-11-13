@@ -147,8 +147,6 @@ fireball: function(cx, cy, velX, velY) {
 
 generateShip : function(killBulletPowerup, killShipPowerup) {
     this._ships.push(new Ship({
-        cx: 200,
-        cy: 200,
         killBulletPowerup : killBulletPowerup,
         killShipPowerup : killShipPowerup
     }));

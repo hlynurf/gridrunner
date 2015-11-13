@@ -22,10 +22,12 @@ function Ship(descr) {
     
     // Default sprite, if not otherwise specified
     this.sprite = this.sprite || g_sprites.ship;
+
     
     // Set normal drawing scale, and warp state off
-    this._scale = .4;
+    this._scale = 2;
     this._isWarping = false;
+    this._isStartShrinking = true;
     this._lastBullet = Date.now();
     this._bulletDifference = 100;
 	this._lives = 3;
@@ -50,7 +52,7 @@ Ship.prototype.KEY_RIGHT  = 'D'.charCodeAt(0);
 // Initial, inheritable, default values
 Ship.prototype.rotation = 0;
 Ship.prototype.cx = 200;
-Ship.prototype.cy = 200;
+Ship.prototype.cy = 400;
 Ship.prototype.velX = 0;
 Ship.prototype.velY = 0;
 Ship.prototype.launchVel = 2;
@@ -75,7 +77,6 @@ Ship.prototype.warp = function () {
 };
 
 Ship.prototype._updateWarp = function (du) {
-
     var SHRINK_RATE = 3 / SECS_TO_NOMINALS;
     this._scale += this._scaleDirn * SHRINK_RATE * du;
     
@@ -89,13 +90,13 @@ Ship.prototype._updateWarp = function (du) {
     
         this._scale = 0.4;
         this._isWarping = false;
-        
         // Reregister me from my old posistion
         // ...so that I can be collided with again
         spatialManager.register(this);
         
     }
 };
+
 
 Ship.prototype._moveToASafePlace = function () {
     // Move to a safe place some suitable distance away
@@ -135,7 +136,7 @@ Ship.prototype.update = function (du) {
         this.enlargedDuration -= du;
 		this._scale = 1.2;
     }
-	else if (!this._isWarping) {
+	else if (!this._isWarping && !this._isStartShrinking) {
 		this._scale = .4;
 	}
 
@@ -144,6 +145,15 @@ Ship.prototype.update = function (du) {
         this._updateWarp(du);
         return;
     }
+    // Handle start Shrink
+    if (this._isStartShrinking) {
+        var SHRINK_RATE = -4 / SECS_TO_NOMINALS;
+        this._scale += SHRINK_RATE * du;
+        if (this._scale <= 0.4) {
+            this._isStartShrinking=false;      
+        }
+    }
+
     spatialManager.unregister(this);
     
 
