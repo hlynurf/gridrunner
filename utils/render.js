@@ -1,24 +1,26 @@
 // GENERIC RENDERING
 var g_doClear = true;
-var g_doBox = false;
 var g_undoBox = false;
 var g_doFlipFlop = false;
 var g_doMouse = false;
+var g_menuChoose = 0;
 
 var g_frameCounter = 1;
 
 var TOGGLE_CLEAR = 'C'.charCodeAt(0);
-var TOGGLE_BOX = 'B'.charCodeAt(0);
+var GO_BACK = 'B'.charCodeAt(0);
 var TOGGLE_UNDO_BOX = 'U'.charCodeAt(0);
 var TOGGLE_FLIPFLOP = 'F'.charCodeAt(0);
 var TOGGLE_MOUSE = 'M'.charCodeAt(0);
+var MOVE_UP = 'W'.charCodeAt(0);
+var MOVE_DOWN = 'S'.charCodeAt(0);
 
-function render(ctx, gameOver, mainMenu) {
+
+function render(ctx, gameOver, mainMenu, highScore) {
     
     // Process various option toggles
     //
     if (eatKey(TOGGLE_CLEAR)) g_doClear = !g_doClear;
-    if (eatKey(TOGGLE_BOX)) g_doBox = !g_doBox;
     if (eatKey(TOGGLE_UNDO_BOX)) g_undoBox = !g_undoBox;
     if (eatKey(TOGGLE_FLIPFLOP)) g_doFlipFlop = !g_doFlipFlop;
     if (eatKey(TOGGLE_MOUSE)) g_doMouse = !g_doMouse;
@@ -26,23 +28,30 @@ function render(ctx, gameOver, mainMenu) {
     // here, so that it becomes part of our "diagnostic" wrappers
     //
     if (g_doClear) util.clearCanvas(ctx);
-    
+    if (mainMenu) {
+        if (eatKey(MOVE_UP)) g_menuChoose = 0;
+        if (eatKey(MOVE_DOWN)) g_menuChoose = 1;
+    }
+
+    if (highScore) {
+        if (eatKey(GO_BACK)) main.mainMenu();
+    }
     // The main purpose of the box is to demonstrate that it is
     // always deleted by the subsequent "undo" before you get to
     // see it...
     //
     // i.e. double-buffering prevents flicker!
     //
-    if (g_doBox) util.fillBox(ctx, 200, 200, 50, 50, "red");
     
     
     // The core rendering of the actual game / simulation
     //
     if (gameOver) renderGameOverScreen(ctx);
     else if (mainMenu) drawMainMenu(ctx);
+    else if (highScore) drawHighScores(ctx, main.highScores);
     else renderSimulation(ctx);
     
-    if(g_isUpdatePaused)
+    if (g_isUpdatePaused && !gameOver && !mainMenu)
         renderGamePaused(ctx);
     
     // This flip-flip mechanism illustrates the pattern of alternation

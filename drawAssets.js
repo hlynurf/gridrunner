@@ -187,9 +187,39 @@ function drawCombo(ctx) {
 }
 
 function drawMainMenu(ctx) {
+	ctx.save();
 	drawScrollingBackground(ctx);
-	util.borderedCenteredText(ctx, g_canvas.width/2, g_canvas.height * 0.45, 'Yellow', 'Red', '60px Impact', 2, 'GRIDRUNNER');
-	util.borderedCenteredText(ctx, g_canvas.width/2 , g_canvas.height * 0.6, 'Yellow', 'Red', '30px Impact', 2, 'Click SPACE to PLAY');
+	util.borderedCenteredText(ctx, g_canvas.width/2, g_canvas.height * 0.2, 'Yellow', 'Red', '60px Impact', 2, 'GRIDRUNNER');
+	util.borderedCenteredText(ctx, g_canvas.width/2 , g_canvas.height * 0.5, 'Yellow', 'Red', '40px Impact', 2, 'PLAY');
+	util.borderedCenteredText(ctx, g_canvas.width/2 , g_canvas.height * 0.6, 'Yellow', 'Red', '40px Impact', 2, 'HIGH SCORES');
+	ctx.fillStyle = ['Turquise', 'Yellow', 'Blue', 'Green', 'Purple', 'Magenta'][Math.floor(Math.random() * 6)];
+	ctx.beginPath();
+	if (g_menuChoose === 0) {
+    ctx.moveTo(120, 285);
+    ctx.lineTo(100, 295);
+    ctx.lineTo(100, 275);
+	} else {
+    ctx.moveTo(80, 345);
+    ctx.lineTo(60, 355);
+    ctx.lineTo(60, 335);
+	}
+	ctx.fill();
+	ctx.restore();
+}
+
+function drawHighScores(ctx, highScores) {
+	drawScrollingBackground(ctx);
+	util.borderedCenteredText(ctx, g_canvas.width/2, g_canvas.height * 0.2, 'Yellow', 'Red', '60px Impact', 2, 'HIGHSCORE');
+	if (highScores.length) {
+		for (var i = 0; i < highScores.length; i++) {
+			var text = (i + 1) + '. ' + highScores[i];
+			util.borderedCenteredText(ctx, g_canvas.width/2, 200 + i * 50, 'Yellow', 'Red', '40px Impact', 2, text);
+		}
+	} else {
+		util.borderedCenteredText(ctx, g_canvas.width / 2, g_canvas.height * 0.5, 'Yellow', 'Red', '40px Impact', 2, 'No scores yet');
+	}
+	util.borderedCenteredText(ctx, g_canvas.width / 2, g_canvas.height * 0.9, 'Yellow', 'Red', '30px Impact', 2, 'PRESS B TO GO BACK');
+
 }
 
 function drawMenuButton(ctx, text) {

@@ -70,26 +70,45 @@ main._iterCore = function (dt) {
         this.gameOver();
     }
     // Handle NEW GAME
-    if ((this._isGameOver || this._mainMenu) && requestedNewGame()) {
+    if (this._isGameOver && requestedNewGame()) {
         this.newGame();
     }
+    if (this._mainMenu && requestedNewGame()) {
+        if (g_menuChoose === 0) this.newGame();
+        else this.highScore();
+    }
+
 
     if (!this._isGameOver) {
         update(dt);
     }
-    render(g_ctx, this._isGameOver, this._mainMenu);
+    render(g_ctx, this._isGameOver, this._mainMenu, this._highScore);
 };
 
 main._isGameOver = false;
 main._mainMenu = true;
-
+main._highScore = false;
+main.highScores = [];
 main.gameOver = function () {
     this._isGameOver = true;
     // Play game over sound?
+    this.highScores.push(g_score);
+    if (this.highScores.length) {
+        this.highScores.sort(function (a, b) {
+            return b - a;
+        });
+        this.highScores = this.highScores.slice(0, 5);
+    }
+    localStorage.setItem('highScore', JSON.stringify(this.highScores))
     entityManager.resetCategories();
     spatialManager.resetEntities();
     //console.log("gameOver: quitting...");
 };
+
+main.mainMenu = function () {
+    this._mainMenu = true;
+    this._highScore = false;
+}
 
 
 main.newGame = function () {
@@ -98,6 +117,11 @@ main.newGame = function () {
     resetScore();
     this._mainMenu = false;
     this._isGameOver = false;
+}
+
+main.highScore= function () {
+    this._mainMenu = false;
+    this._highScore = true;
 }
 
 // Simple voluntary quit mechanism
@@ -156,7 +180,9 @@ main.init = function () {
     // We'll be working on a black background here,
     // so let's use a fillStyle which works against that...
     //
-    g_ctx.fillStyle = "white";
 
+    g_ctx.fillStyle = "white";
+    var high = localStorage.getItem('highScore');
+    if (high) this.highScores = JSON.parse(high);
     this._requestNextIteration();
 };
