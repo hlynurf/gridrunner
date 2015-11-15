@@ -32,7 +32,7 @@ Powerups.prototype.velY = 3;
 Powerups.prototype.flip = 0;
 Powerups.prototype.startFlip = 0;
 Powerups.prototype.flipVel = 0.5;
-Powerups.prototype.color = "#000";
+Powerups.prototype.color = "#fff";
 
 Powerups.prototype.update = function (du) {
 
