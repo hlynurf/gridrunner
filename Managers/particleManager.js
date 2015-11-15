@@ -98,18 +98,10 @@ update: function(du) {
             }
         }
     }
-	while (i < this._stars.length) {
+	
+	for (i = 0; i < this._stars.length; i++) {
 
-		var status = this._stars[i].update(du);
-
-		if (status === this.KILL_ME_NOW) {
-			// remove the dead guy, and shuffle the others down to
-			// prevent a confusing gap from appearing in the array
-			this._stars.splice(i,1);
-		}
-		else {
-			++i;
-		}
+		this._stars[i].update(du);
 	}
 
 },

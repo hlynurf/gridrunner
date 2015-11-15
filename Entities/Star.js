@@ -36,7 +36,7 @@ Star.prototype.velY = 100;
 Star.prototype.color = 'Yellow';
 Star.prototype.colorTimer = 0;
 
-Star.prototype.update = function (du, ctx) {
+Star.prototype.update = function (du) {
 
     //if (this._isDeadNow) 
     //    return entityManager.KILL_ME_NOW;
