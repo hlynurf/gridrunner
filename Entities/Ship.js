@@ -178,10 +178,10 @@ Ship.prototype.update = function (du) {
         }
         if (this.enlargedDuration>0 && isHit.killShip && !isHit.isLightning) {
             if(isHit instanceof Caterpillar) {
-                var points = updateScore(100, main.getCurrTime());
+                var points = updateScore(30);
                 entityManager.makePointsAppear(isHit.cx, isHit.cy, points);
-            } else if (isHit instanceof LandMine) {
-                var points = updateScore(50, main.getCurrTime());
+            } else if (isHit instanceof Kamikaze) {
+                var points = updateScore(50);
                 entityManager.makePointsAppear(isHit.cx, isHit.cy, points);
             }
             isHit.kill();

@@ -45,13 +45,15 @@ Kamikaze.prototype.update = function (du) {
     }
     var isHit = this.findHitEntity();
     if (isHit) {
-        if(!isHit.killShip) {
-            var points = updateScore(50, isHit.timestamp);
+        if(!isHit.killShip || (isHit instanceof Ship && isHit.enlargedDuration > 0)) {
+            var points = updateScore(50);
             entityManager.makePointsAppear(this.cx, this.cy, points);
             if(Math.random()<0.1)
                 entityManager.createPowerups(this.cx,this.cy);
             // Kill the bullet!
-            isHit.kill();
+            if(!isHit.killShip) {
+                isHit.kill();
+            }
 			this.explode();
             return entityManager.KILL_ME_NOW;
 		}

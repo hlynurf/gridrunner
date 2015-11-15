@@ -14,6 +14,7 @@ var g_score = 0;// ideally it would be wise to not make this global
 var g_combo = 0;
 var g_highest_combo = 0;
 var g_last_combo_hit_timestamp = 0;
+var g_combo_timer = 0;
 var g_nextCaterPillar = 3000 / NOMINAL_UPDATE_INTERVAL;
 var g_nextKamiKaze = 10000 / NOMINAL_UPDATE_INTERVAL;
 /*
@@ -59,6 +60,11 @@ function updateSimulation(du) {
     
     entityManager.update(du);
     if (!g_isUpdatePaused && !main._mainMenu){
+        g_combo_timer -= du;
+        if(g_combo_timer <= 0) {
+            loseCombo();
+        }
+
         g_nextCaterPillar -= du;
         g_nextKamiKaze -= du;
         if (g_nextCaterPillar < 0){
@@ -76,23 +82,21 @@ function updateSimulation(du) {
 	particleManager.update(du);
 }
 
-function updateScore(points, timestamp) {
-    increaseCombo(timestamp);
+function updateScore(points) {
+    increaseCombo();
     score = points*g_combo;
     g_score += score;
     return score;
 }
 
-function increaseCombo(timestamp) {
+function increaseCombo() {
     g_combo += 1;
     g_highest_combo = Math.max(g_highest_combo, g_combo);
-    g_last_combo_hit_timestamp = timestamp;
+    g_combo_timer = 500 / NOMINAL_UPDATE_INTERVAL;
 }
 
-function loseCombo(timestamp) {
-    if(timestamp >= g_last_combo_hit_timestamp) {
-        g_combo = 0;
-    }
+function loseCombo() {
+    g_combo = 0;
 }
 
 function resetScore() {

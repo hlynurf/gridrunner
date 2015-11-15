@@ -71,16 +71,18 @@ Caterpillar.prototype.update = function (du) {
     // Collusion
     var isHit = this.findHitEntity();
     if (isHit) {
-        if(!isHit.killShip) {
+        if(!isHit.killShip || (isHit instanceof Ship && isHit.enlargedDuration > 0)) {
             this.lives-=1;
             if ( this.lives==0 ){
-            var points = updateScore(30, isHit.timestamp);
-            entityManager.makePointsAppear(this.cx, this.cy, points);
-            if(Math.random()<0.1)
-                entityManager.createPowerups(this.cx,this.cy);
-            // Kill the bullet!
-            isHit.kill();
-            return entityManager.KILL_ME_NOW;
+                var points = updateScore(30);
+                entityManager.makePointsAppear(this.cx, this.cy, points);
+                if(Math.random()<0.1)
+                    entityManager.createPowerups(this.cx,this.cy);
+                // Kill the bullet!
+                if(!isHit.killShip) {
+                    isHit.kill();
+                }
+                return entityManager.KILL_ME_NOW;
             }
         }
     } else spatialManager.register(this);

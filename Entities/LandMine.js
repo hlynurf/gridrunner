@@ -42,17 +42,21 @@ LandMine.prototype.update = function (du) {
     this.wrapPosition();
     var isHit = this.findHitEntity();
     if (isHit) {
-        if(!isHit.killShip) {
+        if(!isHit.killShip || (isHit instanceof Ship && isHit.enlargedDuration > 0)) {
             // No points for landmines
             if (this.scale < 0.7) {
                 if(Math.random()<0.1)
                     entityManager.createPowerups(this.cx,this.cy);
                 // Kill the bullet!
-                isHit.kill();
+                if(!isHit.killShip){
+                    isHit.kill();
+                }
                 return entityManager.KILL_ME_NOW;
             } else {
                 // Kill the bullet!
-                isHit.kill();
+                if(!isHit.killShip){
+                    isHit.kill();
+                }
                 this.scale *= 0.7;
             }
         }

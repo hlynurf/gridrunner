@@ -59,7 +59,6 @@ Bullet.prototype.update = function (du, ctx) {
             || this.cy>g_canvas.height-canvasPadding
             || this.cx<canvasPadding
             || this.cx>g_canvas.width - canvasPadding) {
-        loseCombo(this.timestamp);
         return entityManager.KILL_ME_NOW;
     }
     
