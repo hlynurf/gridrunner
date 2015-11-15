@@ -28,7 +28,7 @@ var particleManager = {
 // "PRIVATE" DATA
 
 _stars : [],
-_explosions   : [],
+_fragments   : [],
 
 // "PRIVATE" METHODS
 
@@ -49,7 +49,7 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._explosions];
+    this._categories = [this._fragments];
 },
 
 init: function() {
@@ -67,10 +67,14 @@ makeStar: function() {
 },
 
 triggerExplosion: function(x, y) {
-	this._explosions.push(new Explosion({
-		cx: x,
-		cy: y
-	}));
+	var fragColor = entityManager.getRandomColor();
+	for (var i = 0; i < 20; i++) {
+		this._fragments.push(new Fragment({
+			cx: x,
+			cy: y,
+			color: fragColor
+		}));
+	}
 },
 
 update: function(du) {
@@ -94,18 +98,10 @@ update: function(du) {
             }
         }
     }
-	while (i < this._stars.length) {
+	
+	for (i = 0; i < this._stars.length; i++) {
 
-		var status = this._stars[i].update(du);
-
-		if (status === this.KILL_ME_NOW) {
-			// remove the dead guy, and shuffle the others down to
-			// prevent a confusing gap from appearing in the array
-			this._stars.splice(i,1);
-		}
-		else {
-			++i;
-		}
+		this._stars[i].update(du);
 	}
 
 },
