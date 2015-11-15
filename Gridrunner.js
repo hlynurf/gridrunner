@@ -28,7 +28,7 @@ var g_nextKamiKaze = 10000 / NOMINAL_UPDATE_INTERVAL;
 
 function createInitialShips() {
 
-    entityManager.generateShip(true, true);
+    entityManager.generateShip(true);
  
 }
 

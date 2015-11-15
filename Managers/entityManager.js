@@ -26,8 +26,7 @@ _bullets : [],
 _ships   : [],
 _enemies : [],
 _caterpillars: [],
-_bulletPowerups: [],
-_shipPowerups: [],
+_powerups: [],
 _landMines: [],
 _lightnings: [],
 _points: [],
@@ -80,7 +79,7 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [ this._bullets, this._ships, this._enemies, this._landMines, this._bulletPowerups, this._shipPowerups, this._lightnings, this._points];
+    this._categories = [ this._bullets, this._ships, this._enemies, this._landMines, this._powerups, this._lightnings, this._points];
 },
 
 init: function() {
@@ -103,12 +102,12 @@ sendKamikaze: function(){
         cx: (g_canvas.width / 10) + Math.random() * (g_canvas.width - g_canvas.width / 5), 
         cy: 0,
 		targetY: (g_canvas.height / 10) + Math.random() * (g_canvas.height / 2 - g_canvas.height / 5),
-		killBulletPowerup: false
+		killPowerups: false
 	}));
 },
 
 createPowerups: function(cx,cy){
-    this._bulletPowerups.push(new BulletPowerup({
+    this._powerups.push(new Powerups({
         cx: cx, 
         cy: cy
     }));
@@ -134,10 +133,9 @@ fireball: function(cx, cy, velX, velY) {
     }));
 },
 
-generateShip : function(killBulletPowerup, killShipPowerup) {
+generateShip : function(killPowerups) {
     this._ships.push(new Ship({
-        killBulletPowerup : killBulletPowerup,
-        killShipPowerup : killShipPowerup
+        killPowerups : killPowerups,
     }));
 },
 getShipCoords: function() {
@@ -156,7 +154,7 @@ createLandMine : function(cx, cy) {
     this._landMines.push(new LandMine({
         cx: cx,
         cy: cy,
-        killShip: true
+        killShip: true,
     }));
 },
 

@@ -1,5 +1,5 @@
 // ====
-// BulletPowerup
+// Powerups
 // ====
 
 "use strict";
@@ -10,10 +10,10 @@
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
-BulletPowerup.prototype.BulletPowerupIsHit=false;
+Powerups.prototype.PowerupsIsHit=false;
 
 // A generic contructor which accepts an arbitrary descriptor object
-function BulletPowerup(descr) {
+function Powerups(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
@@ -23,18 +23,18 @@ function BulletPowerup(descr) {
 
 };
 
-BulletPowerup.prototype = new Entity();
-// The time the BulletPowerup enters the level
-BulletPowerup.prototype.timestamp = 0;
-BulletPowerup.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
-BulletPowerup.prototype.radius = 10;
-BulletPowerup.prototype.velY = 3;
-BulletPowerup.prototype.flip = 0;
-BulletPowerup.prototype.startFlip = 0;
-BulletPowerup.prototype.flipVel = 0.5;
-BulletPowerup.prototype.color = "#000";
+Powerups.prototype = new Entity();
+// The time the Powerups enters the level
+Powerups.prototype.timestamp = 0;
+Powerups.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
+Powerups.prototype.radius = 10;
+Powerups.prototype.velY = 3;
+Powerups.prototype.flip = 0;
+Powerups.prototype.startFlip = 0;
+Powerups.prototype.flipVel = 0.5;
+Powerups.prototype.color = "#000";
 
-BulletPowerup.prototype.update = function (du) {
+Powerups.prototype.update = function (du) {
 
     spatialManager.unregister(this);
 
@@ -59,7 +59,7 @@ BulletPowerup.prototype.update = function (du) {
 
     var isHit = this.findHitEntity();
     if(isHit){       
-        if(isHit.killBulletPowerup) {
+        if(isHit.killPowerups) {
             var points = updateScore(100, isHit.timestamp);
             entityManager.makePointsAppear(this.cx, this.cy, points);
             if(Math.random()<0.7) {
@@ -80,13 +80,13 @@ BulletPowerup.prototype.update = function (du) {
     spatialManager.register(this);
 };
 
-BulletPowerup.prototype.getRadius = function () {
+Powerups.prototype.getRadius = function () {
     return this.scale * (this.radius) ;
 };
 
-BulletPowerup.prototype.render = function (ctx) {
+Powerups.prototype.render = function (ctx) {
 
-    var fadeThresh = BulletPowerup.prototype.lifeSpan / 3;
+    var fadeThresh = Powerups.prototype.lifeSpan / 3;
 
     if (this.lifeSpan < fadeThresh) {
         ctx.globalAlpha = this.lifeSpan / fadeThresh;
