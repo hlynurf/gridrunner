@@ -28,23 +28,42 @@ function drawBackground(ctx) {	// Draws the grid
 	
 }
 
-function drawCaterpillarHead(ctx, x, y) {
+function drawCaterpillar(ctx, x, y, isHead, direction, lives) {
 	ctx.save();
-	var radius = 10;
-	ctx.fillStyle = 'Orange';
-	util.fillCircle(ctx,x,y, radius);
+	// Radius of the entire circle.
+    var radius = 10;
+    // Radius of the white glow.
+    var innerRadius = 1;
+    var outerRadius = 12;
+    // Making 3 different gradients
+	var gradient = ctx.createRadialGradient(x-3, y-3, innerRadius, x, y, outerRadius);
+	if (lives==3) {
+		gradient.addColorStop(0, 'rgba(247,253,193,1.0)');
+		gradient.addColorStop(0.20, 'rgba(235,249,52,1.0)');
+		gradient.addColorStop(0.60, 'rgba(204,222,38,1.0)');
+		gradient.addColorStop(0.80, 'rgba(57,62,10,1.0)');
+	}
+	else if (lives==2) {
+		gradient.addColorStop(0, 'rgba(219,245,255,1.0)');
+		gradient.addColorStop(0.20, 'rgba(145,224,255,1.0)');
+		gradient.addColorStop(0.60, 'rgba(19,176,239,1.0)');
+		gradient.addColorStop(0.80, 'rgba(10,10,62,1.0)');
+	}
+	else if (lives==1) {
+		gradient.addColorStop(0, 'rgba(255,219,245,1.0)');
+		gradient.addColorStop(0.20, 'rgba(255,145,224,1.0)');
+		gradient.addColorStop(0.60, 'rgba(239,19,176,1.0)');
+		gradient.addColorStop(0.80, 'rgba(62,10,10,1.0)');
+	}
+	gradient.addColorStop(1, 'rgba(0,0,0,0.0)');
+	ctx.fillStyle = gradient;
+	util.fillCircle(ctx,x, y , radius);
+	// Creating the eye
 	ctx.fillStyle = '#000';
-	util.fillCircle(ctx,x+2,y, 3);
-	ctx.restore();
-}
-
-function drawCaterpillar(ctx, x, y) {
-	ctx.save();
-	var radius = 10;
-	ctx.fillStyle = 'Orange';
-	util.fillCircle(ctx,x,y, radius);
-	 ctx.strokeStyle = '#000';
-    ctx.stroke();
+	if(isHead && direction)
+		util.fillCircle(ctx,x+2,y, 3);
+	else if(isHead && !direction)
+		util.fillCircle(ctx,x-2,y, 3);
 	ctx.restore();
 }
 

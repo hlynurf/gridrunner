@@ -25,11 +25,9 @@ Caterpillar.prototype = new Entity();
 // The time the caterpillar enters the level
 Caterpillar.prototype.timestamp = 0;
 Caterpillar.prototype.radius = 10;; 
-Caterpillar.prototype.cx = 0;
 Caterpillar.prototype.velY = 0.5;
-Caterpillar.prototype.velX = 4;
 // If true he is going right, if false he is going left
-Caterpillar.prototype.direction = true; 
+Caterpillar.prototype.lives = 3; 
 
 Caterpillar.prototype.update = function (du) {
 
@@ -57,24 +55,25 @@ Caterpillar.prototype.update = function (du) {
         this.velX = 0;
         this.cy += 4;
         // After moving down, reverse direction
-        if (this.cy >= this.startY + 20 && this.direction) {
-            this.startY += 20;
+        if (this.cy >= this.startY + this.downRange && this.direction) {
+            this.startY += this.downRange;
             this.velX =- 4;
             this.direction = false;
         }
-        if (this.cy >= this.startY + 20 && !this.direction) {
-            this.startY += 20;
+        if (this.cy >= this.startY + this.downRange && !this.direction) {
+            this.startY += this.downRange;
             this.velX = 4;
             this.direction = true;
         }
     }
     this.cy += this.velY;
-    this.cx += this.velX * du;
-
+    this.cx += this.velX;
     // Collusion
     var isHit = this.findHitEntity();
     if (isHit) {
         if(!isHit.killShip) {
+            this.lives-=1;
+            if ( this.lives==0 ){
             var points = updateScore(30, isHit.timestamp);
             entityManager.makePointsAppear(this.cx, this.cy, points);
             if(Math.random()<0.1)
@@ -82,6 +81,7 @@ Caterpillar.prototype.update = function (du) {
             // Kill the bullet!
             isHit.kill();
             return entityManager.KILL_ME_NOW;
+            }
         }
     } else spatialManager.register(this);
 
@@ -93,7 +93,7 @@ Caterpillar.prototype.getRadius = function () {
 
 Caterpillar.prototype.render = function (ctx) {
     if (this.position === 0)
-    drawCaterpillarHead(ctx, this.cx, this.cy);
+    drawCaterpillar(ctx, this.cx, this.cy, true, this.direction, this.lives);
     else
-    drawCaterpillar(ctx, this.cx, this.cy);
+    drawCaterpillar(ctx, this.cx, this.cy, false, this.direction, this.lives);
 };
