@@ -75,7 +75,7 @@ function drawRocket(ctx) {
 		ctx.bezierCurveTo(250,150,250,250,250,250);
 		ctx.bezierCurveTo(200,200,150,200,150,200);
 		ctx.closePath();
-		ctx.fillStyle='MediumBlue';
+		ctx.fillStyle='Red';
 		ctx.fill();
 		ctx.stroke();
 	}
@@ -96,7 +96,11 @@ function drawRocket(ctx) {
 		ctx.bezierCurveTo(100,150,150,100,200,50);
 		ctx.bezierCurveTo(250,100,300,150,250,300);
 		ctx.closePath();
-		ctx.fillStyle='Crimson';
+		
+		var grd = ctx.createLinearGradient(200,50,200,300);
+		grd.addColorStop(.2,'Red');
+		grd.addColorStop(.3,'White');
+		ctx.fillStyle=grd;
 		ctx.fill();
 		ctx.stroke();
 	}
@@ -131,11 +135,17 @@ function drawRocket(ctx) {
 		ctx.restore();
 	}
 
-	drawFinAt(ctx,300,150,150,-150,0);
-	drawFinAt(ctx,100,150,-150,-150,0);
+	drawFinAt(ctx,275,150,100,-100,0);
+	drawFinAt(ctx,125,150,-100,-100,0);
 	drawHullAt(ctx,200,240,150,-150,0);
-	drawFlameAt(ctx,200,140,150,150,0,'Red');
-	drawFlameAt(ctx,200,140,75,75,0,'Yellow');
+	
+	var grd = ctx.createRadialGradient(200,200,0,200,140,75);
+	grd.addColorStop(0,'Yellow');
+	grd.addColorStop(1,'Red');
+	drawFlameAt(ctx,200,140,150,150,0,grd);
+	ctx.fillStyle = 'Cyan';
+	util.fillCircle(ctx,200,250,25);
+	ctx.stroke();
 }
 
 function drawShip(ctx) {
