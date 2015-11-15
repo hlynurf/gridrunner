@@ -87,3 +87,7 @@ Fireball.prototype.render = function (ctx) {
 	
     ctx.restore();
 };
+
+Fireball.prototype.kill = function () {
+	this._isDeadNow = true;
+}

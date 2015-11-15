@@ -88,4 +88,5 @@ Kamikaze.prototype.explode = function() {
 			this.cx, this.cy,
 			relVelX, .5 + relVelY);
 	}
+	particleManager.triggerExplosion(this.cx, this.cy);
 };

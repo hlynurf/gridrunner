@@ -66,7 +66,7 @@ Entity.prototype.getSpatialID = function () {
 
 Entity.prototype.kill = function () {
     this._isDeadNow = true;
-	particleManager.triggerExplosion(this.cx, this.cy);
+	this.explode();
 };
 
 Entity.prototype.findHitEntity = function () {
@@ -85,3 +85,7 @@ Entity.prototype.wrapPosition = function () {
     this.cx = util.wrapRange(this.cx, 0, g_canvas.width);
     this.cy = util.wrapRange(this.cy, 0, g_canvas.height);
 };
+
+Entity.prototype.explode = function () {
+	particleManager.triggerExplosion(this.cx, this.cy);
+}

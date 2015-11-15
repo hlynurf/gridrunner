@@ -61,6 +61,14 @@ getStarColor: function() {	// Returns red, yellow or magenta
 	}
 },
 
+fragVel: function() {	// Returns a pseudo-gaussian random velocity for the exploding particle bits
+	var rand = 0;
+	for (var i = 0; i < 10; i++) {
+		rand += Math.random();
+	}
+	return rand;
+},
+
 // MISC
 // ====
 
