@@ -81,13 +81,11 @@ Bullet.prototype.getRadius = function () {
 Bullet.prototype.render = function (ctx) {
     ctx.save();
 	
-	var rot = this.rotation + Math.PI/2;
-    ctx.beginPath();
-    ctx.lineWidth = 4;
-    ctx.moveTo(this.cx + 10 * Math.cos(rot), this.cy + 10 * Math.sin(rot));
-    ctx.lineTo(this.cx - 10 * Math.cos(rot), this.cy - 10 * Math.sin(rot));
-    ctx.strokeStyle = 'rgb(113, 201, 55)';
-    ctx.stroke();
+    ctx.translate(this.cx, this.cy);
+    ctx.rotate(this.rotation);
+    ctx.scale(.2,.2);
+    ctx.translate(-200, -200);
+    drawBullet(ctx);
 	
     ctx.restore();
 };

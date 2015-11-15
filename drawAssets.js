@@ -244,3 +244,21 @@ function drawHighScores(ctx, highScores) {
 function drawMenuButton(ctx, text) {
 	
 }
+
+function drawBullet(ctx) {
+	ctx.save();
+	
+	var grd = ctx.createRadialGradient(200,180,0,200,200,100);
+	grd.addColorStop(0,'White');
+	grd.addColorStop(.4,'rgb(113, 201, 55)');
+	grd.addColorStop(1,'Green');
+
+	ctx.beginPath();
+	ctx.moveTo(180,200);
+	ctx.arc(200,200,20,Math.PI, 0);
+	ctx.lineTo(200,350);
+	ctx.fillStyle = grd;
+	ctx.fill();
+	
+	ctx.restore();
+}

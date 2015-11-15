@@ -77,9 +77,13 @@ LandMine.prototype.takeBulletHit = function () {
 
 LandMine.prototype.render = function (ctx) {
     ctx.save();
-    ctx.fillStyle = 'Gray';
+	
+	var grd = ctx.createRadialGradient(this.cx, this.cy, 0, this.cx, this.cy, this.getRadius());
+	grd.addColorStop(.2,'Red');
+	grd.addColorStop(.8,'Gray');	
+	
+    ctx.fillStyle = grd;
     util.fillCircle(ctx, this.cx, this.cy, this.getRadius());
-    ctx.fillStyle = 'Red';
-    util.fillCircle(ctx, this.cx, this.cy, this.getRadius()/2);
+	
     ctx.restore();
 };
