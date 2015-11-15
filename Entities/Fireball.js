@@ -27,6 +27,7 @@ function Fireball(descr) {
     console.dir(this);
 */
 	this.killShip = true;
+	this.rotation = 0;
 }
 
 Fireball.prototype = new Entity();
@@ -53,6 +54,7 @@ Fireball.prototype.update = function (du, ctx) {
     this.cx += this.velX * du * 4;
     this.cy += this.velY * du * 4;
     var canvasPadding = 5;
+	this.rotation += 2 / 37 * Math.PI;
 
     if(this._isDeadNow) return entityManager.KILL_ME_NOW;
 
@@ -82,12 +84,20 @@ Fireball.prototype.getRadius = function () {
 Fireball.prototype.render = function (ctx) {
     ctx.save();
 	
-	ctx.fillStyle = 'Red';
-    util.fillCircle(ctx, this.cx, this.cy, this.getRadius());
+	var rot = this.rotation;
+	var r = this.getRadius();
+	var x = this.cx;
+	var y = this.cy;
+	
+	var grd = ctx.createLinearGradient(x + r * Math.cos(rot), y + r * Math.sin(rot), x + r * Math.cos(rot + Math.PI), y + r * Math.sin(rot + Math.PI));
+	grd.addColorStop(0,'Red');
+	grd.addColorStop(1,'Yellow');
+	ctx.fillStyle = grd;
+	util.fillCircle(ctx, x, y, r);
 	
     ctx.restore();
 };
 
 Fireball.prototype.kill = function () {
 	this._isDeadNow = true;
-}
+};
