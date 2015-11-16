@@ -30,6 +30,7 @@ _powerups: [],
 _landMines: [],
 _lightnings: [],
 _points: [],
+_bombs: [],
 
 // "PRIVATE" METHODS
 _nextCaterpillar: 0,
@@ -79,13 +80,12 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [ this._bullets, this._ships, this._enemies, this._landMines, this._powerups, this._lightnings, this._points];
+    this._categories = [this._bullets, this._ships, this._enemies, this._landMines, this._powerups, this._lightnings, this._points, this._bombs];
 },
 
 init: function() {
     this._enemies.push(new SideEnemy({cx: 0, cy: 200}));
     this._enemies.push(new UpEnemy({cx: 200, cy: 0}));
-
 },
 
 resetCategories: function() {
@@ -188,6 +188,12 @@ resetShips: function() {
 
 haltShips: function() {
     this._forEachOf(this._ships, Ship.prototype.halt);
+},
+dropBomb: function(cx, cy) {
+    this._bombs.push(new Bomb({
+        cx: cx,
+        cy: cy
+    }));
 },
 createCaterpillar: function(id){
     this._creatingCaterpillars = true;
