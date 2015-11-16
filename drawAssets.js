@@ -306,7 +306,7 @@ function drawRules(ctx) {
 	util.borderedRightAlignedText(ctx, 75, 240, 'Yellow', 'Red', '25px Impact', 1, 'Catch powerups for boost!');
 	util.centeredText(ctx, 40, 290, 'Orange', '30px Impact', 'x7');
 	util.borderedRightAlignedText(ctx, 75, 280, 'Yellow', 'Red', '25px Impact', 1, 'Killing another enemy within');
-	util.borderedRightAlignedText(ctx, 75, 305, 'Yellow', 'Red', '25px Impact', 1, '0.3s starts a COMBO');
+	util.borderedRightAlignedText(ctx, 75, 305, 'Yellow', 'Red', '25px Impact', 1, '0.5s starts a COMBO');
 
 	drawCaterpillar(ctx, 30, 360, false, Math.PI, 3);
 	drawCaterpillar(ctx, 50, 360, true, Math.PI, 3);
