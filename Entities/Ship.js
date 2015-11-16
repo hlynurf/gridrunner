@@ -62,14 +62,13 @@ Ship.prototype.numSubSteps = 1;
 Ship.prototype.enlargedDuration = 0;
 
 // HACKED-IN AUDIO (no preloading)
-Ship.prototype.fireSound = new Audio(
+Ship.prototype.shipDiesSound = new Audio(
     "sounds/shipdies.ogg");
 
 Ship.prototype.warp = function () {
 
     this._isWarping = true;
     this._scaleDirn = -0.4;
-    util.playSound(this.warpSound);
     
     // Unregister me from my old posistion
     // ...so that I can't be collided with while warping
@@ -169,7 +168,7 @@ Ship.prototype.update = function (du) {
     var isHit = this.findHitEntity();
     if (isHit) {
         if (isHit.killShip && this.enlargedDuration<=0) {
-            this.fireSound.play();
+            util.playSound(this.shipDiesSound);
             this.warp();
             this._lives--;
             if (this._lives < 0) {

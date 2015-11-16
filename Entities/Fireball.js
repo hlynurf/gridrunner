@@ -19,25 +19,13 @@ function Fireball(descr) {
     this.setup(descr);
 
     // Make a noise when I am created (i.e. fired)
-    util.playSound(this.fireSound);
-    
-/*
-    // Diagnostics to check inheritance stuff
-    this._bulletProperty = true;
-    console.dir(this);
-*/
+
 	this.killShip = true;
 	this.rotation = 0;
 }
 
 Fireball.prototype = new Entity();
 
-// HACKED-IN AUDIO (no preloading)
-Fireball.prototype.fireSound = new Audio(
-    "sounds/bulletFire.ogg");
-Fireball.prototype.zappedSound = new Audio(
-    "sounds/bulletZapped.ogg");
-    
 // Initial, inheritable, default values
 Fireball.prototype.timestamp = 0;
 Fireball.prototype.velX = 110;
@@ -73,8 +61,6 @@ Fireball.prototype.update = function (du, ctx) {
 Fireball.prototype.takeBulletHit = function () {
     this.kill();
     
-    // Make a noise when I am zapped by another Fireball
-    this.zappedSound.play();
 };
 
 Fireball.prototype.getRadius = function () {

@@ -32,11 +32,11 @@ function render(ctx, gameOver, mainMenu, highScore) {
         var menuSound = new Audio("sounds/menusound.ogg"); 
         if (eatKey(MOVE_UP)) {
             g_menuChoose = 0;
-            menuSound.play();
+            util.playSound(menuSound);
         }
         if (eatKey(MOVE_DOWN)) { 
             g_menuChoose = 1;
-            menuSound.play();
+            util.playSound(menuSound);
         }
     }
 

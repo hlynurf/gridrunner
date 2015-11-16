@@ -108,7 +108,7 @@ UpEnemy.prototype.render = function (ctx) {
     var dY = -Math.cos(this.rotation);
     ctx.save();
     if (this._stopTime !== 0 && this._stopTime < 1000 / NOMINAL_UPDATE_INTERVAL) {
-        this.fireSound.play();
+        util.playSound(this.fireSound);
         ctx.fillStyle = 'rgb(113, 201, 55)';
         util.fillCircle(ctx, this.cx, this.cy + 40, this._stopTime / 5);
     } else if (this._stopTime > 1000 / NOMINAL_UPDATE_INTERVAL) {

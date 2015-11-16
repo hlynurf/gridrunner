@@ -131,7 +131,7 @@ SideEnemy.prototype.render = function (ctx) {
     ctx.save();
     if (this._stopTime > 500 / NOMINAL_UPDATE_INTERVAL && this._stopTime < 2000 / NOMINAL_UPDATE_INTERVAL) {
         if (!this._hasFired) {
-            this.fireSound.play();
+            util.playSound(this.fireSound);
             entityManager.createLandMine(this.cx + 30, this.cy);
             this._hasFired = true;
         }
