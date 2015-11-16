@@ -59,7 +59,7 @@ function updateSimulation(du) {
     processDiagnostics();
     
     entityManager.update(du);
-    if (!g_isUpdatePaused && !main._mainMenu){
+    if (!g_isUpdatePaused && !main._mainMenu && !main._highScore && !main._rules){
         g_combo_timer -= du;
         if(g_combo_timer <= 0) {
             loseCombo();
@@ -147,12 +147,7 @@ function renderSimulation(ctx) {
 	drawScrollingBackground(ctx);
 	drawBackground(ctx);
 	drawScore(ctx);
-    if(g_muted) {
-        drawSoundMutedLogo(ctx);
-    } else {
-        drawSoundLogo(ctx);
-    }
-    
+
     if (g_combo > 1) drawCombo(ctx);
     entityManager.render(ctx);
 	particleManager.render(ctx);

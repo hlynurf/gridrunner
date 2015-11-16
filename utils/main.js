@@ -69,7 +69,7 @@ var menuSoundtrack = new Audio("sounds/menuSoundtrack.ogg");
 main._iterCore = function (dt) {
     
     // Handle QUIT
-    if (!this._isGameOver && requestedQuit()) {
+    if (!this._isGameOver && !this._mainMenu && !this._highScore && !this._rules && requestedQuit()) {
         this.gameOver();
     }
     // Handle NEW GAME
@@ -78,17 +78,18 @@ main._iterCore = function (dt) {
     }
     if (this._mainMenu && requestedNewGame()) {
         if (g_menuChoose === 0) this.newGame();
-        else this.highScore();
+        else if(g_menuChoose === 1) this.highScore();
+        else this.ruleScreen();
     }
     // Soundtrack for Menu
-    if((this._mainMenu || this._highScore) && !g_muted){
+    if((this._mainMenu || this._highScore || this._rules) && !g_muted){
         util.playSound(menuSoundtrack);
         menuSoundtrack.loop=true;
     }
     else
         menuSoundtrack.pause();
     // Soundtrack for Game
-    if (g_isUpdatePaused || this._highScore || this._isGameOver || this._mainMenu || g_muted)
+    if (g_isUpdatePaused || this._highScore || this._rules || this._isGameOver || this._mainMenu || g_muted)
         gameSoundtrack.pause();
     else {
         util.playSound(gameSoundtrack);
@@ -98,12 +99,13 @@ main._iterCore = function (dt) {
     if (!this._isGameOver) {
         update(dt);
     }
-    render(g_ctx, this._isGameOver, this._mainMenu, this._highScore);
+    render(g_ctx, this._isGameOver, this._mainMenu, this._highScore, this._rules);
 };
 
 main._isGameOver = false;
 main._mainMenu = true;
 main._highScore = false;
+main._rules = false;
 main.highScores = [];
 
 main.gameOver = function () {
@@ -123,6 +125,7 @@ main.gameOver = function () {
 main.mainMenu = function () {
     this._mainMenu = true;
     this._highScore = false;
+    this._rules = false;
 }
     // Play game over sound
     //var gameOver = new Audio("sounds/menuSoundtrack.ogg"); 
@@ -141,6 +144,11 @@ main.newGame = function () {
 main.highScore= function () {
     this._mainMenu = false;
     this._highScore = true;
+}
+
+main.ruleScreen = function () {
+    this._mainMenu = false;
+    this._rules = true;
 }
 
 // Simple voluntary quit mechanism

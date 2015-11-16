@@ -140,6 +140,20 @@ borderedCenteredText: function (ctx, w, h, fillStyle, strokeStyle, font, borderW
     ctx.restore();
 },
 
+borderedRightAlignedText: function (ctx, w, h, fillStyle, strokeStyle, font, borderWidth, text) {
+    ctx.save();
+
+    ctx.fillStyle = fillStyle;
+    ctx.strokeStyle = strokeStyle;
+    ctx.font = font;
+    //ctx.textAlign = 'center';
+    ctx.lineWidth = borderWidth;
+    ctx.fillText(text, w, h);
+    ctx.strokeText(text, w, h);
+
+    ctx.restore();
+},
+
 centeredText: function (ctx, w, h, fillStyle, font, text) {
     ctx.save();
 

@@ -73,7 +73,7 @@ Caterpillar.prototype.update = function (du) {
     if (isHit) {
         if(!isHit.killShip || (isHit instanceof Ship && isHit.enlargedDuration > 0)) {
             this.lives-=1;
-            debugger;
+            //debugger;
             if (!this.lives) {
                 var points = updateScore(30);
                 entityManager.makePointsAppear(this.cx, this.cy, points);

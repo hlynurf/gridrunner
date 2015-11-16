@@ -148,6 +148,18 @@ function drawRocket(ctx) {
 	ctx.stroke();
 }
 
+function drawRocketAt(ctx, x, y, angle, scale) {
+	ctx.save();
+	
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+    ctx.scale(scale/10, scale/10);
+    ctx.translate(-200, -200);
+    drawRocket(ctx);
+	
+    ctx.restore();
+}
+
 function drawShip(ctx) {
 	var shipArray = [[0,0,0,2],
                  [0,0,4],
@@ -181,6 +193,33 @@ function drawShipAt(ctx, x, y, scale) {
 	drawShip(ctx);
 	
 	ctx.restore();
+}
+
+function drawMineAt(ctx, x, y, radius, innerColor) {
+	ctx.save();
+	
+	var grd = ctx.createRadialGradient(x, y, 0, x, y, radius);
+    grd.addColorStop(.2, innerColor);
+    grd.addColorStop(.8,'Gray');
+	
+    ctx.fillStyle = grd;
+    util.fillCircle(ctx, x, y, radius);
+	
+    ctx.restore();
+}
+
+function drawPowerupAt(ctx, x, y, radius) {
+	ctx.save();
+    ctx.beginPath();
+    ctx.strokeStyle = entityManager.getRandomColor();
+    // Make eclipse form
+    ctx.translate(x, y);
+    ctx.rotate(Math.PI);
+    ctx.scale(radius, radius);
+    ctx.arc(0, 0, 1, 0, Math.PI*2);
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+    ctx.restore();
 }
 
 function drawGameOverScreen(ctx) {
@@ -222,16 +261,21 @@ function drawMainMenu(ctx) {
 	util.borderedCenteredText(ctx, g_canvas.width/2, g_canvas.height * 0.2, 'Yellow', 'Red', '60px Impact', 2, 'GRIDRUNNER');
 	util.borderedCenteredText(ctx, g_canvas.width/2 , g_canvas.height * 0.5, 'Yellow', 'Red', '40px Impact', 2, 'PLAY');
 	util.borderedCenteredText(ctx, g_canvas.width/2 , g_canvas.height * 0.6, 'Yellow', 'Red', '40px Impact', 2, 'HIGH SCORES');
+	util.borderedCenteredText(ctx, g_canvas.width/2 , g_canvas.height * 0.7, 'Yellow', 'Red', '40px Impact', 2, 'INSTRUCTIONS');
 	ctx.fillStyle = ['Turquise', 'Yellow', 'Blue', 'Green', 'Purple', 'Magenta'][Math.floor(Math.random() * 6)];
 	ctx.beginPath();
 	if (g_menuChoose === 0) {
     ctx.moveTo(120, 285);
     ctx.lineTo(100, 295);
     ctx.lineTo(100, 275);
-	} else {
+	} else if (g_menuChoose === 1) {
     ctx.moveTo(80, 345);
     ctx.lineTo(60, 355);
     ctx.lineTo(60, 335);
+	} else {
+	ctx.moveTo(65, 405);
+    ctx.lineTo(45, 415);
+    ctx.lineTo(45, 395);
 	}
 	ctx.fill();
 	ctx.restore();
@@ -248,8 +292,33 @@ function drawHighScores(ctx, highScores) {
 	} else {
 		util.borderedCenteredText(ctx, g_canvas.width / 2, g_canvas.height * 0.5, 'Yellow', 'Red', '40px Impact', 2, 'No scores yet');
 	}
-	util.borderedCenteredText(ctx, g_canvas.width / 2, g_canvas.height * 0.9, 'Yellow', 'Red', '30px Impact', 2, 'PRESS B TO GO BACK');
+	util.borderedCenteredText(ctx, g_canvas.width / 2, g_canvas.height * 0.9, 'Yellow', 'Red', '30px Impact', 1.5, 'PRESS B TO GO BACK');
 
+}
+
+function drawRules(ctx) {
+	drawScrollingBackground(ctx);
+	util.borderedCenteredText(ctx, g_canvas.width/2, g_canvas.height * 0.2, 'Yellow', 'Red', '60px Impact', 2, 'INSTRUCTIONS');
+
+	drawShipAt(ctx, 40, 185, 0.5);
+	util.borderedRightAlignedText(ctx, 75, 200, 'Yellow', 'Red', '25px Impact', 1, 'Move your ship with WASD');
+	drawPowerupAt(ctx, 40, 230, 10);
+	util.borderedRightAlignedText(ctx, 75, 240, 'Yellow', 'Red', '25px Impact', 1, 'Catch powerups for boost!');
+	util.centeredText(ctx, 40, 290, 'Orange', '30px Impact', 'x7');
+	util.borderedRightAlignedText(ctx, 75, 280, 'Yellow', 'Red', '25px Impact', 1, 'Killing another enemy within');
+	util.borderedRightAlignedText(ctx, 75, 305, 'Yellow', 'Red', '25px Impact', 1, '0.3s starts a COMBO');
+
+	drawCaterpillar(ctx, 30, 360, false, Math.PI, 3);
+	drawCaterpillar(ctx, 50, 360, true, Math.PI, 3);
+	util.borderedRightAlignedText(ctx, 75, 370, 'Yellow', 'Red', '25px Impact', 1, 'Caterpillars give 30 points');
+	drawRocketAt(ctx, 40, 390, -Math.PI/2, 1);
+	util.borderedRightAlignedText(ctx, 75, 400, 'Yellow', 'Red', '25px Impact', 1, 'Rockets give 50 points');
+	drawMineAt(ctx, 40, 420, 7, 'Red');
+	util.borderedRightAlignedText(ctx, 75, 430, 'Yellow', 'Red', '25px Impact', 1, 'Watch out for mines!');
+
+	util.borderedRightAlignedText(ctx, 75, 485, 'Yellow', 'Red', '25px Impact', 1, 'Toggle sound with N');
+
+	util.borderedCenteredText(ctx, g_canvas.width / 2, g_canvas.height * 0.9, 'Yellow', 'Red', '30px Impact', 1.5, 'PRESS B TO GO BACK');
 }
 
 function drawMenuButton(ctx, text) {

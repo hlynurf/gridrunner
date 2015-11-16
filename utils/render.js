@@ -4,6 +4,7 @@ var g_undoBox = false;
 var g_doFlipFlop = false;
 var g_doMouse = false;
 var g_menuChoose = 0;
+var g_lastMenuKeyPress = 0;
 
 var g_frameCounter = 1;
 
@@ -16,7 +17,7 @@ var MOVE_UP = 'W'.charCodeAt(0);
 var MOVE_DOWN = 'S'.charCodeAt(0);
 
 
-function render(ctx, gameOver, mainMenu, highScore) {
+function render(ctx, gameOver, mainMenu, highScore, rules) {
     
     // Process various option toggles
     //
@@ -31,16 +32,16 @@ function render(ctx, gameOver, mainMenu, highScore) {
     if (mainMenu) {
         var menuSound = new Audio("sounds/menusound.ogg"); 
         if (eatKey(MOVE_UP)) {
-            g_menuChoose = 0;
+            moveUp(main.getCurrTime());
             util.playSound(menuSound);
         }
         if (eatKey(MOVE_DOWN)) { 
-            g_menuChoose = 1;
+            moveDown(main.getCurrTime());
             util.playSound(menuSound);
         }
     }
 
-    if (highScore) {
+    if (highScore || rules) {
         if (eatKey(GO_BACK)) main.mainMenu();
     }
     // The main purpose of the box is to demonstrate that it is
@@ -56,10 +57,17 @@ function render(ctx, gameOver, mainMenu, highScore) {
     if (gameOver) renderGameOverScreen(ctx);
     else if (mainMenu) drawMainMenu(ctx);
     else if (highScore) drawHighScores(ctx, main.highScores);
+    else if (rules) drawRules(ctx);
     else renderSimulation(ctx);
     
     if (g_isUpdatePaused && !gameOver && !mainMenu)
         renderGamePaused(ctx);
+
+    if(g_muted) {
+        drawSoundMutedLogo(ctx);
+    } else {
+        drawSoundLogo(ctx);
+    }
     
     // This flip-flip mechanism illustrates the pattern of alternation
     // between frames, which provides a crude illustration of whether
@@ -87,4 +95,18 @@ function render(ctx, gameOver, mainMenu, highScore) {
     if (g_undoBox) ctx.clearRect(200, 200, 50, 50);
     
     ++g_frameCounter;
+}
+
+function moveDown(timestamp) {
+    if(g_menuChoose<2 && timestamp > g_lastMenuKeyPress + 100 / NOMINAL_UPDATE_INTERVAL) {
+        g_menuChoose++;
+        g_lastMenuKeyPress = main.getCurrTime();
+    }
+}
+
+function moveUp(timestamp) {
+    if(g_menuChoose>0 && timestamp > g_lastMenuKeyPress + 100 / NOMINAL_UPDATE_INTERVAL) {
+        g_menuChoose--;
+        g_lastMenuKeyPress = main.getCurrTime();
+    }
 }
