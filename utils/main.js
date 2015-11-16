@@ -110,6 +110,8 @@ main.highScores = [];
 
 main.gameOver = function () {
     this._isGameOver = true;
+    var gameOver = new Audio("sounds/gameOver.ogg"); 
+    util.playSound(gameOver);
     this.highScores.push(g_score);
     if (this.highScores.length) {
         this.highScores.sort(function (a, b) {
@@ -127,10 +129,6 @@ main.mainMenu = function () {
     this._highScore = false;
     this._rules = false;
 }
-    // Play game over sound
-    //var gameOver = new Audio("sounds/menuSoundtrack.ogg"); 
-    //gameOver.loop=true;
-    //util.playSound(gameOver);
 
 main.newGame = function () {
     entityManager.init();
