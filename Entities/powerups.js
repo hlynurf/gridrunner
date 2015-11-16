@@ -17,13 +17,16 @@ function Powerups(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
-
     // Default sprite and scale, if not otherwise specified
     this.scale  = this.scale  || 1;
 
 };
 
 Powerups.prototype = new Entity();
+// HACKED-IN AUDIO (no preloading)
+Powerups.prototype.fireSound = new Audio(
+    "sounds/powerup.ogg");
+
 // The time the Powerups enters the level
 Powerups.prototype.timestamp = 0;
 Powerups.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
@@ -62,6 +65,7 @@ Powerups.prototype.update = function (du) {
         if(isHit.killPowerups) {
             var points = updateScore(100, isHit.timestamp);
             entityManager.makePointsAppear(this.cx, this.cy, points);
+            this.fireSound.play();
             if(Math.random()<0.7) {
                 gunType = 1+ Math.round(Math.random()*2)
                 // Tímabundið

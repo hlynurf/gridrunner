@@ -155,6 +155,8 @@ function renderSimulation(ctx) {
 }
 
 function renderGameOverScreen(ctx) {
+    // HACKED-IN AUDIO (no preloading)
+    // Play paddle sound
     drawBackground(ctx);
     drawGameOverScreen(ctx);
 

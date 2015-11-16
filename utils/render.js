@@ -29,8 +29,15 @@ function render(ctx, gameOver, mainMenu, highScore) {
     //
     if (g_doClear) util.clearCanvas(ctx);
     if (mainMenu) {
-        if (eatKey(MOVE_UP)) g_menuChoose = 0;
-        if (eatKey(MOVE_DOWN)) g_menuChoose = 1;
+        var menuSound = new Audio("sounds/menusound.ogg"); 
+        if (eatKey(MOVE_UP)) {
+            g_menuChoose = 0;
+            menuSound.play();
+        }
+        if (eatKey(MOVE_DOWN)) { 
+            g_menuChoose = 1;
+            menuSound.play();
+        }
     }
 
     if (highScore) {
