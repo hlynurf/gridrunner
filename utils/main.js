@@ -62,6 +62,9 @@ main._updateClocks = function (frameTime) {
     this._frameTime_ms = frameTime;
     this._currTime_ms += frameTime;
 };
+// Soundtracks
+var gameSoundtrack = new Audio("sounds/gameSoundtrack.ogg"); 
+var menuSoundtrack = new Audio("sounds/menuSoundtrack.ogg"); 
 
 main._iterCore = function (dt) {
     
@@ -77,7 +80,20 @@ main._iterCore = function (dt) {
         if (g_menuChoose === 0) this.newGame();
         else this.highScore();
     }
-
+    // Soundtrack for Menu
+    if((this._mainMenu || this._highScore) && !g_muted){
+        util.playSound(menuSoundtrack);
+        menuSoundtrack.loop=true;
+    }
+    else
+        menuSoundtrack.pause();
+    // Soundtrack for Game
+    if (g_isUpdatePaused || this._highScore || this._isGameOver || this._mainMenu || g_muted)
+        gameSoundtrack.pause();
+    else {
+        util.playSound(gameSoundtrack);
+        gameSoundtrack.loop=true;
+    }
 
     if (!this._isGameOver) {
         update(dt);
@@ -89,12 +105,9 @@ main._isGameOver = false;
 main._mainMenu = true;
 main._highScore = false;
 main.highScores = [];
+
 main.gameOver = function () {
     this._isGameOver = true;
-    // Play game over sound
-    var gameOver = new Audio("sounds/gameover.ogg"); 
-    util.playSound(gameOver);
-    
     this.highScores.push(g_score);
     if (this.highScores.length) {
         this.highScores.sort(function (a, b) {
@@ -111,12 +124,16 @@ main.mainMenu = function () {
     this._mainMenu = true;
     this._highScore = false;
 }
-
+    // Play game over sound
+    //var gameOver = new Audio("sounds/menuSoundtrack.ogg"); 
+    //gameOver.loop=true;
+    //util.playSound(gameOver);
 
 main.newGame = function () {
     entityManager.init();
     createInitialShips();
     resetScore();
+    util.playSound(gameSoundtrack);
     this._mainMenu = false;
     this._isGameOver = false;
 }

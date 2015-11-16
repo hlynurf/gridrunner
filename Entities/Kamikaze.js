@@ -40,7 +40,7 @@ Kamikaze.prototype.update = function (du) {
     // Kamikaze movement
     
     this.cy += this.velY * du;
-    if(this.cy > g_canvas.height){
+    if (this.cy > g_canvas.height){
         return entityManager.KILL_ME_NOW;
     }
     var isHit = this.findHitEntity();

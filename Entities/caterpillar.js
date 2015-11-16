@@ -17,7 +17,7 @@ function Caterpillar(descr) {
     // Common inherited setup logic from Entity
     this.setup(descr);
     // Default sprite and scale, if not otherwise specified
-    this.scale  = this.scale  || 1;
+    this.scale  = this.scale || 1;
     this.killShip = true;
 };
 
@@ -36,7 +36,7 @@ Caterpillar.prototype.update = function (du) {
     if (this._isDeadNow) 
         return entityManager.KILL_ME_NOW;
 
-    if(this.cy > g_canvas.height - g_canvas.height/10){
+    if (this.cy > g_canvas.height - g_canvas.height / 10) {
         return entityManager.KILL_ME_NOW;
     }
 
@@ -73,19 +73,21 @@ Caterpillar.prototype.update = function (du) {
     if (isHit) {
         if(!isHit.killShip || (isHit instanceof Ship && isHit.enlargedDuration > 0)) {
             this.lives-=1;
-            if ( this.lives==0 ){
+            debugger;
+            if (!this.lives) {
                 var points = updateScore(30);
                 entityManager.makePointsAppear(this.cx, this.cy, points);
-                if(Math.random()<0.1)
+                if (Math.random() < 0.1)
                     entityManager.createPowerups(this.cx,this.cy);
                 // Kill the bullet!
-                if(!isHit.killShip) {
+                if (!isHit.killShip) {
                     isHit.kill();
                 }
                 return entityManager.KILL_ME_NOW;
             }
         }
-    } else spatialManager.register(this);
+    }
+    spatialManager.register(this);
 
 };
 

@@ -206,7 +206,7 @@ Ship.prototype.computeSpeedVertical = function () {
     
     var speed = 0;
     var oneGridY=g_canvas.height / 30;
-    var shipHeight=this.sprite.height*0.4/2;
+    var shipHeight=this.getRadius();
     if (keys[this.KEY_UP] && this.cy >oneGridY + shipHeight ) {
         speed -= NOMINAL_THRUST;
     }
@@ -224,7 +224,7 @@ Ship.prototype.computeSpeedHorizontal = function () {
     var speed = 0;
     var oneGridX=g_canvas.width / 20;
     //0.4 er scale, eh sem þarf að laga
-    var shipWidth=this.sprite.width*0.4/2;
+    var shipWidth=this.getRadius();
     if (keys[this.KEY_LEFT] && this.cx > oneGridX+shipWidth) {
         speed -= speedHorizontal;
     }
@@ -320,7 +320,6 @@ Ship.prototype.halt = function () {
 Ship.prototype.render = function (ctx) {
     
 	drawShipAt(ctx, this.cx, this.cy, this._scale);
-	
 	this.renderLives(ctx);
     this.renderEnlargedCountdown(ctx);
 };
