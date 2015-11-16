@@ -81,14 +81,14 @@ main._iterCore = function (dt) {
         else this.highScore();
     }
     // Soundtrack for Menu
-    if(this._mainMenu && !g_muted){
+    if((this._mainMenu || this._highScore) && !g_muted){
         util.playSound(menuSoundtrack);
         menuSoundtrack.loop=true;
     }
     else
         menuSoundtrack.pause();
     // Soundtrack for Game
-    if (g_isUpdatePaused || this._isGameOver || this._mainMenu || g_muted)
+    if (g_isUpdatePaused || this._highScore || this._isGameOver || this._mainMenu || g_muted)
         gameSoundtrack.pause();
     else {
         util.playSound(gameSoundtrack);
