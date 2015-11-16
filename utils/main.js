@@ -102,7 +102,6 @@ main.gameOver = function () {
     localStorage.setItem('highScore', JSON.stringify(this.highScores))
     entityManager.resetCategories();
     spatialManager.resetEntities();
-    //console.log("gameOver: quitting...");
 };
 
 main.mainMenu = function () {
