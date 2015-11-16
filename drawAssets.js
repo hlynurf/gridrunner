@@ -298,7 +298,7 @@ function drawSoundLogo(ctx) {
 	ctx.strokeStyle = 'White';
 	ctx.lineWidth = 2.4;
 	ctx.beginPath();
-	ctx.arc(g_canvas.width-30, 20, Math.sqrt(2*12*12), -Math.PI/4, Math.PI/4);
+	ctx.arc(g_canvas.width-30, 20, Math.sqrt(2*12*12), -Math.PI/4 +0.10, Math.PI/4 -0.10);
 	ctx.stroke();
 	/*ctx.beginPath();
 	ctx.arc(g_canvas.width-30, 20, Math.sqrt(2*15*15), -Math.PI/4, Math.PI/4);
