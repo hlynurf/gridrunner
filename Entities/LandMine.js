@@ -68,7 +68,8 @@ LandMine.prototype.update = function (du) {
                 this.scale *= 0.7;
             }
         }
-    } else spatialManager.register(this);
+    }
+    spatialManager.register(this);
 
 };
 
