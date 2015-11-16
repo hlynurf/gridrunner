@@ -24,7 +24,7 @@ function Powerups(descr) {
 
 Powerups.prototype = new Entity();
 // HACKED-IN AUDIO (no preloading)
-Powerups.prototype.fireSound = new Audio(
+Powerups.prototype.powerupSound = new Audio(
     "sounds/powerup.ogg");
 
 // The time the Powerups enters the level
@@ -65,7 +65,7 @@ Powerups.prototype.update = function (du) {
         if(isHit.killPowerups) {
             var points = updateScore(100, isHit.timestamp);
             entityManager.makePointsAppear(this.cx, this.cy, points);
-            this.fireSound.play();
+             util.playSound(this.powerupSound);
             if(Math.random()<0.7) {
                 gunType = 1+ Math.round(Math.random()*2)
                 // Tímabundið

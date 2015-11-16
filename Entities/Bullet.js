@@ -18,7 +18,6 @@ function Bullet(descr) {
     this.setup(descr);
     // Make a noise when I am created (i.e. fired)
     util.playSound(this.fireSound);
-    this.fireSound.play();
 
 }
 

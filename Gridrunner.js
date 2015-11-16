@@ -111,7 +111,7 @@ var g_allowMixedActions = true;
 var g_useGravity = false;
 var g_useAveVel = true;
 var g_renderSpatialDebug = false;
-var g_muted = true; //false;
+var g_muted = false; //false;
 
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
@@ -155,8 +155,6 @@ function renderSimulation(ctx) {
 }
 
 function renderGameOverScreen(ctx) {
-    // HACKED-IN AUDIO (no preloading)
-    // Play paddle sound
     drawBackground(ctx);
     drawGameOverScreen(ctx);
 
