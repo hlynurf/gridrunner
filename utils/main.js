@@ -91,7 +91,10 @@ main._highScore = false;
 main.highScores = [];
 main.gameOver = function () {
     this._isGameOver = true;
-    // Play game over sound?
+    // Play game over sound
+    var gameOver = new Audio("sounds/gameover.ogg"); 
+    gameOver.play();
+    
     this.highScores.push(g_score);
     if (this.highScores.length) {
         this.highScores.sort(function (a, b) {

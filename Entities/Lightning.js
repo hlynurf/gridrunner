@@ -17,8 +17,6 @@ function Lightning(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
-
-    
 /*
     // Diagnostics to check inheritance stuff
     this._LightningProperty = true;
@@ -28,7 +26,7 @@ function Lightning(descr) {
 }
 
 Lightning.prototype = new Entity();
-    
+
 // Initial, inheritable, default values
 Lightning.prototype.velX = 110;
 Lightning.prototype.velY = 100;

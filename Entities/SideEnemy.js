@@ -24,6 +24,9 @@ function SideEnemy(descr) {
 };
 
 SideEnemy.prototype = new Entity();
+// HACKED-IN AUDIO (no preloading)
+SideEnemy.prototype.fireSound = new Audio(
+    "sounds/landmine.ogg");
 
 SideEnemy.prototype.rememberResets = function () {
     // Remember my reset positions
@@ -128,6 +131,7 @@ SideEnemy.prototype.render = function (ctx) {
     ctx.save();
     if (this._stopTime > 500 / NOMINAL_UPDATE_INTERVAL && this._stopTime < 2000 / NOMINAL_UPDATE_INTERVAL) {
         if (!this._hasFired) {
+            this.fireSound.play();
             entityManager.createLandMine(this.cx + 30, this.cy);
             this._hasFired = true;
         }
