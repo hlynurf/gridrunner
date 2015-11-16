@@ -147,6 +147,12 @@ function renderSimulation(ctx) {
 	drawScrollingBackground(ctx);
 	drawBackground(ctx);
 	drawScore(ctx);
+    if(g_muted) {
+        drawSoundMutedLogo(ctx);
+    } else {
+        drawSoundLogo(ctx);
+    }
+    
     if (g_combo > 1) drawCombo(ctx);
     entityManager.render(ctx);
 	particleManager.render(ctx);

@@ -273,3 +273,71 @@ function drawBullet(ctx) {
 	
 	ctx.restore();
 }
+
+function drawSoundLogo(ctx) {
+	ctx.save();
+
+	var grd = ctx.createRadialGradient(g_canvas.width-20, 20,0,g_canvas.width-20, 20,10);
+	grd.addColorStop(0,'Gray');
+	grd.addColorStop(1, 'White');
+
+	ctx.beginPath();
+	ctx.moveTo(g_canvas.width-20, 30);
+	ctx.lineTo(g_canvas.width-25, 25);
+	ctx.lineTo(g_canvas.width-30, 25);
+	ctx.lineTo(g_canvas.width-30, 15);
+	ctx.lineTo(g_canvas.width-25, 15);
+	ctx.lineTo(g_canvas.width-20, 10);
+	ctx.arc(g_canvas.width-30, 20, Math.sqrt(2*10*10), -Math.PI/4, Math.PI/4);
+	//ctx.lineTo(g_canvas.width-20, 30);
+	ctx.fillStyle = grd;
+	ctx.fill();
+	ctx.strokeStyle = 'Black';
+	ctx.stroke();
+
+	ctx.strokeStyle = 'White';
+	ctx.lineWidth = 2.4;
+	ctx.beginPath();
+	ctx.arc(g_canvas.width-30, 20, Math.sqrt(2*12*12), -Math.PI/4, Math.PI/4);
+	ctx.stroke();
+	/*ctx.beginPath();
+	ctx.arc(g_canvas.width-30, 20, Math.sqrt(2*15*15), -Math.PI/4, Math.PI/4);
+	ctx.stroke();*/
+
+
+	ctx.restore();
+}
+
+function drawSoundMutedLogo(ctx) {
+	ctx.save();
+
+	var grd = ctx.createRadialGradient(g_canvas.width-20, 20,0,g_canvas.width-20, 20,10);
+	grd.addColorStop(0,'Gray');
+	grd.addColorStop(1, 'White');
+
+	ctx.beginPath();
+	ctx.moveTo(g_canvas.width-20, 30);
+	ctx.lineTo(g_canvas.width-25, 25);
+	ctx.lineTo(g_canvas.width-30, 25);
+	ctx.lineTo(g_canvas.width-30, 15);
+	ctx.lineTo(g_canvas.width-25, 15);
+	ctx.lineTo(g_canvas.width-20, 10);
+	ctx.arc(g_canvas.width-30, 20, Math.sqrt(2*10*10), -Math.PI/4, Math.PI/4);
+	ctx.fillStyle = grd;
+	ctx.fill();
+	ctx.strokeStyle = 'Black';
+	ctx.stroke();
+
+	ctx.strokeStyle = 'White';
+	ctx.lineWidth = 3;
+	ctx.beginPath();
+	ctx.moveTo(g_canvas.width-12, 12);
+	ctx.lineTo(g_canvas.width-28, 28);
+	ctx.stroke();
+	ctx.beginPath();
+	ctx.moveTo(g_canvas.width-28, 12);
+	ctx.lineTo(g_canvas.width-12, 28);
+	ctx.stroke();
+
+	ctx.restore();
+}
