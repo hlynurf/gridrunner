@@ -44,7 +44,6 @@ init : function() {
             kamikazeInterval: kamiInterval
         }));
     }
-    console.log('finished initializing levels');
 
     // start at first level
     this._currentLevelIdx = 0;

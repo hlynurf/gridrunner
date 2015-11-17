@@ -73,7 +73,6 @@ function updateSimulation(du) {
 
         if(levelManager.levelOver() && levelManager.moreLevels()) {
             main.nextLevel();
-            console.log(levelManager.getCurrentLevel());
         } else if (levelManager.levelOver()) {
             main.gameOver();
         }
