@@ -24,13 +24,18 @@ function drawBackground(ctx) {	// Draws the grid
 			ctx.globalAlpha = g_backgroundBrightness;
 		}
 		ctx.beginPath();
-		ctx.moveTo(boxSize * i, boxSize);
-		ctx.lineTo(boxSize * i, g_canvas.height - 2*boxSize);
+		ctx.moveTo(boxSize * i, boxSize + levelManager.levelOvertime());
+		ctx.lineTo(boxSize * i, g_canvas.height - 2*boxSize + levelManager.levelOvertime());
 		ctx.strokeStyle = util.gridColor(levelManager.getCurrentLevel());
 		ctx.stroke();
 		ctx.restore();
 	}
-	for (var i = 1; i < horLines - 1; i++) {
+	
+	var horStart = levelManager.levelOvertime() - g_canvas.height;
+	if (horStart < 0) horStart = 0;
+	var horStartIndex = 1 + Math.floor(horStart / boxSize);
+	
+	for (var i = horStartIndex; i < horLines - 1; i++) {
 		ctx.save();
 		ctx.lineWidth = 2;
 		if (g_combo) {
@@ -254,6 +259,22 @@ function drawVictoryScreen(ctx) {
 	util.borderedCenteredText(ctx, g_canvas.width / 2, g_canvas.height * 0.75, 'Yellow', 'Red', '30px Impact', 1, 'Highest combo: ' + g_highest_combo);
 
 	util.borderedCenteredText(ctx, g_canvas.width / 2, 6 * g_canvas.height / 7, 'Yellow', 'Red', '30px Impact', 1, 'Press SPACE to play again!');
+}
+
+function drawRewardMessages(ctx, num) {
+	switch (num) {
+		case 1:
+			util.borderedCenteredText(ctx, g_canvas.width / 2, 6 * g_canvas.height / 15, 'Yellow', 'Red', '40px Impact', 2, 'LEVEL COMPLETED!');
+			break;
+		case 2:
+			drawRewardMessages(ctx,1);
+			util.borderedCenteredText(ctx, g_canvas.width / 2, 7.5 * g_canvas.height / 15, 'Yellow', 'Red', '30px Impact', 1.2, util.randomCompliment(levelManager.compliment()));
+			break;
+		case 3:
+			drawRewardMessages(ctx,2);
+			util.borderedCenteredText(ctx, g_canvas.width / 2, 6 * g_canvas.height / 7, 'Yellow', 'Red', '30px Impact', 1, 'ENTERING GRID ' + (levelManager.getCurrentLevel() + 1 + '!'));
+			break;
+	}	
 }
 
 function drawGamePaused(ctx) {

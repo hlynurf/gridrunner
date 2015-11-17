@@ -150,6 +150,9 @@ function renderSimulation(ctx) {
 	} else {
 		drawLevelNum(ctx);
 	}
+	if (levelManager.levelOvertime() > 2 * g_canvas.height) {
+		drawRewardMessages(ctx, 1 + Math.floor((levelManager.levelOvertime() - 2 * g_canvas.height) / g_canvas.height));
+	}
 	/*if (!Points_isMinus){
 		if (g_combo > 1) drawCombo(ctx);
 	}*/

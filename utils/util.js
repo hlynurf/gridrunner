@@ -61,12 +61,38 @@ var util = {
 		}
 	},
 
-	fragVel: function() {	// Returns a pseudo-gaussian random velocity for the exploding particle bits
+	fragVel : function() {	// Returns a pseudo-gaussian random velocity for the exploding particle bits
 		var rand = 0;
 		for (var i = 0; i < 10; i++) {
 			rand += Math.random();
 		}
 		return rand;
+	},
+	
+	randomCompliment : function(i) {	// Not random anymore
+		switch (i) {
+			case 1:
+				return 'Your hair looks good today!';
+			case 2:
+				return 'Good job!';
+			case 3:
+				return 'Neat!';
+			case 4:
+				return 'Keep it up!';
+			case 5:
+				return 'Stay sharp!';
+			case 6:
+				return 'You\'re almost there!';
+			case 7:
+				return 'That was awesome!';
+			case 8:
+				return 'I wish I were as talented as you!';
+			case 9:
+				return 'Nice shirt!';
+			case 0:
+				return 'You are my hero!';
+				
+		}
 	},
 
 	// MISC

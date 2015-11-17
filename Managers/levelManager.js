@@ -54,7 +54,11 @@ nextLevel : function() {
 },
 
 levelOver : function() {
-	return this._currentLevel.allDone() && entityManager.noMoreEnemies();
+	if (this._currentLevel.allDone() && entityManager.noMoreEnemies()) {
+		spatialManager.resetEntities();
+		removePowerups();
+		return this._currentLevel.workOvertime();
+	}
 },
 
 moreLevels : function() {
@@ -69,4 +73,13 @@ levelCountDown : function() {
 	return this._currentLevel.countdown;
 },
 
-};
+levelOvertime : function() {
+	return this._currentLevel.overtime;
+
+},
+
+compliment : function() {
+	return this._currentLevel.compliment;
+},
+
+}

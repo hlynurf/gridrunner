@@ -153,8 +153,6 @@ main.newGame = function () {
 main.nextLevel = function() {
 	var currLives = entityManager.getShipLives();
 	entityManager.resetCategories();
-	spatialManager.resetEntities();
-	removePowerups();
 	entityManager.init();
 	createNextLevelShip(currLives);
 	levelManager.nextLevel();
