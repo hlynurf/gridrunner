@@ -61,7 +61,7 @@ getStarColor: function() {	// Returns red, yellow or magenta
 	}
 },
 
-fragVel: function() {	// Returns a pseudo-gaussian random velocity for the exploding particle bits
+fragVel: function() {	// Returns a pseudo-Gaussian random velocity for the exploding particle bits
 	var rand = 0;
 	for (var i = 0; i < 10; i++) {
 		rand += Math.random();
@@ -74,6 +74,21 @@ fragVel: function() {	// Returns a pseudo-gaussian random velocity for the explo
 
 square: function(x) {
     return x*x;
+},
+
+gridColor: function(level) {
+	switch (level % 5) {
+		case 1:
+			return 'Red';
+		case 2:
+			return 'Purple';
+		case 3:
+			return 'Blue';
+		case 4:
+			return 'Green';
+		case 0:
+			return 'DimGray';
+	}
 },
 
 

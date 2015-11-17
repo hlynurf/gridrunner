@@ -1,3 +1,5 @@
+var g_backgroundBrightness = .3;
+
 function drawBackground(ctx) {	// Draws the grid
 	// util.fillBox(ctx, 0, 0, g_canvas.width, g_canvas.height, 'Black');
 	var boxSize = 20;
@@ -6,10 +8,20 @@ function drawBackground(ctx) {	// Draws the grid
 	for (var i = 1; i < vertLines; i++) {
 		ctx.save();
 		
+		ctx.lineWidth = 2;
+		if (g_combo) {
+			ctx.globalAlpha = .3 + .05 * g_combo;
+			if (ctx.globalAlpha > 1) ctx.globalAlpha = 1;
+			g_backgroundBrightness = ctx.globalAlpha;
+		}
+		else {
+			if (g_backgroundBrightness > .3) g_backgroundBrightness -= .0002;
+			ctx.globalAlpha = g_backgroundBrightness;
+		}
 		ctx.beginPath();
 		ctx.moveTo(boxSize * i, boxSize);
 		ctx.lineTo(boxSize * i, g_canvas.height - 2*boxSize);
-		ctx.strokeStyle = 'Red';
+		ctx.strokeStyle = util.gridColor(levelManager.getCurrentLevel());
 		ctx.stroke();
 		
 		ctx.restore();
@@ -17,10 +29,20 @@ function drawBackground(ctx) {	// Draws the grid
 	for (var i = 1; i < horLines - 1; i++) {
 		ctx.save();
 		
+		ctx.lineWidth = 2;
+		if (g_combo) {
+			ctx.globalAlpha = .3 + .05 * g_combo;
+			if (ctx.globalAlpha > 1) ctx.globalAlpha = 1;
+			g_backgroundBrightness = ctx.globalAlpha;
+		}
+		else {
+			if (g_backgroundBrightness > .3) g_backgroundBrightness -= .0002;
+			ctx.globalAlpha = g_backgroundBrightness;
+		}
 		ctx.beginPath();
 		ctx.moveTo(boxSize, boxSize * i);
 		ctx.lineTo(g_canvas.width-boxSize, boxSize * i);
-		ctx.strokeStyle = 'Red';
+		ctx.strokeStyle = util.gridColor(levelManager.getCurrentLevel());
 		ctx.stroke();
 		
 		ctx.restore();
