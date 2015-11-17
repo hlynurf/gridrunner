@@ -86,10 +86,11 @@ main._iterCore = function (dt) {
 	if (!this._isGameOver) {
 		update(dt);
 	}
-	render(g_ctx, this._isGameOver, this._mainMenu, this._highScore, this._rules);
+	render(g_ctx, this._isGameOver, this._victory, this._mainMenu, this._highScore, this._rules);
 };
 
 main._isGameOver = false;
+main._victory = false;
 main._mainMenu = true;
 main._highScore = false;
 main._rules = false;
@@ -113,6 +114,25 @@ main.gameOver = function () {
 	removePowerups();
 };
 
+main.victory = function () {
+    this._isGameOver = true;
+    this._victory = true;
+    /*var gameOver = new Audio('sounds/gameOver.ogg');
+    util.playSound(gameOver);*/
+    this.highScores.push(g_score);
+    if (this.highScores.length) {
+        this.highScores.sort(function (a, b) {
+            return b - a;
+        });
+        this.highScores = this.highScores.slice(0, 5);
+    }
+    localStorage.setItem('highScore', JSON.stringify(this.highScores));
+    entityManager.resetCategories();
+    spatialManager.resetEntities();
+    levelManager.makeEmpty();
+    removePowerups();
+};
+
 main.mainMenu = function () {
 	this._mainMenu = true;
 	this._highScore = false;
@@ -127,6 +147,7 @@ main.newGame = function () {
 	util.playSound(gameSoundtrack);
 	this._mainMenu = false;
 	this._isGameOver = false;
+    this._victory = false;
 };
 
 main.nextLevel = function() {

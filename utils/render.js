@@ -17,7 +17,7 @@ var MOVE_UP = 'W'.charCodeAt(0);
 var MOVE_DOWN = 'S'.charCodeAt(0);
 
 
-function render(ctx, gameOver, mainMenu, highScore, rules) {
+function render(ctx, gameOver, victory, mainMenu, highScore, rules) {
 	// Process various option toggles
 	//
 	if (eatKey(TOGGLE_CLEAR)) g_doClear = !g_doClear;
@@ -51,7 +51,8 @@ function render(ctx, gameOver, mainMenu, highScore, rules) {
 	//
 	// The core rendering of the actual game / simulation
 	//
-	if (gameOver) renderGameOverScreen(ctx);
+	if (gameOver && victory) renderVictoryScreen(ctx);
+    else if (gameOver) renderGameOverScreen(ctx);
 	else if (mainMenu) drawMainMenu(ctx);
 	else if (highScore) drawHighScores(ctx, main.highScores);
 	else if (rules) drawRules(ctx);

@@ -245,6 +245,17 @@ function drawGameOverScreen(ctx) {
 	util.borderedCenteredText(ctx, g_canvas.width / 2, 6 * g_canvas.height / 7, 'Yellow', 'Red', '30px Impact', 1, 'Press SPACE to play again!');
 }
 
+function drawVictoryScreen(ctx) {
+	util.borderedCenteredText(ctx, g_canvas.width / 2, 6 * g_canvas.height / 15, 'Yellow', 'Red', '80px Impact', 2, 'YOU WON');
+
+	util.borderedCenteredText(ctx, g_canvas.width / 2, 7.5 * g_canvas.height / 15, 'Yellow', 'Red', '40px Impact', 1.2, 'Final score:');
+	util.borderedCenteredText(ctx, g_canvas.width / 2, 9 * g_canvas.height / 15, 'Yellow', 'Red', '60px Impact', 1.6, g_score.toLocaleString());
+
+	util.borderedCenteredText(ctx, g_canvas.width / 2, g_canvas.height * 0.75, 'Yellow', 'Red', '30px Impact', 1, 'Highest combo: ' + g_highest_combo);
+
+	util.borderedCenteredText(ctx, g_canvas.width / 2, 6 * g_canvas.height / 7, 'Yellow', 'Red', '30px Impact', 1, 'Press SPACE to play again!');
+}
+
 function drawGamePaused(ctx) {
 	util.borderedCenteredText(ctx, g_canvas.width / 2, 3 * g_canvas.height / 7, 'Yellow', 'Red', '80px Impact', 2, 'PAUSED');
 }

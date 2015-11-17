@@ -163,6 +163,10 @@ function renderGameOverScreen(ctx) {
 	drawBackground(ctx);
 	drawGameOverScreen(ctx);
 }
+function renderVictoryScreen(ctx) {
+	drawBackground(ctx);
+	drawVictoryScreen(ctx);
+}
 function renderGamePaused(ctx){
 	drawGamePaused(ctx); 
 }
