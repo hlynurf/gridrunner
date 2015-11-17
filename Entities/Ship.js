@@ -175,7 +175,7 @@ Ship.prototype.update = function (du) {
                 main.gameOver();
             }
         }
-        if (this.enlargedDuration>0 && isHit.killShip && !isHit.isLightning) {
+        if (this.enlargedDuration > 0 && isHit.killShip && !isHit.isLightning) {
             if(isHit instanceof Caterpillar) {
                 var points = updateScore(30);
                 entityManager.makePointsAppear(isHit.cx, isHit.cy, points);

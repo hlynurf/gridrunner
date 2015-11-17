@@ -60,12 +60,9 @@ findEntityInRange: function(posX, posY, radius, isLightning) {
                 return e.entity;
             }
         } 
-            if(util.wrappedDistSq(posX, posY, e.posX, e.posY, g_canvas.width, g_canvas.height) < util.square(e.radius + radius)) {
-                return e.entity;
-            }
-        
-    
-        // else it is no collision and nothing happens
+        if (util.wrappedDistSq(posX, posY, e.posX, e.posY, g_canvas.width, g_canvas.height) < util.square(e.radius + radius)) {
+            if (!e.isPowerUp) return e.entity;
+        }
     }
 },
 

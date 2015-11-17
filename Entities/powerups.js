@@ -36,6 +36,7 @@ Powerups.prototype.flip = 0;
 Powerups.prototype.startFlip = 0;
 Powerups.prototype.flipVel = 0.5;
 Powerups.prototype.color = "#fff";
+Powerups.prototype.isPowerUp = true;
 
 var g_bullet_powerupTimer = 0;
 
@@ -63,20 +64,19 @@ Powerups.prototype.update = function (du) {
     this.cy += this.velY * du;
 
     var isHit = this.findHitEntity();
-    if(isHit){       
-        if(isHit.killPowerups) {
+    if (isHit) {       
+        if (isHit.killPowerups) {
             var points = updateScore(100, isHit.timestamp);
             entityManager.makePointsAppear(this.cx, this.cy, points);
              util.playSound(this.powerupSound);
-            if(Math.random()<0.7) {
-                gunType = 1+ Math.round(Math.random()*2)
+            if (Math.random() < 0.7) {
+                gunType = 1 + Math.round(Math.random() * 2);
                 g_bullet_powerupTimer = Date.now() + 5000;
             }
             else {
                 entityManager.makePointsAppear(this.cx, this.cy, points);
                 isHit.makeEnlarged();
             }
-
             return entityManager.KILL_ME_NOW;
         }
     } 
