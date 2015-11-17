@@ -71,7 +71,7 @@ Powerups.prototype.update = function (du) {
              util.playSound(this.powerupSound);
             if (Math.random() < 0.7) {
                 gunType = 1 + Math.round(Math.random() * 2);
-                g_bullet_powerupTimer = Date.now() + 5000;
+                g_bullet_powerupTimer = 5000 / NOMINAL_UPDATE_INTERVAL;
             }
             else {
                 entityManager.makePointsAppear(this.cx, this.cy, points);

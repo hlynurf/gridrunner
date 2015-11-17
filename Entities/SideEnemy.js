@@ -83,24 +83,6 @@ SideEnemy.prototype.computeSubStep = function (du) {
     }
 };
 
-SideEnemy.prototype.maybeFireBullet = function () {
-    if (Date.now() > this._lastBullet + this._bulletDifference) {
-        var dX = +Math.sin(this.rotation);
-        var dY = -Math.cos(this.rotation);
-        var launchDist = this.getRadius() * 2;
-        
-        var relVel = this.launchVel;
-        var relVelX = dX * relVel;
-        var relVelY = dY * relVel;
-
-        entityManager.createLandMine(this.cx, this.cy);
-        // entityManager.fireBullet(
-        //    this.cx + dX * launchDist, this.cy + dY * launchDist,
-        //    this.velX + relVelX, this.velY + relVelY,
-        //    this.rotation, true);
-        this._lastBullet = Date.now();
-    }      
-};
 
 SideEnemy.prototype.getRadius = function () {
     return (this.sprite.width / 5) * 0.9;
