@@ -78,12 +78,13 @@ function updateSimulation(du) {
 }
 
 function updateScore(points) {
-	increaseCombo();
 	// Minus points don't have combo
-	if (!Points_isMinus)
-		score = points * g_combo;
-	else
+	if (points >= 0) {
+		increaseCombo();
+		score = points*g_combo;
+	} else
 		score = points;
+
 	g_score += score;
 
 	return score;
@@ -106,7 +107,7 @@ function resetScore() {
 }
 
 function removePowerups() {
-    g_bullet_powerupTimer = 0;
+	g_bullet_powerupTimer = 0;
 }
 
 // GAME-SPECIFIC DIAGNOSTICS
@@ -146,10 +147,12 @@ function renderSimulation(ctx) {
 	drawScore(ctx);
 	if(levelManager.levelCountDown() > 0) {
 		drawLevelCountdown(ctx);
+	} else {
+		drawLevelNum(ctx);
 	}
-	if (!Points_isMinus){
+	/*if (!Points_isMinus){
 		if (g_combo > 1) drawCombo(ctx);
-	}
+	}*/
 	entityManager.render(ctx);
 	particleManager.render(ctx);
 
