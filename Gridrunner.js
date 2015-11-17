@@ -98,7 +98,7 @@ function updateScore(points) {
         score = points*g_combo;
     else
         score = points;
-    
+
     g_score += score;
 
     return score;
@@ -122,20 +122,14 @@ function resetScore() {
 
 // GAME-SPECIFIC DIAGNOSTICS
 
-var g_allowMixedActions = true;
-var g_useGravity = false;
-var g_useAveVel = true;
 var g_renderSpatialDebug = false;
 var g_muted = false; //false;
 
-var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
 var KEY_MUTE = keyCode('N');
 
 
 function processDiagnostics() {
-
-    if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
 
@@ -187,31 +181,28 @@ function renderGamePaused(ctx){
 // =============
 // PRELOAD STUFF
 // =============
-
+/*
+DELETE and delete imagespreload if we are not going to preload sounds
 var g_images = {};
 
 function requestPreloads() {
 
     var requiredImages = {
-        ship   : "images/ship.png",
-        bullet  : "images/kenneyImg/PNG/Lasers/laserGreen05.png",
-		life : "images/kenneyImg/PNG/UI/playerLife1_orange.png"
+        ship   : "images/ship.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
 }
-
+*/
 var g_sprites = {};
 
 function preloadDone() {
 
-    g_sprites.ship  = new Sprite(g_images.ship);
-    g_sprites.bullet = new Sprite(g_images.bullet);
-    g_sprites.bullet.scale = 0.5;
-	g_sprites.life = new Sprite(g_images.life);
+    //g_sprites.ship  = new Sprite(g_images.ship);
     createInitialStars();
     main.init();
 }
 
 // Kick it off
-requestPreloads();
+preloadDone();
+//requestPreloads();

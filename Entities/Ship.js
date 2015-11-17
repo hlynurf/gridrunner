@@ -246,6 +246,11 @@ Ship.prototype.maybeFireBullet = function () {
         var relVel = this.launchVel;
         var relVelX = dX * relVel;
         var relVelY = dY * relVel;
+        if (gunType > 0)
+        {
+            if (Date.now() > g_bullet_powerupTimer)
+                gunType=0;
+        }   
 
         entityManager.fireBullet(
            this.cx + dX * launchDist , this.cy + dY * launchDist,

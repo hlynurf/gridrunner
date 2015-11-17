@@ -37,6 +37,8 @@ Powerups.prototype.startFlip = 0;
 Powerups.prototype.flipVel = 0.5;
 Powerups.prototype.color = "#fff";
 
+var g_bullet_powerupTimer = 0;
+
 Powerups.prototype.update = function (du) {
 
     spatialManager.unregister(this);
@@ -68,12 +70,10 @@ Powerups.prototype.update = function (du) {
              util.playSound(this.powerupSound);
             if(Math.random()<0.7) {
                 gunType = 1+ Math.round(Math.random()*2)
-                // Tímabundið
-                setTimeout(function(){ gunType = 0; }, 10000);
+                g_bullet_powerupTimer = Date.now() + 5000;
             }
             else {
                 entityManager.makePointsAppear(this.cx, this.cy, points);
-                //TODO
                 isHit.makeEnlarged();
             }
 
