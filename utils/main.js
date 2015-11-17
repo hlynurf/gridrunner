@@ -142,10 +142,11 @@ main.newGame = function () {
 }
 
 main.nextLevel = function() {
+    var currLives = entityManager.getShipLives();
     entityManager.resetCategories();
     spatialManager.resetEntities();
     entityManager.init();
-    createInitialShips();
+    createNextLevelShip(currLives);
     levelManager.nextLevel();
 }
 
