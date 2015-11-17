@@ -19,5 +19,8 @@
   "dependencies": {
     "browser-sync": "^2.9.11",
     "gulp": "^3.9.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-react": "^3.9.0"
   }
 }
