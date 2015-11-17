@@ -114,6 +114,12 @@ generateShip : function() {
     }));
 },
 
+generateNewShip : function(lives) {
+    this._ships.push(new Ship({
+    }));
+    this._ships[0]._lives = lives;
+},
+
 getShipCoords: function() {
     return this._ships[0].cx;
 },
@@ -125,6 +131,10 @@ getShipRadius: function() {
 setShip : function(xPos, yPos) {
     var thisShip = this._ships[0];
     thisShip.setPos(xPos, yPos);
+},
+
+getShipLives : function() {
+    return this._ships[0]._lives;
 },
 
 fireLightning : function(cx, cy) {

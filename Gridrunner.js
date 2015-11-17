@@ -33,6 +33,10 @@ function createInitialShips() {
  
 }
 
+function createNextLevelShip(lives) {
+    entityManager.generateNewShip(lives);
+}
+
 function createInitialStars() {
 	for (var i = 0; i < 50; i++) { 
 		particleManager.makeStar();

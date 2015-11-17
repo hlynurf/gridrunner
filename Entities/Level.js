@@ -39,6 +39,7 @@ Level.prototype.update = function(du) {
 	if(this.countdown<=0) {
 	    this.currtime += du;
 	    this.caterpillarTimer += du;
+	    this.kamikazeTimer += du;
 	    if(this.caterpillarCount>0 && this.caterpillarTimer>this.caterpillarInterval) {
 	    	entityManager.createCaterpillar(this.caterpillarId++);
 	    	this.caterpillarTimer = 0;
