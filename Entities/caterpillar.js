@@ -22,6 +22,10 @@ function Caterpillar(descr) {
 };
 
 Caterpillar.prototype = new Entity();
+// HACKED-IN AUDIO (no preloading)
+Caterpillar.prototype.popSound = new Audio(
+    "sounds/caterpillar.ogg");
+
 // The time the caterpillar enters the level
 Caterpillar.prototype.timestamp = 0;
 Caterpillar.prototype.radius = 10;; 
@@ -34,8 +38,10 @@ Caterpillar.prototype.update = function (du) {
 
     spatialManager.unregister(this);
 
-    if (this._isDeadNow) 
+    if (this._isDeadNow) {
+        util.playSound(this.popSound);
         return entityManager.KILL_ME_NOW;
+    }
 
     if (this.cy > g_canvas.height - g_canvas.height / 10) {
         var points = updateScore(-30);
@@ -76,6 +82,7 @@ Caterpillar.prototype.update = function (du) {
     if (isHit) {
         if(!isHit.killShip || (isHit instanceof Ship && isHit.enlargedDuration > 0)) {
             this.lives-=1;
+            util.playSound(this.popSound);
             // Kill the bullet!
             if (!isHit.killShip) {
                 isHit.kill();

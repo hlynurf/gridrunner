@@ -26,6 +26,9 @@ function Kamikaze(descr) {
 
 Kamikaze.prototype = new Entity();
 // The time the Kamikaze enters the level
+// HACKED-IN AUDIO (no preloading)
+Kamikaze.prototype.explodeSound = new Audio(
+    "sounds/kamikaze.ogg");
 Kamikaze.prototype.timestamp = 0;
 Kamikaze.prototype.radius = 15;
 Kamikaze.prototype.angle = 0;
@@ -91,5 +94,6 @@ Kamikaze.prototype.explode = function() {
 			this.cx, this.cy,
 			relVelX, .5 + relVelY);
 	}
+    util.playSound(this.explodeSound);
 	particleManager.triggerExplosion(this.cx, this.cy);
 };

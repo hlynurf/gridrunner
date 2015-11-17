@@ -30,6 +30,10 @@ function LandMine(descr) {
 
 
 LandMine.prototype = new Entity();
+LandMine.prototype.tickSound = new Audio(
+    "sounds/minetick.ogg");
+LandMine.prototype.mineHitSound = new Audio(
+    "sounds/minehit.ogg");
 LandMine.prototype.velX = 2;
 LandMine.prototype.radius = 7;
 LandMine.prototype.update = function (du) {
@@ -41,8 +45,10 @@ LandMine.prototype.update = function (du) {
 
     if (this.cx < this.posX) this.cx += this.velX * du;
 
-    if (this.lifetime < 2000 / NOMINAL_UPDATE_INTERVAL)
+    if (this.lifetime < 2000 / NOMINAL_UPDATE_INTERVAL){
+        util.playSound(this.tickSound);
         this._innerColor = ['Red', 'Yellow'][Math.floor(Math.random() * 2)];
+    }
     this.wrapPosition();
     var isHit = this.findHitEntity();
     if (this.lifetime < 0) {
@@ -51,6 +57,7 @@ LandMine.prototype.update = function (du) {
     }
     if (isHit) {
         if (!isHit.killShip || (isHit instanceof Ship && isHit.enlargedDuration > 0)) {
+            util.playSound(this.mineHitSound);
             // No points for landmines
             if (this.scale < 0.7) {
                 if (Math.random() < 0.1)
