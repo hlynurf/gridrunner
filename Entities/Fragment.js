@@ -1,4 +1,5 @@
 function Fragment(descr) {
+
 	for (var property in descr) {
 		this[property] = descr[property];
 	}
@@ -10,6 +11,7 @@ function Fragment(descr) {
 }
 
 Fragment.prototype.update = function(du) {
+
 	this.cx += this.vel * Math.cos(this.angle) * du;
 	this.cy += this.vel * Math.sin(this.angle) * du;
 	
@@ -26,6 +28,7 @@ Fragment.prototype.update = function(du) {
 }
 
 Fragment.prototype.render = function(ctx) {
+
 	ctx.save();
 	
 	ctx.globalAlpha = this.alpha;
@@ -33,4 +36,5 @@ Fragment.prototype.render = function(ctx) {
 	util.fillCircle(ctx, this.cx, this.cy, 2);
 	
 	ctx.restore();
+	
 }

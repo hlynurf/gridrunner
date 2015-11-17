@@ -57,6 +57,7 @@ Ship.prototype.velX = 0;
 Ship.prototype.velY = 0;
 Ship.prototype.launchVel = 2;
 Ship.prototype.numSubSteps = 1;
+Ship.prototype.killPowerups = true;
 
 // BOOST!
 Ship.prototype.enlargedDuration = 0;
@@ -82,7 +83,6 @@ Ship.prototype._updateWarp = function (du) {
     if (this._scale < 0.08) {
     
         this._moveToASafePlace();
-        this.halt();
         this._scaleDirn = 0.4;
         
     } else if (this._scale > 0.4) {
@@ -130,7 +130,7 @@ Ship.prototype._moveToASafePlace = function () {
 };
     
 Ship.prototype.update = function (du) {
-    // Handle powerups
+    // Handle Large powerup
     if (this.enlargedDuration > 0) {
         this.enlargedDuration -= du;
 		this._scale = 1.2;
@@ -155,7 +155,6 @@ Ship.prototype.update = function (du) {
 
     spatialManager.unregister(this);
     
-
     // Perform movement substeps
     var steps = this.numSubSteps;
     var dStep = du / steps;
@@ -192,12 +191,12 @@ Ship.prototype.update = function (du) {
 };
 
 Ship.prototype.computeSubStep = function (du) {
-    
-    var speedY = this.computeSpeedVertical();
+
     var speedX = this.computeSpeedHorizontal();
+    var speedY = this.computeSpeedVertical();
     this.cx += speedX;
     this.cy += speedY;
-  
+ 
 };
 
 var NOMINAL_THRUST = +5;
@@ -307,15 +306,8 @@ Ship.prototype.getRadius = function () {
 Ship.prototype.reset = function () {
     this.setPos(this.reset_cx, this.reset_cy);
     this.rotation = this.reset_rotation;
-    this.halt();
 	this._gunType = 1;
 };
-
-Ship.prototype.halt = function () {
-    this.velX = 0;
-    this.velY = 0;
-};
-
 
 Ship.prototype.render = function (ctx) {
     

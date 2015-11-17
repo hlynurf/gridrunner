@@ -16,11 +16,14 @@ var g_mouseX = 0,
 
 function handleMouse(evt) {
 	if(g_doMouse && !g_isUpdatePaused ){
-		if(evt.clientX >g_canvas.width / 10 && evt.clientX <g_canvas.width-g_canvas.width / 20)
-   			g_mouseX = evt.clientX - g_canvas.offsetLeft;
-		if(evt.clientY >g_canvas.height / 15 && evt.clientY < g_canvas.height-g_canvas.height / 15)
-    		g_mouseY = evt.clientY - g_canvas.offsetTop;
-    	entityManager.yoinkNearestShip(g_mouseX, g_mouseY);
+		var oneGridHeight = g_canvas.height / 30;
+    	var oneGridWidth = g_canvas.width / 20;
+        var shipRadius = entityManager.getShipRadius();
+		if(evt.clientX > oneGridWidth + shipRadius && evt.clientX < g_canvas.width - oneGridWidth - shipRadius)
+   			g_mouseX = evt.clientX;
+		if(evt.clientY > oneGridHeight + shipRadius && evt.clientY < g_canvas.height - (2*oneGridHeight) - shipRadius)
+    		g_mouseY = evt.clientY;
+    	entityManager.setShip(g_mouseX, g_mouseY);
 	}
 }
 

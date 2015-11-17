@@ -38,32 +38,6 @@ _nextCaterpillar: 0,
 _creatingCaterpillars: false,
 _caterPillarStuff: {},
 
-_findNearestShip : function(posX, posY) {
-    var closestShip = null,
-        closestIndex = -1,
-        closestSq = 1000 * 1000;
-
-    for (var i = 0; i < this._ships.length; ++i) {
-
-        var thisShip = this._ships[i];
-        var shipPos = thisShip.getPos();
-        var distSq = util.wrappedDistSq(
-            shipPos.posX, shipPos.posY, 
-            posX, posY,
-            g_canvas.width, g_canvas.height);
-
-        if (distSq < closestSq) {
-            closestShip = thisShip;
-            closestIndex = i;
-            closestSq = distSq;
-        }
-    }
-    return {
-        theShip : closestShip,
-        theIndex: closestIndex
-    };
-},
-
 _forEachOf: function(aCategory, fn) {
     for (var i = 0; i < aCategory.length; ++i) {
         fn.call(aCategory[i]);
@@ -113,6 +87,7 @@ createPowerups: function(cx,cy){
         cy: cy
     }));
 },
+
 fireBullet: function(cx, cy, velX, velY, rotation, killShip) {
     this._bullets.push(new Bullet({
         cx   : cx,
@@ -134,28 +109,35 @@ fireball: function(cx, cy, velX, velY) {
     }));
 },
 
-generateShip : function(killPowerups) {
+generateShip : function() {
     this._ships.push(new Ship({
-        killPowerups : killPowerups,
     }));
 },
+
 getShipCoords: function() {
     return this._ships[0].cx;
 },
+
+getShipRadius: function() {
+    return this._ships[0].getRadius();
+},
+
+setShip : function(xPos, yPos) {
+    var thisShip = this._ships[0];
+    thisShip.setPos(xPos, yPos);
+},
+
 fireLightning : function(cx, cy) {
     this._lightnings.push(new Lightning({
         cx: cx,
-        cy: cy,
-        killShip: true,
-        isLightning: true
+        cy: cy
     }));
 },
 
 createLandMine : function(cx, cy) {
     this._landMines.push(new LandMine({
         cx: cx,
-        cy: cy,
-        killShip: true,
+        cy: cy
     }));
 },
 
@@ -163,18 +145,10 @@ makePointsAppear : function(cx, cy, amount) {
     this._points.push(new Points({
         cx: cx,
         cy: cy,
-        velX:0,
-        velY:0,
         amount: amount
     }));
 },
 
-yoinkNearestShip : function(xPos, yPos) {
-    var theShip = this._findNearestShip(xPos, yPos).theShip;
-    if (theShip) {
-        theShip.setPos(xPos, yPos);
-    }
-},
 getRandomColor : function() {
     var color = '#';
     var letters = '0123456789ABCDEF'.split('');
@@ -183,19 +157,18 @@ getRandomColor : function() {
     }
     return color;
 },
+
 resetShips: function() {
     this._forEachOf(this._ships, Ship.prototype.reset);
 },
 
-haltShips: function() {
-    this._forEachOf(this._ships, Ship.prototype.halt);
-},
 dropBomb: function(cx, cy) {
     this._bombs.push(new Bomb({
         cx: cx,
         cy: cy
     }));
 },
+
 createCaterpillar: function(id){
     this._creatingCaterpillars = true;
     // Randoms which way it comes from
@@ -222,6 +195,7 @@ createCaterpillar: function(id){
     this._caterPillarStuff.id = id;
     this._caterPillarStuff.wormLength = 3 + Math.round( Math.random() * 7 );
 },	
+
 checkForCaterPillars: function(du) {
     if (this._nextCaterpillar <= 0 && this._creatingCaterpillars) {
         this._caterpillars.push(new Caterpillar({
@@ -249,6 +223,7 @@ checkForCaterPillars: function(du) {
         this._nextCaterpillar -= du;
     } 
 },
+
 update: function(du) {
     if (!main._highScore && !main._mainMenu && !main._rules) this.checkForCaterPillars(du);
     for (var c = 0; c < this._categories.length; ++c) {

@@ -18,12 +18,6 @@ function Star(descr) {
     // Common inherited setup logic from Particle
     this.setup(descr);
     
-/*
-    // Diagnostics to check inheritance stuff
-    this._StarProperty = true;
-    console.dir(this);
-*/
-
 }
 
 Star.prototype = new Particle();
@@ -37,9 +31,6 @@ Star.prototype.color = 'Yellow';
 Star.prototype.colorTimer = 0;
 
 Star.prototype.update = function (du) {
-
-    //if (this._isDeadNow) 
-    //    return entityManager.KILL_ME_NOW;
 
     this.cx += this.velX * du * 4;
 	this.cy += this.velY * du * 4;

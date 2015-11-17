@@ -17,12 +17,9 @@ function Lightning(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
-/*
-    // Diagnostics to check inheritance stuff
-    this._LightningProperty = true;
-    console.dir(this);
-*/
 
+    this.killShip = true;
+    this.isLightning = true;
 }
 
 Lightning.prototype = new Entity();
@@ -46,6 +43,7 @@ Lightning.prototype.update = function (du, ctx) {
 };
 
 Lightning.prototype.render = function (ctx) {
+
     ctx.save();
     ctx.beginPath();
     ctx.lineWidth = this.width;
@@ -55,4 +53,5 @@ Lightning.prototype.render = function (ctx) {
     ctx.strokeStyle = 'rgb(113, 201, 55)';
     ctx.stroke();
     ctx.restore();
+    
 };

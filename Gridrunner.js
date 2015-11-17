@@ -15,8 +15,8 @@ var g_combo = 0;
 var g_highest_combo = 0;
 var g_last_combo_hit_timestamp = 0;
 var g_combo_timer = 0;
-var g_nextCaterPillar = 3000 / NOMINAL_UPDATE_INTERVAL;
-var g_nextKamiKaze = 10000 / NOMINAL_UPDATE_INTERVAL;
+//var g_nextCaterPillar = 3000 / NOMINAL_UPDATE_INTERVAL;
+//var g_nextKamiKaze = 10000 / NOMINAL_UPDATE_INTERVAL;
 /*
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -29,7 +29,7 @@ var g_nextKamiKaze = 10000 / NOMINAL_UPDATE_INTERVAL;
 
 function createInitialShips() {
 
-    entityManager.generateShip(true);
+    entityManager.generateShip();
  
 }
 
