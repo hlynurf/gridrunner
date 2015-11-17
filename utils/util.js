@@ -172,7 +172,7 @@ playSound: function(audio) {
     if(!g_muted) {
         audio.play();
     }
-    if(g_isUpdatePaused) {
+    if(g_isUpdatePaused || levelManager.levelCountDown() > 0) {
         audio.pause();
     }
 }

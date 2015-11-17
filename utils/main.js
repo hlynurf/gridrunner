@@ -123,6 +123,7 @@ main.gameOver = function () {
     entityManager.resetCategories();
     spatialManager.resetEntities();
     levelManager.makeEmpty();
+    removePowerups();
 };
 
 main.mainMenu = function () {
@@ -145,6 +146,7 @@ main.nextLevel = function() {
     var currLives = entityManager.getShipLives();
     entityManager.resetCategories();
     spatialManager.resetEntities();
+    removePowerups();
     entityManager.init();
     createNextLevelShip(currLives);
     levelManager.nextLevel();
