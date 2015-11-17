@@ -182,8 +182,8 @@ createCaterpillar: function(id){
         this._caterPillarStuff.direction = false; 
         this._caterPillarStuff.cx = g_canvas.width;
     }
-    var oneGridHeight = g_canvas.height / 30
-    var oneGridWidth = g_canvas.width / 20
+    var oneGridHeight = g_canvas.height / 30;
+    var oneGridWidth = g_canvas.width / 20;
     // Randoms starting Y position of catapillar in the upper 1-6 grid
     this._caterPillarStuff.posY = Math.round((oneGridHeight) + Math.random() * (oneGridHeight * 5 )); 
     // Random how long right and left the caterpillar goes

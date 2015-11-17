@@ -40,8 +40,6 @@ Bomb.prototype.update = function (du) {
     var isHit = this.findHitEntity();
     if (isHit) {
         if(!isHit.killShip || (isHit instanceof Ship && isHit.enlargedDuration > 0)) {
-            var points = updateScore(50);
-            entityManager.makePointsAppear(this.cx, this.cy, points);
             if (Math.random() < 0.1)
                 entityManager.createPowerups(this.cx,this.cy);
             // Kill the bullet!

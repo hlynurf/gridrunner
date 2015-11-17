@@ -79,10 +79,6 @@ UpEnemy.prototype.computeSubStep = function (du) {
     }
 };
 
-var NOMINAL_THRUST = +5;
-
-var speedHorizontal = +5;
-
 UpEnemy.prototype.getRadius = function () {
     return (this.sprite.width / 5) * 0.9;
 };

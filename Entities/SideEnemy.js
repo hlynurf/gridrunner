@@ -83,11 +83,6 @@ SideEnemy.prototype.computeSubStep = function (du) {
     }
 };
 
-var NOMINAL_THRUST = +5;
-
-var speedHorizontal = +5;
-
-
 SideEnemy.prototype.maybeFireBullet = function () {
     if (Date.now() > this._lastBullet + this._bulletDifference) {
         var dX = +Math.sin(this.rotation);

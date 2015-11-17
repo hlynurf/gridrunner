@@ -25,7 +25,7 @@ function Points(descr) {
     }
     if (this.amount < 100)
     	this.velY =  2;
-	else if (this.amount >= 100)
+	if (this.amount >= 100 || this.amount<0)
 		this.velY = -2;
 
 }
@@ -46,13 +46,24 @@ Points.prototype.update = function(du) {
     if (this.lifespan < 0) return entityManager.KILL_ME_NOW;
 
 }
-
+var Points_isMinus = false;
 Points.prototype.render = function(ctx) {
 
 	var updates = this.lifespan * NOMINAL_UPDATE_INTERVAL;
 	var fontSize = 20 - Math.abs(updates-750)*5/750;
 	if(!g_isUpdatePaused)
 		var color = entityManager.getRandomColor();
-    util.centeredText(ctx, this.cx, this.cy, color, fontSize + 'px Impact', '+ ' + this.amount);
+    // Give + or - points
+    var addOrRemove;
+    if (this.amount > 0){
+        addOrRemove = '+ ';
+        Points_isMinus = false;
+    }
+    else {
+        addOrRemove = ' ';
+        Points_isMinus = true;
+    }
+    util.centeredText(ctx, this.cx, this.cy, color, fontSize + 'px Impact', addOrRemove + this.amount);
+
     
 };

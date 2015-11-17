@@ -93,8 +93,14 @@ function updateSimulation(du) {
 
 function updateScore(points) {
     increaseCombo();
-    score = points*g_combo;
+    // Minus points don't have combo
+    if (!Points_isMinus)
+        score = points*g_combo;
+    else
+        score = points;
+    
     g_score += score;
+
     return score;
 }
 
@@ -159,8 +165,9 @@ function renderSimulation(ctx) {
     if(levelManager.levelCountDown() > 0) {
         drawLevelCountdown(ctx);
     }
-
-    if (g_combo > 1) drawCombo(ctx);
+    if (!Points_isMinus){
+        if (g_combo > 1) drawCombo(ctx);
+    }
     entityManager.render(ctx);
 	particleManager.render(ctx);
 

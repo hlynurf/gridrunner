@@ -28,6 +28,7 @@ Caterpillar.prototype.radius = 10;;
 Caterpillar.prototype.velY = 0.5;
 // If true he is going right, if false he is going left
 Caterpillar.prototype.lives = 3; 
+Caterpillar.prototype.moreSpeed = 1; 
 
 Caterpillar.prototype.update = function (du) {
 
@@ -37,6 +38,8 @@ Caterpillar.prototype.update = function (du) {
         return entityManager.KILL_ME_NOW;
 
     if (this.cy > g_canvas.height - g_canvas.height / 10) {
+        var points = updateScore(-30);
+        entityManager.makePointsAppear(this.cx, this.cy, points);
         return entityManager.KILL_ME_NOW;
     }
 
@@ -53,16 +56,16 @@ Caterpillar.prototype.update = function (du) {
     // Moving it down when it hits its barrier
     if ( this.cx > this.randomRight && this.direction || this.cx < this.randomLeft && !this.direction ) {
         this.velX = 0;
-        this.cy += 4;
+        this.cy += 4*this.moreSpeed;
         // After moving down, reverse direction
         if (this.cy >= this.startY + this.downRange && this.direction) {
             this.startY += this.downRange;
-            this.velX =- 4;
+            this.velX =- 4*this.moreSpeed;
             this.direction = false;
         }
         if (this.cy >= this.startY + this.downRange && !this.direction) {
             this.startY += this.downRange;
-            this.velX = 4;
+            this.velX = 4*this.moreSpeed;
             this.direction = true;
         }
     }

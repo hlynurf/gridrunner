@@ -21,7 +21,7 @@ function Kamikaze(descr) {
     this.scale  = this.scale  || 1;
     this.killShip = true;
 	this.velY = this.targetY / 180; // Go to target in 180 frames (3 seconds)
-    
+
 };
 
 Kamikaze.prototype = new Entity();

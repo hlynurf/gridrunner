@@ -199,18 +199,17 @@ Ship.prototype.computeSubStep = function (du) {
  
 };
 
-var NOMINAL_THRUST = +5;
-
 Ship.prototype.computeSpeedVertical = function () {
     
     var speed = 0;
+    var speedVertical = 5;
     var oneGridY=g_canvas.height / 30;
     var shipHeight=this.getRadius();
     if (keys[this.KEY_UP] && this.cy >oneGridY + shipHeight ) {
-        speed -= NOMINAL_THRUST;
+        speed = -speedVertical;
     }
     if (keys[this.KEY_DOWN] && this.cy < g_canvas.height-(2*oneGridY)- shipHeight) {
-        speed += NOMINAL_THRUST;
+        speed = speedVertical;
     }
     
     return speed;
@@ -221,18 +220,20 @@ var speedHorizontal = +5;
 Ship.prototype.computeSpeedHorizontal = function () {
     
     var speed = 0;
+    var speedHorizontal = 5;
     var oneGridX=g_canvas.width / 20;
     //0.4 er scale, eh sem þarf að laga
     var shipWidth=this.getRadius();
     if (keys[this.KEY_LEFT] && this.cx > oneGridX+shipWidth) {
-        speed -= speedHorizontal;
+        speed = -speedHorizontal;
     }
     if (keys[this.KEY_RIGHT] && this.cx <g_canvas.width-oneGridX-shipWidth) {
-        speed += speedHorizontal;
+        speed = speedHorizontal;
     }
     
     return speed;
 };
+
 var gunType=0;
 
 Ship.prototype.maybeFireBullet = function () {
