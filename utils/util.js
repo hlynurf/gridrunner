@@ -172,6 +172,9 @@ playSound: function(audio) {
     if(!g_muted) {
         audio.play();
     }
+    if(g_isUpdatePaused) {
+        audio.pause();
+    }
 }
 
 };
