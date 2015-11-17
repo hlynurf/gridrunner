@@ -4,8 +4,8 @@
 
 /*jslint browser: true, devel: true, white: true */
 
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
 
 /*
 0        1         2         3         4         5         6         7         8
@@ -30,7 +30,6 @@ Image.prototype.asyncLoad = function(src, asyncCallback) {
     //
     this.onload = asyncCallback;
     this.onerror = asyncCallback;
-    
     // NB: The load operation can be triggered from any point 
     // after setting `this.src`.
     //
@@ -77,11 +76,10 @@ function imagesPreload(requiredImages,
     // whose `name` property will have been set appropriately.
     //
     preloadHandler = function () {
-
         loadedImages[this.name] = this;
 
         if (0 === this.width) {
-            console.log("loading failed for", this.name);
+            console.log('loading failed for', this.name);
         }
 
         // Allow this handler closure to eventually be GC'd (!)
@@ -91,10 +89,7 @@ function imagesPreload(requiredImages,
         numImagesHandled += 1;
 
         if (numImagesHandled === numImagesRequired) {
-          
             completionCallback();
-
-            
         }
     };
 
@@ -103,13 +98,10 @@ function imagesPreload(requiredImages,
     // -- unlike `Object.keys`, it traverses the prototype chain
     //
     for (currentName in requiredImages) {
-
         // Skip inherited properties from the prototype chain,
         // just to be safe, although there shouldn't be any...
-        
         // I prefer this approach, but JSLint doesn't like "continue" :-(
         //if (!requiredImages.hasOwnProperty(currentName)) { continue; }
-        
         if (requiredImages.hasOwnProperty(currentName)) {
             currentImage = new Image();
             currentImage.name = currentName;
