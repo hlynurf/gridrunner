@@ -1,3 +1,5 @@
+var g_backgroundBrightness = .3;
+
 function drawBackground(ctx) {	// Draws the grid
 	// util.fillBox(ctx, 0, 0, g_canvas.width, g_canvas.height, 'Black');
 	var boxSize = 20;
@@ -5,20 +7,40 @@ function drawBackground(ctx) {	// Draws the grid
 	var horLines = g_canvas.height / boxSize;
 	for (var i = 1; i < vertLines; i++) {
 		ctx.save();
+		ctx.lineWidth = 2;
+		if (g_combo) {
+			ctx.globalAlpha = .3 + .05 * g_combo;
+			if (ctx.globalAlpha > 1) ctx.globalAlpha = 1;
+			g_backgroundBrightness = ctx.globalAlpha;
+		}
+		else {
+			if (g_backgroundBrightness > .3) g_backgroundBrightness -= .0002;
+			ctx.globalAlpha = g_backgroundBrightness;
+		}
 		ctx.beginPath();
 		ctx.moveTo(boxSize * i, boxSize);
-		ctx.lineTo(boxSize * i, g_canvas.height - 2 * boxSize);
-		ctx.strokeStyle = 'Red';
+		ctx.lineTo(boxSize * i, g_canvas.height - 2*boxSize);
+		ctx.strokeStyle = util.gridColor(levelManager.getCurrentLevel());
 		ctx.stroke();
 		ctx.restore();
 	}
 	for (var i = 1; i < horLines - 1; i++) {
 		ctx.save();
+		ctx.lineWidth = 2;
+		if (g_combo) {
+			ctx.globalAlpha = .3 + .05 * g_combo;
+			if (ctx.globalAlpha > 1) ctx.globalAlpha = 1;
+			g_backgroundBrightness = ctx.globalAlpha;
+		}
+		else {
+			if (g_backgroundBrightness > .3) g_backgroundBrightness -= .0002;
+			ctx.globalAlpha = g_backgroundBrightness;
+		}
 		ctx.beginPath();
 		ctx.moveTo(boxSize, boxSize * i);
-		ctx.lineTo(g_canvas.width - boxSize, boxSize * i);
-		ctx.strokeStyle = 'Red';
-		ctx.stroke();
+		ctx.lineTo(g_canvas.width-boxSize, boxSize * i);
+		ctx.strokeStyle = util.gridColor(levelManager.getCurrentLevel());
+		ctx.stroke();	
 		ctx.restore();
 	}
 }
@@ -32,7 +54,7 @@ function drawCaterpillar(ctx, x, y, isHead, direction, lives) {
 	var outerRadius = 12;
 	// Making 3 different gradients
 	var gradient = ctx.createRadialGradient(x - 3, y - 3, innerRadius, x, y, outerRadius);
-	if (lives === 3) {
+	if (lives == 3) {
 		gradient.addColorStop(0, 'rgba(247,253,193,1.0)');
 		gradient.addColorStop(0.20, 'rgba(235,249,52,1.0)');
 		gradient.addColorStop(0.60, 'rgba(204,222,38,1.0)');
@@ -55,7 +77,7 @@ function drawCaterpillar(ctx, x, y, isHead, direction, lives) {
 	util.fillCircle(ctx,x, y , radius);
 	// Creating the eye
 	ctx.fillStyle = '#000';
-	if(isHead && direction)
+	if (isHead && direction)
 		util.fillCircle(ctx,x + 2,y, 3);
 	else if(isHead && !direction)
 		util.fillCircle(ctx,x - 2,y, 3);
@@ -63,14 +85,13 @@ function drawCaterpillar(ctx, x, y, isHead, direction, lives) {
 }
 
 function drawRocket(ctx) {
-
 	function drawFin(ctx) {
 		ctx.beginPath();
 		ctx.moveTo(150,150);
 		ctx.bezierCurveTo(250,150,250,250,250,250);
 		ctx.bezierCurveTo(200,200,150,200,150,200);
 		ctx.closePath();
-		ctx.fillStyle = 'Red';
+		ctx.fillStyle='Red';
 		ctx.fill();
 		ctx.stroke();
 	}
@@ -165,8 +186,8 @@ function drawShip(ctx) {
 	for (var i = 0; i < 8; i++) {
 		for (var j = 0; j < 8; j++) {
 			if (shipArray[j][i]) {
-				util.fillBox(ctx, 50 * i, 50 * j, 50 * shipArray[j][i],25,'Green');
-				util.fillBox(ctx, 50 * i, 50 * j + 25, 50 * shipArray[j][i],25,'DarkGreen');
+				util.fillBox(ctx,50 * i,50 * j,50 * shipArray[j][i],25,'Green');
+				util.fillBox(ctx,50 * i,50 * j + 25,50 * shipArray[j][i],25,'DarkGreen');
 			}
 		}
 	}
@@ -219,7 +240,7 @@ function drawGameOverScreen(ctx) {
 }
 
 function drawGamePaused(ctx) {
-	util.borderedCenteredText(ctx, g_canvas.width/2, 3*g_canvas.height/7, 'Yellow', 'Red', '80px Impact', 2, 'PAUSED');
+	util.borderedCenteredText(ctx, g_canvas.width / 2, 3 * g_canvas.height / 7, 'Yellow', 'Red', '80px Impact', 2, 'PAUSED');
 }
 
 function drawScrollingBackground(ctx) {	// Draws the stars
@@ -243,10 +264,10 @@ function drawCombo(ctx) {
 function drawMainMenu(ctx) {
 	ctx.save();
 	drawScrollingBackground(ctx);
-	util.borderedCenteredText(ctx, g_canvas.width/2, g_canvas.height * 0.2, 'Yellow', 'Red', '60px Impact', 2, 'GRIDRUNNER');
-	util.borderedCenteredText(ctx, g_canvas.width/2 , g_canvas.height * 0.5, 'Yellow', 'Red', '40px Impact', 2, 'PLAY');
-	util.borderedCenteredText(ctx, g_canvas.width/2 , g_canvas.height * 0.6, 'Yellow', 'Red', '40px Impact', 2, 'HIGH SCORES');
-	util.borderedCenteredText(ctx, g_canvas.width/2 , g_canvas.height * 0.7, 'Yellow', 'Red', '40px Impact', 2, 'INSTRUCTIONS');
+	util.borderedCenteredText(ctx, g_canvas.width / 2, g_canvas.height * 0.2, 'Yellow', 'Red', '60px Impact', 2, 'GRIDRUNNER');
+	util.borderedCenteredText(ctx, g_canvas.width / 2 , g_canvas.height * 0.5, 'Yellow', 'Red', '40px Impact', 2, 'PLAY');
+	util.borderedCenteredText(ctx, g_canvas.width / 2 , g_canvas.height * 0.6, 'Yellow', 'Red', '40px Impact', 2, 'HIGH SCORES');
+	util.borderedCenteredText(ctx, g_canvas.width / 2 , g_canvas.height * 0.7, 'Yellow', 'Red', '40px Impact', 2, 'INSTRUCTIONS');
 	ctx.fillStyle = ['Turquise', 'Yellow', 'Blue', 'Green', 'Purple', 'Magenta'][Math.floor(Math.random() * 6)];
 	ctx.beginPath();
 	if (g_menuChoose === 0) {
@@ -258,7 +279,7 @@ function drawMainMenu(ctx) {
 		ctx.lineTo(60, 355);
 		ctx.lineTo(60, 335);
 	} else {
-	ctx.moveTo(65, 405);
+		ctx.moveTo(65, 405);
 		ctx.lineTo(45, 415);
 		ctx.lineTo(45, 395);
 	}
@@ -282,7 +303,7 @@ function drawHighScores(ctx, highScores) {
 
 function drawRules(ctx) {
 	drawScrollingBackground(ctx);
-	util.borderedCenteredText(ctx, g_canvas.width / 2, g_canvas.height * 0.2, 'Yellow', 'Red', '60px Impact', 2, 'INSTRUCTIONS');
+	util.borderedCenteredText(ctx, g_canvas.width/2, g_canvas.height * 0.2, 'Yellow', 'Red', '60px Impact', 2, 'INSTRUCTIONS');
 
 	drawShipAt(ctx, 40, 165, 0.5);
 	util.borderedRightAlignedText(ctx, 75, 180, 'Yellow', 'Red', '25px Impact', 1, 'Move your ship with WASD');
@@ -295,7 +316,7 @@ function drawRules(ctx) {
 	drawCaterpillar(ctx, 30, 340, false, Math.PI, 3);
 	drawCaterpillar(ctx, 50, 340, true, Math.PI, 3);
 	util.borderedRightAlignedText(ctx, 75, 350, 'Yellow', 'Red', '25px Impact', 1, 'Caterpillars give 30 points');
-	drawRocketAt(ctx, 40, 370, -Math.PI / 2, 1);
+	drawRocketAt(ctx, 40, 370, -Math.PI/2, 1);
 	util.borderedRightAlignedText(ctx, 75, 380, 'Yellow', 'Red', '25px Impact', 1, 'Rockets give 50 points');
 	drawMineAt(ctx, 40, 400, 7, 'Red');
 	util.borderedRightAlignedText(ctx, 75, 410, 'Yellow', 'Red', '25px Impact', 1, 'Watch out for mines!');
@@ -311,10 +332,6 @@ function drawLevelCountdown(ctx) {
 	util.borderedCenteredText(ctx, g_canvas.width / 2, 3 * g_canvas.height / 7, 'Yellow', 'Red', '80px Impact', 2, 'LEVEL ' + levelManager.getCurrentLevel());
 	var countdown = Math.ceil(levelManager.levelCountDown() / SECS_TO_NOMINALS);
 	util.borderedCenteredText(ctx, g_canvas.width / 2, 4 * g_canvas.height / 7, 'Yellow', 'Red', '80px Impact', 2, countdown);
-}
-
-function drawMenuButton(ctx, text) {
-	
 }
 
 function drawBullet(ctx) {
@@ -336,18 +353,18 @@ function drawBullet(ctx) {
 function drawSoundLogo(ctx) {
 	ctx.save();
 
-	var grd = ctx.createRadialGradient(g_canvas.width - 20, 20, 0, g_canvas.width - 20, 20,10);
+	var grd = ctx.createRadialGradient(g_canvas.width-20, 20,0,g_canvas.width-20, 20,10);
 	grd.addColorStop(0,'Gray');
 	grd.addColorStop(1, 'White');
 
 	ctx.beginPath();
-	ctx.moveTo(g_canvas.width - 20, 30);
-	ctx.lineTo(g_canvas.width - 25, 25);
-	ctx.lineTo(g_canvas.width - 30, 25);
-	ctx.lineTo(g_canvas.width - 30, 15);
-	ctx.lineTo(g_canvas.width - 25, 15);
-	ctx.lineTo(g_canvas.width - 20, 10);
-	ctx.arc(g_canvas.width - 30, 20, Math.sqrt(2 * 10 * 10), -Math.PI / 4, Math.PI / 4);
+	ctx.moveTo(g_canvas.width-20, 30);
+	ctx.lineTo(g_canvas.width-25, 25);
+	ctx.lineTo(g_canvas.width-30, 25);
+	ctx.lineTo(g_canvas.width-30, 15);
+	ctx.lineTo(g_canvas.width-25, 15);
+	ctx.lineTo(g_canvas.width-20, 10);
+	ctx.arc(g_canvas.width-30, 20, Math.sqrt(2*10*10), -Math.PI/4, Math.PI/4);
 	//ctx.lineTo(g_canvas.width-20, 30);
 	ctx.fillStyle = grd;
 	ctx.fill();
@@ -359,16 +376,12 @@ function drawSoundLogo(ctx) {
 	ctx.beginPath();
 	ctx.arc(g_canvas.width - 30, 20, Math.sqrt(2 * 12 * 12), -Math.PI / 4 + 0.10, Math.PI / 4 - 0.10);
 	ctx.stroke();
-	/*ctx.beginPath();
-	ctx.arc(g_canvas.width-30, 20, Math.sqrt(2*15*15), -Math.PI/4, Math.PI/4);
-	ctx.stroke();*/
-
-
 	ctx.restore();
 }
 
 function drawSoundMutedLogo(ctx) {
 	ctx.save();
+
 	var grd = ctx.createRadialGradient(g_canvas.width - 20, 20,0,g_canvas.width - 20, 20,10);
 	grd.addColorStop(0,'Gray');
 	grd.addColorStop(1, 'White');

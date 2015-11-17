@@ -105,6 +105,10 @@ function resetScore() {
 	g_highest_combo = 0;
 }
 
+function removePowerups() {
+    g_bullet_powerupTimer = 0;
+}
+
 // GAME-SPECIFIC DIAGNOSTICS
 
 var g_renderSpatialDebug = false;

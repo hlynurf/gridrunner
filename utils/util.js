@@ -175,6 +175,20 @@ var util = {
 		if (g_isUpdatePaused) {
 			audio.pause();
 		}
-	}
+	},
 
+	gridColor: function(level) {
+		switch (level % 5) {
+		case 1:
+			return 'Red';
+		case 2:
+			return 'Purple';
+		case 3:
+			return 'Blue';
+		case 4:
+			return 'Green';
+		case 0:
+			return 'DimGray';
+		}
+	}
 };

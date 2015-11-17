@@ -298,14 +298,10 @@ Ship.prototype.render = function (ctx) {
 };
 
 Ship.prototype.renderLives = function(ctx) {
-	var lifeSprite = g_sprites.life;
-	// var origScale = lifeSprite.scale;
-	// lifeSprite.scale = .2;
-	var w = 15 * 2.2;	//15 is original radius
+	var w = 10 * 2.2;
 	for (var i = 0; i < this._lives; i++) {
-		drawShipAt(ctx, g_canvas.width - w / 2 - w * i, g_canvas.height - w / 2, .4);
+		drawShipAt(ctx, g_canvas.width - 30 - 1.1 * w * i, g_canvas.height - w, .28);
 	}
-	//lifeSprite.scale = origScale;
 };
 
 Ship.prototype.makeEnlarged = function() {
