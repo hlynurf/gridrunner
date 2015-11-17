@@ -96,7 +96,10 @@ UpEnemy.prototype.render = function (ctx) {
 	ctx.save();
 	if (this._stopTime !== 0 && this._stopTime < 1000 / NOMINAL_UPDATE_INTERVAL) {
 		util.playSound(this.fireSound);
-		ctx.fillStyle = 'rgb(113, 201, 55)';
+		var grd = ctx.createRadialGradient(this.cx, this.cy + 40, 0, this.cx, this.cy + 40, this._stopTime / 5);
+		grd.addColorStop(.5,'White');
+		grd.addColorStop(.7,'Cyan');
+		ctx.fillStyle = grd;
 		util.fillCircle(ctx, this.cx, this.cy + 40, this._stopTime / 5);
 	} else if (this._stopTime > 1000 / NOMINAL_UPDATE_INTERVAL) {
 		if (!this._hasFired) {
