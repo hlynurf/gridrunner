@@ -122,6 +122,7 @@ main.gameOver = function () {
     localStorage.setItem('highScore', JSON.stringify(this.highScores))
     entityManager.resetCategories();
     spatialManager.resetEntities();
+    levelManager.makeEmpty();
 };
 
 main.mainMenu = function () {
@@ -132,11 +133,20 @@ main.mainMenu = function () {
 
 main.newGame = function () {
     entityManager.init();
+    levelManager.init();
     createInitialShips();
     resetScore();
     util.playSound(gameSoundtrack);
     this._mainMenu = false;
     this._isGameOver = false;
+}
+
+main.nextLevel = function() {
+    entityManager.resetCategories();
+    spatialManager.resetEntities();
+    entityManager.init();
+    createInitialShips();
+    levelManager.nextLevel();
 }
 
 main.highScore= function () {

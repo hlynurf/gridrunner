@@ -228,7 +228,8 @@ function drawGameOverScreen(ctx) {
 	util.borderedCenteredText(ctx, g_canvas.width/2, 7.5*g_canvas.height/15, 'Yellow', 'Red', '40px Impact', 1.2, 'Final score:');
 	util.borderedCenteredText(ctx, g_canvas.width/2, 9*g_canvas.height/15, 'Yellow', 'Red', '60px Impact', 1.6, g_score.toLocaleString());
 
-	util.borderedCenteredText(ctx, g_canvas.width/2, 11*g_canvas.height/15, 'Yellow', 'Red', '30px Impact', 1, 'Highest combo: ' + g_highest_combo);
+	util.borderedCenteredText(ctx, g_canvas.width/2, g_canvas.height*0.7, 'Yellow', 'Red', '30px Impact', 1, 'Level reached: ' + levelManager.getCurrentLevel());
+	util.borderedCenteredText(ctx, g_canvas.width/2, g_canvas.height*0.75, 'Yellow', 'Red', '30px Impact', 1, 'Highest combo: ' + g_highest_combo);
 
 	util.borderedCenteredText(ctx, g_canvas.width/2, 6*g_canvas.height/7, 'Yellow', 'Red', '30px Impact', 1, 'Press SPACE to play again!');
 }
@@ -300,25 +301,33 @@ function drawRules(ctx) {
 	drawScrollingBackground(ctx);
 	util.borderedCenteredText(ctx, g_canvas.width/2, g_canvas.height * 0.2, 'Yellow', 'Red', '60px Impact', 2, 'INSTRUCTIONS');
 
-	drawShipAt(ctx, 40, 185, 0.5);
-	util.borderedRightAlignedText(ctx, 75, 200, 'Yellow', 'Red', '25px Impact', 1, 'Move your ship with WASD');
-	drawPowerupAt(ctx, 40, 230, 10);
-	util.borderedRightAlignedText(ctx, 75, 240, 'Yellow', 'Red', '25px Impact', 1, 'Catch powerups for boost!');
-	util.centeredText(ctx, 40, 290, 'Orange', '30px Impact', 'x7');
-	util.borderedRightAlignedText(ctx, 75, 280, 'Yellow', 'Red', '25px Impact', 1, 'Killing another enemy within');
-	util.borderedRightAlignedText(ctx, 75, 305, 'Yellow', 'Red', '25px Impact', 1, '0.5s starts a COMBO');
+	drawShipAt(ctx, 40, 165, 0.5);
+	util.borderedRightAlignedText(ctx, 75, 180, 'Yellow', 'Red', '25px Impact', 1, 'Move your ship with WASD');
+	drawPowerupAt(ctx, 40, 210, 10);
+	util.borderedRightAlignedText(ctx, 75, 220, 'Yellow', 'Red', '25px Impact', 1, 'Catch powerups for boost!');
+	util.centeredText(ctx, 40, 270, 'Orange', '30px Impact', 'x17');
+	util.borderedRightAlignedText(ctx, 75, 260, 'Yellow', 'Red', '25px Impact', 1, 'Killing another enemy within');
+	util.borderedRightAlignedText(ctx, 75, 285, 'Yellow', 'Red', '25px Impact', 1, '0.5s starts a COMBO');
 
-	drawCaterpillar(ctx, 30, 360, false, Math.PI, 3);
-	drawCaterpillar(ctx, 50, 360, true, Math.PI, 3);
-	util.borderedRightAlignedText(ctx, 75, 370, 'Yellow', 'Red', '25px Impact', 1, 'Caterpillars give 30 points');
-	drawRocketAt(ctx, 40, 390, -Math.PI/2, 1);
-	util.borderedRightAlignedText(ctx, 75, 400, 'Yellow', 'Red', '25px Impact', 1, 'Rockets give 50 points');
-	drawMineAt(ctx, 40, 420, 7, 'Red');
-	util.borderedRightAlignedText(ctx, 75, 430, 'Yellow', 'Red', '25px Impact', 1, 'Watch out for mines!');
+	drawCaterpillar(ctx, 30, 340, false, Math.PI, 3);
+	drawCaterpillar(ctx, 50, 340, true, Math.PI, 3);
+	util.borderedRightAlignedText(ctx, 75, 350, 'Yellow', 'Red', '25px Impact', 1, 'Caterpillars give 30 points');
+	drawRocketAt(ctx, 40, 370, -Math.PI/2, 1);
+	util.borderedRightAlignedText(ctx, 75, 380, 'Yellow', 'Red', '25px Impact', 1, 'Rockets give 50 points');
+	drawMineAt(ctx, 40, 400, 7, 'Red');
+	util.borderedRightAlignedText(ctx, 75, 410, 'Yellow', 'Red', '25px Impact', 1, 'Watch out for mines!');
 
-	util.borderedRightAlignedText(ctx, 75, 485, 'Yellow', 'Red', '25px Impact', 1, 'Toggle sound with N');
+	util.borderedRightAlignedText(ctx, 75, 455, 'Yellow', 'Red', '20px Impact', 1, 'Pause with P');
+	util.borderedRightAlignedText(ctx, 75, 475, 'Yellow', 'Red', '20px Impact', 1, 'Toggle mouse control with M');
+	util.borderedRightAlignedText(ctx, 75, 495, 'Yellow', 'Red', '20px Impact', 1, 'Toggle sound with N');
 
 	util.borderedCenteredText(ctx, g_canvas.width / 2, g_canvas.height * 0.9, 'Yellow', 'Red', '30px Impact', 1.5, 'PRESS B TO GO BACK');
+}
+
+function drawLevelCountdown(ctx) {
+	util.borderedCenteredText(ctx, g_canvas.width/2, 3*g_canvas.height/7, 'Yellow', 'Red', '80px Impact', 2, 'LEVEL ' + levelManager.getCurrentLevel());
+	var countdown = Math.ceil(levelManager.levelCountDown() / SECS_TO_NOMINALS);
+	util.borderedCenteredText(ctx, g_canvas.width/2, 4*g_canvas.height/7, 'Yellow', 'Red', '80px Impact', 2, countdown);
 }
 
 function drawMenuButton(ctx, text) {

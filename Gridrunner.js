@@ -59,12 +59,21 @@ function updateSimulation(du) {
     processDiagnostics();
     
     entityManager.update(du);
+    levelManager.update(du);
+
     if (!g_isUpdatePaused && !main._mainMenu && !main._highScore && !main._rules){
         g_combo_timer -= du;
         if(g_combo_timer <= 0) {
             loseCombo();
         }
 
+        if(levelManager.levelOver() && levelManager.moreLevels()) {
+            main.nextLevel();
+            console.log(levelManager.getCurrentLevel());
+        } else if (levelManager.levelOver()) {
+            main.gameOver();
+        }
+/*
         g_nextCaterPillar -= du;
         g_nextKamiKaze -= du;
         if (g_nextCaterPillar < 0){
@@ -76,7 +85,7 @@ function updateSimulation(du) {
         if (g_nextKamiKaze < 0) {
             entityManager.sendKamikaze();
             g_nextKamiKaze = 10000 / NOMINAL_UPDATE_INTERVAL;
-        }
+        }*/
     }
 	
 	particleManager.update(du);
@@ -147,6 +156,9 @@ function renderSimulation(ctx) {
 	drawScrollingBackground(ctx);
 	drawBackground(ctx);
 	drawScore(ctx);
+    if(levelManager.levelCountDown() > 0) {
+        drawLevelCountdown(ctx);
+    }
 
     if (g_combo > 1) drawCombo(ctx);
     entityManager.render(ctx);

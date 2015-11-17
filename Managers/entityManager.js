@@ -26,6 +26,7 @@ _bullets : [],
 _ships   : [],
 _enemies : [],
 _caterpillars: [],
+_kamikazes: [],
 _powerups: [],
 _landMines: [],
 _lightnings: [],
@@ -80,7 +81,7 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._bullets, this._ships, this._enemies, this._landMines, this._powerups, this._lightnings, this._points, this._bombs];
+    this._categories = [this._bullets, this._ships, this._enemies, this._caterpillars, this._kamikazes, this._landMines, this._powerups, this._lightnings, this._points, this._bombs];
 },
 
 init: function() {
@@ -98,7 +99,7 @@ resetCategories: function() {
 },
 
 sendKamikaze: function(){
-	this._enemies.push(new Kamikaze({
+	this._kamikazes.push(new Kamikaze({
         cx: (g_canvas.width / 10) + Math.random() * (g_canvas.width - g_canvas.width / 5), 
         cy: 0,
 		targetY: (g_canvas.height / 10) + Math.random() * (g_canvas.height / 2 - g_canvas.height / 5),
@@ -223,7 +224,7 @@ createCaterpillar: function(id){
 },	
 checkForCaterPillars: function(du) {
     if (this._nextCaterpillar <= 0 && this._creatingCaterpillars) {
-        this._enemies.push(new Caterpillar({
+        this._caterpillars.push(new Caterpillar({
             velX: this._caterPillarStuff.velX,
             direction: this._caterPillarStuff.direction,
             cx: this._caterPillarStuff.cx,
@@ -249,7 +250,7 @@ checkForCaterPillars: function(du) {
     } 
 },
 update: function(du) {
-    if (!main._highScore && !main._mainMenu) this.checkForCaterPillars(du);
+    if (!main._highScore && !main._mainMenu && !main._rules) this.checkForCaterPillars(du);
     for (var c = 0; c < this._categories.length; ++c) {
 
         var aCategory = this._categories[c];
@@ -270,6 +271,10 @@ update: function(du) {
         }
     }
 
+},
+
+noMoreEnemies: function() {
+    return (this._caterpillars.length === 0 && !this._creatingCaterpillars && this._kamikazes.length === 0);
 },
 
 render: function(ctx) {

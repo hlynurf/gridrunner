@@ -28,21 +28,37 @@ _currentLevel : {},
 
 // PUBLIC METHODS
 
-reset : function() {
+init : function() {
     // call when starting a new game
 
     // TODO add levels
-    var l1 = new Level();
-    l1.caterpillars.push(new Caterpillar());
-    this._levels.push(l1);
+    for (var i=0; i<10; i++) {
+        var catCount = 2*(i+1);
+        var catInterval = (1000 + 2000/Math.max(1, i-4)) / NOMINAL_UPDATE_INTERVAL;
+        var kamiCount = Math.max(0, i-3);
+        var kamiInterval = catInterval*2;
+        this._levels.push(new Level({
+            caterpillarCount: catCount,
+            caterpillarInterval: catInterval,
+            kamikazeCount: kamiCount,
+            kamikazeInterval: kamiInterval
+        }));
+    }
+    console.log('finished initializing levels');
 
     // start at first level
     this._currentLevelIdx = 0;
-    this._currentLevel = _levels[0];
+    this._currentLevel = this._levels[this._currentLevelIdx];
+},
+
+makeEmpty : function() {
+    while(this._levels && this._levels.length>0) {
+        this._levels.pop();
+    }
 },
 
 update : function(du) {
-    if(this._currentLevel) {
+    if(this._currentLevel instanceof Level) {
         this._currentLevel.update(du);
     }
 },
@@ -50,8 +66,23 @@ update : function(du) {
 nextLevel : function() {
     this._currentLevelIdx++;
     this._currentLevel = this._levels[this._currentLevelIdx];
-    return _currentLevel;
+    return this._currentLevel;
 },
 
+levelOver : function() {
+    return this._currentLevel.allDone() && entityManager.noMoreEnemies();
+},
+
+moreLevels : function() {
+    return this._currentLevelIdx+1<this._levels.length;
+},
+
+getCurrentLevel : function() {
+    return this._currentLevelIdx+1;
+},
+
+levelCountDown : function() {
+    return this._currentLevel.countdown;
+},
 
 }
