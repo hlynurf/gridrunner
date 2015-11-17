@@ -20,7 +20,7 @@ function Bomb(descr) {
     // Default sprite and scale, if not otherwise specified
     this.scale  = this.scale  || 1;
     this.killShip = true;
-    this.velY = 2;
+    this.velY = 5;
 };
 
 Bomb.prototype = new Entity();

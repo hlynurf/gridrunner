@@ -57,7 +57,9 @@ var g_isUpdatePaused = false;
 
 function shouldSkipUpdate() {
     if (eatKey(KEY_PAUSE)) {
-        g_isUpdatePaused = !g_isUpdatePaused;
+        // Can only pause in game
+        if (!main._highScore && !main._rules && !main._isGameOver && !main._mainMenu)
+            g_isUpdatePaused = !g_isUpdatePaused;
     }
     return g_isUpdatePaused && !eatKey(KEY_STEP);    
 }

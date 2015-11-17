@@ -73,16 +73,15 @@ Caterpillar.prototype.update = function (du) {
     if (isHit) {
         if(!isHit.killShip || (isHit instanceof Ship && isHit.enlargedDuration > 0)) {
             this.lives-=1;
-            //debugger;
+            // Kill the bullet!
+            if (!isHit.killShip) {
+                isHit.kill();
+            }
             if (!this.lives) {
                 var points = updateScore(30);
                 entityManager.makePointsAppear(this.cx, this.cy, points);
                 if (Math.random() < 0.1)
                     entityManager.createPowerups(this.cx,this.cy);
-                // Kill the bullet!
-                if (!isHit.killShip) {
-                    isHit.kill();
-                }
                 return entityManager.KILL_ME_NOW;
             }
         }
