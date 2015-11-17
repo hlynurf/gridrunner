@@ -5,15 +5,21 @@ function drawBackground(ctx) {	// Draws the grid
 	var boxSize = 20;
 	var vertLines = g_canvas.width / boxSize;
 	var horLines = g_canvas.height / boxSize;
+	
+	var maxHor = Math.floor(180 - levelManager.levelCountDown());
+	var maxVert = Math.floor(maxHor - horLines);
+	if (vertLines > maxVert) vertLines = maxVert;
+	if (horLines > maxHor) horLines = maxHor;
+	
 	for (var i = 1; i < vertLines; i++) {
 		ctx.save();
 		ctx.lineWidth = 2;
-		if (g_combo) {
+		if (g_combo) {	// Draw brighter grid during combo
 			ctx.globalAlpha = .3 + .05 * g_combo;
 			if (ctx.globalAlpha > 1) ctx.globalAlpha = 1;
 			g_backgroundBrightness = ctx.globalAlpha;
 		}
-		else {
+		else {	// Fade back to normal after combo
 			if (g_backgroundBrightness > .3) g_backgroundBrightness -= .0002;
 			ctx.globalAlpha = g_backgroundBrightness;
 		}
