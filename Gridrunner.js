@@ -95,11 +95,11 @@ function updateSimulation(du) {
 }
 
 function updateScore(points) {
-    increaseCombo();
     // Minus points don't have combo
-    if (!Points_isMinus)
+    if (points >= 0) {
+        increaseCombo();
         score = points*g_combo;
-    else
+    } else
         score = points;
 
     g_score += score;
@@ -165,6 +165,8 @@ function renderSimulation(ctx) {
 	drawScore(ctx);
     if(levelManager.levelCountDown() > 0) {
         drawLevelCountdown(ctx);
+    } else {
+        drawLevelNum(ctx);
     }
     if (!Points_isMinus){
         if (g_combo > 1) drawCombo(ctx);

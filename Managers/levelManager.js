@@ -33,10 +33,10 @@ init : function() {
 
     // TODO add levels
     for (var i=0; i<20; i++) {
-        var catCount = 2*(i+1);
-        var catInterval = (1000 + 2000/Math.max(1, i-4)) / NOMINAL_UPDATE_INTERVAL;
-        var kamiCount = Math.max(0, i-3);
-        var kamiInterval = catInterval*2;
+        var catCount = 4 + 2*i;
+        var catInterval = (3000 - Math.min(1000, Math.max(0, (i-4)*100))) / NOMINAL_UPDATE_INTERVAL;
+        var kamiCount = 1 + Math.max(0, (i-3)/2);
+        var kamiInterval = catInterval*3;
         this._levels.push(new Level({
             caterpillarCount: catCount,
             caterpillarInterval: catInterval,

@@ -251,6 +251,10 @@ function drawScore(ctx) {
 	ctx.restore();
 }
 
+function drawLevelNum(ctx) {
+	util.borderedRightAlignedText(ctx, 10, 25, 'Yellow', 'Red', '20px Impact', 1, 'Level ' + levelManager.getCurrentLevel());
+}
+
 function drawCombo(ctx) {
 	var comboTime = Math.ceil(g_combo_timer * 100 / SECS_TO_NOMINALS) / 100;
 	util.centeredText(ctx, g_canvas.width/2, g_canvas.height - 15, 'Orange', '20px Impact', 'combo x' + g_combo + " (" + comboTime + "s)");
