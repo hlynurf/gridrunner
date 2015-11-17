@@ -32,7 +32,7 @@ init : function() {
     // call when starting a new game
 
     // TODO add levels
-    for (var i=0; i<10; i++) {
+    for (var i=0; i<20; i++) {
         var catCount = 2*(i+1);
         var catInterval = (1000 + 2000/Math.max(1, i-4)) / NOMINAL_UPDATE_INTERVAL;
         var kamiCount = Math.max(0, i-3);
