@@ -153,9 +153,6 @@ function renderSimulation(ctx) {
 	if (levelManager.levelOvertime() > 2 * g_canvas.height) {
 		drawRewardMessages(ctx, 1 + Math.floor((levelManager.levelOvertime() - 2 * g_canvas.height) / g_canvas.height));
 	}
-	/*if (!Points_isMinus){
-		if (g_combo > 1) drawCombo(ctx);
-	}*/
 	entityManager.render(ctx);
 	particleManager.render(ctx);
 
@@ -174,31 +171,12 @@ function renderGamePaused(ctx){
 	drawGamePaused(ctx); 
 }
 
-
-// =============
-// PRELOAD STUFF
-// =============
-/*
-DELETE and delete imagespreload if we are not going to preload sounds
-var g_images = {};
-
-function requestPreloads() {
-
-	var requiredImages = {
-		ship   : "images/ship.png"
-	};
-
-	imagesPreload(requiredImages, g_images, preloadDone);
-}
-*/
 var g_sprites = {};
 
 function preloadDone() {
-	//g_sprites.ship  = new Sprite(g_images.ship);
 	createInitialStars();
 	main.init();
 }
 
 // Kick it off
 preloadDone();
-//requestPreloads();
