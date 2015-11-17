@@ -28,11 +28,11 @@ function Ship(descr) {
     this._scale = 2;
     this._isWarping = false;
     this._isStartShrinking = true;
-    this._lastBullet = Date.now();
     this._bulletDifference = 100;
 	this._lives = 3;
 	this._gunType = 0; //Default, simple gun
     this.killShip = true;
+    this.nextBullet = this._bulletDifference / NOMINAL_UPDATE_INTERVAL;
 };
 
 Ship.prototype = new Entity();
@@ -163,7 +163,7 @@ Ship.prototype.update = function (du) {
     }
 
     // Handle firing
-    this.maybeFireBullet();
+    this.maybeFireBullet(du);
     var isHit = this.findHitEntity();
     if (isHit) {
         if (isHit.killShip && this.enlargedDuration<=0) {
@@ -236,21 +236,23 @@ Ship.prototype.computeSpeedHorizontal = function () {
 
 var gunType=0;
 
-Ship.prototype.maybeFireBullet = function () {
+Ship.prototype.maybeFireBullet = function (du) {
     this._gunType = gunType;
-	if (Date.now() > this._lastBullet + this._bulletDifference) {
+    if (gunType > 0) {
+        g_bullet_powerupTimer -= du;
+        if (g_bullet_powerupTimer < 0) {
+            gunType = 0;
+        }
+    }
+    this.nextBullet -= du;
+	if (this.nextBullet < 0) {
         var dX = +Math.sin(this.rotation);
         var dY = -Math.cos(this.rotation);
         var launchDist = this.getRadius() + 10; // 10 is default bullet halfheight
         
         var relVel = this.launchVel;
         var relVelX = dX * relVel;
-        var relVelY = dY * relVel;
-        if (gunType > 0)
-        {
-            if (Date.now() > g_bullet_powerupTimer)
-                gunType=0;
-        }   
+        var relVelY = dY * relVel; 
 
         entityManager.fireBullet(
            this.cx + dX * launchDist , this.cy + dY * launchDist,
@@ -301,7 +303,7 @@ Ship.prototype.maybeFireBullet = function () {
 			default:
 				break;
 		}
-        this._lastBullet = Date.now();
+        this.nextBullet = this._bulletDifference / NOMINAL_UPDATE_INTERVAL;
     }
 };
 
