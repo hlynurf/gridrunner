@@ -1,5 +1,5 @@
 // ======
-// BULLET
+// Bullet
 // ======
 
 "use strict";

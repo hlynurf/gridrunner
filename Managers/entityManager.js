@@ -57,9 +57,7 @@ var entityManager = {
 	sendKamikaze: function() {
 		this._kamikazes.push(new Kamikaze({
 			cx: (g_canvas.width / 10) + Math.random() * (g_canvas.width - g_canvas.width / 5),
-			cy: 0,
-			targetY: (g_canvas.height / 10) + Math.random() * (g_canvas.height / 2 - g_canvas.height / 5),
-			killPowerups: false
+			targetY: (g_canvas.height / 10) + Math.random() * (g_canvas.height / 2 - g_canvas.height / 5)
 		}));
 	},
 
@@ -143,7 +141,7 @@ var entityManager = {
 
 	getRandomColor : function() {
 		var color = '#';
-		var letters = '0123456789ABCDEF'.split('');
+		var letters = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];
 		for (var i = 0; i < 6; i++ ) {
 			color += letters[Math.floor(Math.random() * 16)];
 		}

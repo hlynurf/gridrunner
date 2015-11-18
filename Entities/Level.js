@@ -1,5 +1,5 @@
 // ===========
-// LEVEL STUFF
+// Level
 // ===========
 
 "use strict";

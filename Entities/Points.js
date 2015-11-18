@@ -40,9 +40,9 @@ Points.prototype.render = function(ctx) {
 	var fontSize = 20 - Math.abs(updates - 750) * 5 / 750;
 	if (!g_isUpdatePaused)
 		var color = entityManager.getRandomColor();
-	// Give + or - points
+	// Give + or - text
 	var addOrRemove;
-	if (this.amount > 0) {
+	if (this.amount >= 0) {
 		addOrRemove = '+ ';
 		Points_isMinus = false;
 	}

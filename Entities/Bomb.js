@@ -1,5 +1,5 @@
 // ====
-// BOMB
+// Bomb
 // ====
 
 "use strict";

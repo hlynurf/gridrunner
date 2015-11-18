@@ -10,13 +10,10 @@ _currentLevel : {},
 
 // PRIVATE METHODS
 
-
 // PUBLIC METHODS
 
 init : function() {
 	// call when starting a new game
-
-	// TODO add levels
 	for (var i=0; i<20; i++) {
 		var catCount = 4 + 2*i;
 		var catInterval = (3000 - Math.min(1000, Math.max(0, (i-4)*100))) / NOMINAL_UPDATE_INTERVAL;

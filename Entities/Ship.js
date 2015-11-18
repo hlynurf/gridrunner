@@ -1,16 +1,8 @@
 // ==========
-// SHIP STUFF
+// Ship
 // ==========
 
 "use strict";
-
-/* jshint browser: true, devel: true, globalstrict: true */
-
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
-
 
 // A generic contructor which accepts an arbitrary descriptor object
 function Ship(descr) {
@@ -152,7 +144,7 @@ Ship.prototype.update = function (du) {
 			util.playSound(this.shipDiesSound);
 			this.warp();
 			this._lives--;
-			if (this._lives < 0) {
+			if (this._lives < 1) {
 				this.kill();
 				main.gameOver();
 			}
@@ -193,13 +185,10 @@ Ship.prototype.computeSpeedVertical = function () {
 	return speed;
 };
 
-var speedHorizontal = +5;
-
 Ship.prototype.computeSpeedHorizontal = function () {
 	var speed = 0;
 	var speedHorizontal = 5;
 	var oneGridX = g_canvas.width / 20;
-	//0.4 er scale, eh sem þarf að laga
 	var shipWidth = this.getRadius();
 	if (keys[this.KEY_LEFT] && this.cx > oneGridX + shipWidth) {
 		speed = -speedHorizontal;

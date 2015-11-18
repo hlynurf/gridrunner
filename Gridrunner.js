@@ -60,19 +60,7 @@ function updateSimulation(du) {
 		} else if (levelManager.levelOver()) {
 			main.gameOver();
 		}
-/*
-		g_nextCaterPillar -= du;
-		g_nextKamiKaze -= du;
-		if (g_nextCaterPillar < 0){
-			entityManager.createCaterpillar(id);
-			g_nextCaterPillar = 4000 / NOMINAL_UPDATE_INTERVAL;
-			id++;
-		}
 
-		if (g_nextKamiKaze < 0) {
-			entityManager.sendKamikaze();
-			g_nextKamiKaze = 10000 / NOMINAL_UPDATE_INTERVAL;
-		}*/
 	}
 	particleManager.update(du);
 }

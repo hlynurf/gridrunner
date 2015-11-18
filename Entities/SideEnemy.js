@@ -1,5 +1,5 @@
 // ==========
-// ENEMY STUFF
+// SideEnemy
 // ==========
 
 "use strict";
@@ -10,9 +10,7 @@ function SideEnemy(descr) {
 	this.setup(descr);
 
 	this.rememberResets();
-	// Default sprite, if not otherwise specified
-	this.sprite = this.sprite || g_sprites.ship;
-	// Set normal drawing scale, and warp state off
+	
 	this._bulletDifference = 5000;
 	this._goingDown = true;
 	this._nextStop = 4000 / NOMINAL_UPDATE_INTERVAL;
@@ -28,24 +26,14 @@ SideEnemy.prototype.rememberResets = function () {
 	// Remember my reset positions
 	this.reset_cx = this.cx;
 	this.reset_cy = this.cy;
-	this.reset_rotation = this.rotation;
 };
 
 // Initial, inheritable, default values
-SideEnemy.prototype.rotation = Math.PI / 2;
-SideEnemy.prototype.velX = 0;
-SideEnemy.prototype.velY = 0;
-SideEnemy.prototype.launchVel = 2;
 SideEnemy.prototype.numSubSteps = 1;
 
 SideEnemy.prototype.update = function (du) {
-	// Handle warping
-	if (this._isWarping) {
-		this._updateWarp(du);
-		return;
-	}
 	spatialManager.unregister(this);
-	if (this._isDeadNow) return entityManager.KILL_ME_NOW;
+
 	// Perform movement substeps
 	var steps = this.numSubSteps;
 	var dStep = du / steps;
@@ -71,23 +59,6 @@ SideEnemy.prototype.computeSubStep = function (du) {
 		if (this.cy < 20) this._goingDown = true;
 	}
 };
-
-
-SideEnemy.prototype.getRadius = function () {
-	return (this.sprite.width / 5) * 0.9;
-};
-
-SideEnemy.prototype.reset = function () {
-	this.setPos(this.reset_cx, this.reset_cy);
-	this.rotation = this.reset_rotation;
-	this.halt();
-};
-
-SideEnemy.prototype.halt = function () {
-	this.velX = 0;
-	this.velY = 0;
-};
-
 
 SideEnemy.prototype.render = function (ctx) {
 	var width = 40;
