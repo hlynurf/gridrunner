@@ -43,14 +43,14 @@ Caterpillar.prototype.update = function (du) {
 
 	// Makes the bounching effect
 	var range = 3;
-	if (this.cy >= this.startY + range ) {
+	if (this.cy >= this.startY + range) {
 		this.velY = -0.5;
 	}
-	if (this.cy < this.startY - range ) {
+	if (this.cy < this.startY - range) {
 		this.velY = 0.5;
 	}
 	// Moving it down when it hits its barrier
-	if ( this.cx > this.randomRight && this.direction || this.cx < this.randomLeft && !this.direction ) {
+	if ( this.cx > this.randomRight && this.direction || this.cx < this.randomLeft && !this.direction) {
 		this.velX = 0;
 		this.cy += 4 * this.moreSpeed;
 		// After moving down, reverse direction

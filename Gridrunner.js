@@ -33,8 +33,6 @@ function createInitialStars() {
 // =================
 // UPDATE SIMULATION
 // =================
-
-// We take a very layered approach here...
 //
 // The primary `update` routine handles generic stuff such as
 // pausing, single-step, and time-handling.
@@ -43,7 +41,6 @@ function createInitialStars() {
 
 
 // GAME-SPECIFIC UPDATE LOGIC
-var id = 0;
 function updateSimulation(du) {
 	processDiagnostics();
 	entityManager.update(du);
@@ -69,8 +66,7 @@ function updateScore(points) {
 	if (points >= 0) {
 		increaseCombo();
 		score = points * g_combo;
-	} else
-		score = points;
+	} else score = points;
 
 	g_score += score;
 
@@ -159,10 +155,10 @@ function renderGamePaused(ctx) {
 
 var g_sprites = {};
 
-function preloadDone() {
+function init() {
 	createInitialStars();
 	main.init();
 }
 
 // Kick it off
-preloadDone();
+init();

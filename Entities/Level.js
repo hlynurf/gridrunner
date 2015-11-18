@@ -25,8 +25,6 @@ Level.prototype.speedMultiplier = 1;
 Level.prototype.caterpillarTimer = 5000 / NOMINAL_UPDATE_INTERVAL;
 Level.prototype.kamikazeTimer = 0;
 
-Level.prototype.caterpillarId = 0;
-
 Level.prototype.update = function(du) {
 	if (this.countdown > 0) {
 		this.countdown -= du;
@@ -36,7 +34,7 @@ Level.prototype.update = function(du) {
 		this.caterpillarTimer += du;
 		this.kamikazeTimer += du;
 		if (this.caterpillarCount > 0 && this.caterpillarTimer > this.caterpillarInterval) {
-			entityManager.createCaterpillar(this.caterpillarId++);
+			entityManager.createCaterpillar();
 			this.caterpillarTimer = 0;
 			this.caterpillarCount -= 1;
 		}

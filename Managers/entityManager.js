@@ -159,7 +159,7 @@ var entityManager = {
 		}));
 	},
 
-	createCaterpillar: function(id) {
+	createCaterpillar: function() {
 		this._creatingCaterpillars = true;
 		// Randoms which way it comes from
 		if (Math.random() < 0.5) {
@@ -175,15 +175,14 @@ var entityManager = {
 		var oneGridHeight = g_canvas.height / 30;
 		var oneGridWidth = g_canvas.width / 20;
 		// Randoms starting Y position of catapillar in the upper 1-6 grid
-		this._caterPillarStuff.posY = Math.round((oneGridHeight) + Math.random() * (oneGridHeight * 5 ));
+		this._caterPillarStuff.posY = Math.round((oneGridHeight) + Math.random() * (oneGridHeight * 5));
 		// Random how long right and left the caterpillar goes
 		this._caterPillarStuff.randomRight = oneGridWidth * 10 + Math.random() * (oneGridWidth * 10);
 		this._caterPillarStuff.randomLeft = oneGridWidth + Math.random() * (oneGridWidth * 10);
 		// Randoms how long down it goes in each turn around
 		this._caterPillarStuff.downRange = Math.round(20 + Math.random() * 20);
 		this._caterPillarStuff.positionNum = 0;
-		this._caterPillarStuff.id = id;
-		this._caterPillarStuff.wormLength = 3 + Math.round( Math.random() * 7 );
+		this._caterPillarStuff.wormLength = 3 + Math.round(Math.random() * 7);
 	},
 
 	checkForCaterPillars: function(du) {
@@ -194,7 +193,6 @@ var entityManager = {
 				cx: this._caterPillarStuff.cx,
 				cy: this._caterPillarStuff.posY,
 				startY: this._caterPillarStuff.posY,
-				id: this._caterPillarStuff.id,
 				wormLength: this._caterPillarStuff.wormLength,
 				randomRight: this._caterPillarStuff.randomRight, // What distance it goes right
 				randomLeft: this._caterPillarStuff.randomLeft,   // What distance it goes left
@@ -226,7 +224,7 @@ var entityManager = {
 				if (status === this.KILL_ME_NOW) {
 					// remove the dead guy, and shuffle the others down to
 					// prevent a confusing gap from appearing in the array
-					aCategory.splice(i,1);
+					aCategory.splice(i, 1);
 				}
 				else {
 					++i;
