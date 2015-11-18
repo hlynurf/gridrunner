@@ -209,7 +209,7 @@ var entityManager = {
 				this._creatingCaterpillars = false;
 				this._nextCaterpillar = 0;
 			} else {
-				this._nextCaterpillar = 60 / NOMINAL_UPDATE_INTERVAL;
+				this._nextCaterpillar = 65 / NOMINAL_UPDATE_INTERVAL;
 			}
 		} else if (this._creatingCaterpillars) {
 			this._nextCaterpillar -= du;
