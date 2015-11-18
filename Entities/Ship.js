@@ -284,7 +284,7 @@ Ship.prototype.reset = function () {
 
 Ship.prototype.render = function (ctx) {
 	drawShipAt(ctx, this.cx, this.cy, this._scale);
-	this.renderLives(ctx);
+	//this.renderLives(ctx);
 	this.renderEnlargedCountdown(ctx);
 };
 

@@ -50,8 +50,16 @@ var levelManager = {
 		return this._currentLevel;
 	},
 
+	allDone : function() {
+		return this._currentLevel.allDone() && entityManager.noMoreEnemies();
+	},
+
 	levelOver : function() {
 		if (this._currentLevel.allDone() && entityManager.noMoreEnemies()) {
+			if(entityManager.hasShip()) {
+				main._currLives = entityManager.getShipLives();
+			}
+			entityManager.resetCategories();
 			spatialManager.resetEntities();
 			removePowerups();
 			return this._currentLevel.workOvertime();

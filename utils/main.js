@@ -80,6 +80,7 @@ main._mainMenu = true;
 main._highScore = false;
 main._rules = false;
 main.highScores = [];
+main._currLives = 0;
 
 main.gameOver = function () {
 	this._isGameOver = true;
@@ -136,10 +137,8 @@ main.newGame = function () {
 };
 
 main.nextLevel = function() {
-	var currLives = entityManager.getShipLives();
-	entityManager.resetCategories();
 	entityManager.init();
-	createNextLevelShip(currLives);
+	createNextLevelShip(this._currLives);
 	levelManager.nextLevel();
 };
 
