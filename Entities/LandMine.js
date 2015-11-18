@@ -20,6 +20,7 @@ function LandMine(descr) {
 
 LandMine.prototype = new Entity();
 LandMine.prototype.tickSound = new Audio('sounds/minetick.ogg');
+LandMine.prototype.mineFallSound = new Audio('sounds/minefall.ogg');
 LandMine.prototype.mineHitSound = new Audio('sounds/minehit.ogg');
 LandMine.prototype.velX = 2;
 LandMine.prototype.radius = 7;
@@ -38,6 +39,7 @@ LandMine.prototype.update = function (du) {
 	var isHit = this.findHitEntity();
 	if (this.lifetime < 0) {
 		entityManager.dropBomb(this.cx, this.cy);
+		util.playSound(this.mineFallSound);
 		return entityManager.KILL_ME_NOW;
 	}
 	if (isHit) {
