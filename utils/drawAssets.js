@@ -304,6 +304,7 @@ function drawLevelNum(ctx) {
 function drawCombo(ctx) {
 	var comboTime = Math.ceil(g_combo_timer * 100 / SECS_TO_NOMINALS) / 100;
 	util.centeredText(ctx, g_canvas.width / 2, g_canvas.height - 15, 'Orange', '20px Impact', 'combo x' + g_combo);
+}
 
 function drawMainMenu(ctx) {
 	ctx.save();
