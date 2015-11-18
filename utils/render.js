@@ -29,12 +29,12 @@ function render(ctx, gameOver, victory, mainMenu, highScore, rules) {
 	//
 	if (g_doClear) util.clearCanvas(ctx);
 	if (mainMenu) {
-		var menuSound = new Audio('sounds/menusound.ogg'); 
+		var menuSound = new Audio('sounds/menusound.ogg');
 		if (eatKey(MOVE_UP)) {
 			moveUp(main.getCurrTime());
 			util.playSound(menuSound);
 		}
-		if (eatKey(MOVE_DOWN)) { 
+		if (eatKey(MOVE_DOWN)) {
 			moveDown(main.getCurrTime());
 			util.playSound(menuSound);
 		}

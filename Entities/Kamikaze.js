@@ -67,7 +67,7 @@ Kamikaze.prototype.render = function (ctx) {
 
 Kamikaze.prototype.explode = function() {
 	for (var i = 2; i < 15; i++) {
-		var angle = i * Math.PI/8;
+		var angle = i * Math.PI / 8;
 		var dX = +Math.sin(angle);
 		var dY = -Math.cos(angle);
 		var relVelX = dX * .5;

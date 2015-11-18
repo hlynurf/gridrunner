@@ -33,7 +33,6 @@ Lightning.prototype.update = function (du) {
 
 Lightning.prototype.render = function (ctx) {
 	ctx.save();
-	
 	ctx.beginPath();
 	ctx.lineWidth = this.width;
 	ctx.globalAlpha = Math.min(1, (this.lifeSpan * NOMINAL_UPDATE_INTERVAL / 1000));
@@ -45,6 +44,5 @@ Lightning.prototype.render = function (ctx) {
 	grd.addColorStop(.9,'Cyan');
 	ctx.strokeStyle = grd;
 	ctx.stroke();
-	
 	ctx.restore();
 };

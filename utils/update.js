@@ -52,5 +52,5 @@ function shouldSkipUpdate() {
 		if (!main._highScore && !main._rules && !main._isGameOver && !main._mainMenu)
 			g_isUpdatePaused = !g_isUpdatePaused;
 	}
-	return g_isUpdatePaused && !eatKey(KEY_STEP);  
+	return g_isUpdatePaused && !eatKey(KEY_STEP);
 }

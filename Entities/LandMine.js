@@ -31,7 +31,7 @@ LandMine.prototype.update = function (du) {
 
 	if (this.cx < this.posX) this.cx += this.velX * du;
 
-	if (this.lifetime < 2000 / NOMINAL_UPDATE_INTERVAL){
+	if (this.lifetime < 2000 / NOMINAL_UPDATE_INTERVAL) {
 		util.playSound(this.tickSound);
 		this._innerColor = ['Red', 'Yellow'][Math.floor(Math.random() * 2)];
 	}
@@ -56,7 +56,7 @@ LandMine.prototype.update = function (du) {
 				return entityManager.KILL_ME_NOW;
 			} else {
 				// Kill the bullet!
-				if(!isHit.killShip) {
+				if (!isHit.killShip) {
 					isHit.kill();
 				}
 				this.scale *= 0.7;

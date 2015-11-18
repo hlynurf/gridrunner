@@ -52,16 +52,16 @@ Caterpillar.prototype.update = function (du) {
 	// Moving it down when it hits its barrier
 	if ( this.cx > this.randomRight && this.direction || this.cx < this.randomLeft && !this.direction ) {
 		this.velX = 0;
-		this.cy += 4*this.moreSpeed;
+		this.cy += 4 * this.moreSpeed;
 		// After moving down, reverse direction
 		if (this.cy >= this.startY + this.downRange && this.direction) {
 			this.startY += this.downRange;
-			this.velX =- 4*this.moreSpeed;
+			this.velX = -4 * this.moreSpeed;
 			this.direction = false;
 		}
 		if (this.cy >= this.startY + this.downRange && !this.direction) {
 			this.startY += this.downRange;
-			this.velX = 4*this.moreSpeed;
+			this.velX = 4 * this.moreSpeed;
 			this.direction = true;
 		}
 	}
@@ -71,7 +71,7 @@ Caterpillar.prototype.update = function (du) {
 	var isHit = this.findHitEntity();
 	if (isHit) {
 		if (!isHit.killShip || (isHit instanceof Ship && isHit.enlargedDuration > 0)) {
-			this.lives-=1;
+			this.lives -= 1;
 			util.playSound(this.popSound);
 			// Kill the bullet!
 			if (!isHit.killShip) {
@@ -90,12 +90,12 @@ Caterpillar.prototype.update = function (du) {
 };
 
 Caterpillar.prototype.getRadius = function () {
-	return this.scale * (this.radius) ;
+	return this.scale * (this.radius);
 };
 
 Caterpillar.prototype.render = function (ctx) {
 	if (this.position === 0)
-	drawCaterpillar(ctx, this.cx, this.cy, true, this.direction, this.lives);
+		drawCaterpillar(ctx, this.cx, this.cy, true, this.direction, this.lives);
 	else
-	drawCaterpillar(ctx, this.cx, this.cy, false, this.direction, this.lives);
+		drawCaterpillar(ctx, this.cx, this.cy, false, this.direction, this.lives);
 };

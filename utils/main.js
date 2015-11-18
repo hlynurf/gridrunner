@@ -1,24 +1,9 @@
 // ========
 // MAINLOOP
 // ========
-/*
-
-The mainloop is one big object with a fairly small public interface
-(e.g. init, iter, gameOver), and a bunch of private internal helper methods.
-
-The "private" members are identified as such purely by the naming convention
-of having them begin with a leading underscore. A more robust form of privacy,
-with genuine name-hiding *is* possible in JavaScript (via closures), but I 
-haven't adopted it here.
-
-*/
 
 "use strict";
-
-
-
 var main = {
-	
 	// "Frame Time" is a (potentially high-precision) frame-clock for animations
 	_frameTime_ms : null,
 	_frameTimeDelta_ms : null,
@@ -28,7 +13,7 @@ var main = {
 
 main.getCurrTime = function() {
 	return this._currTime_ms;
-}
+};
 
 // Perform one iteration of the mainloop
 main.iter = function (frameTime) {
@@ -51,8 +36,8 @@ main._updateClocks = function (frameTime) {
 	this._currTime_ms += frameTime;
 };
 // Soundtracks
-var gameSoundtrack = new Audio('sounds/gameSoundtrack.ogg'); 
-var menuSoundtrack = new Audio('sounds/menuSoundtrack.ogg'); 
+var gameSoundtrack = new Audio('sounds/gameSoundtrack.ogg');
+var menuSoundtrack = new Audio('sounds/menuSoundtrack.ogg');
 
 main._iterCore = function (dt) {
 	// Handle QUIT
@@ -80,7 +65,7 @@ main._iterCore = function (dt) {
 		gameSoundtrack.pause();
 	else {
 		util.playSound(gameSoundtrack);
-		gameSoundtrack.loop=true;
+		gameSoundtrack.loop = true;
 	}
 
 	if (!this._isGameOver) {
@@ -115,22 +100,22 @@ main.gameOver = function () {
 };
 
 main.victory = function () {
-    this._isGameOver = true;
-    this._victory = true;
-    /*var gameOver = new Audio('sounds/gameOver.ogg');
-    util.playSound(gameOver);*/
-    this.highScores.push(g_score);
-    if (this.highScores.length) {
-        this.highScores.sort(function (a, b) {
-            return b - a;
-        });
-        this.highScores = this.highScores.slice(0, 5);
-    }
-    localStorage.setItem('highScore', JSON.stringify(this.highScores));
-    entityManager.resetCategories();
-    spatialManager.resetEntities();
-    levelManager.makeEmpty();
-    removePowerups();
+	this._isGameOver = true;
+	this._victory = true;
+	/*var gameOver = new Audio('sounds/gameOver.ogg');
+	util.playSound(gameOver);*/
+	this.highScores.push(g_score);
+	if (this.highScores.length) {
+		this.highScores.sort(function (a, b) {
+			return b - a;
+		});
+		this.highScores = this.highScores.slice(0, 5);
+	}
+	localStorage.setItem('highScore', JSON.stringify(this.highScores));
+	entityManager.resetCategories();
+	spatialManager.resetEntities();
+	levelManager.makeEmpty();
+	removePowerups();
 };
 
 main.mainMenu = function () {
@@ -147,7 +132,7 @@ main.newGame = function () {
 	util.playSound(gameSoundtrack);
 	this._mainMenu = false;
 	this._isGameOver = false;
-    this._victory = false;
+	this._victory = false;
 };
 
 main.nextLevel = function() {

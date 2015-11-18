@@ -14,19 +14,19 @@ var util = {
 
 	clampRange: function(value, lowBound, highBound) {
 		if (value < lowBound) {
-		value = lowBound;
+			value = lowBound;
 		} else if (value > highBound) {
-		value = highBound;
+			value = highBound;
 		}
 		return value;
 	},
 
 	wrapRange: function(value, lowBound, highBound) {
 		while (value < lowBound) {
-		value += (highBound - lowBound);
+			value += (highBound - lowBound);
 		}
 		while (value > highBound) {
-		value -= (highBound - lowBound);
+			value -= (highBound - lowBound);
 		}
 		return value;
 	},
@@ -68,30 +68,28 @@ var util = {
 		}
 		return rand;
 	},
-	
 	randomCompliment : function(i) {	// Not random anymore
 		switch (i) {
-			case 1:
-				return 'Your hair looks good today!';
-			case 2:
-				return 'Good job!';
-			case 3:
-				return 'Neat!';
-			case 4:
-				return 'Keep it up!';
-			case 5:
-				return 'Stay sharp!';
-			case 6:
-				return 'You\'re almost there!';
-			case 7:
-				return 'That was awesome!';
-			case 8:
-				return 'I wish I were as talented as you!';
-			case 9:
-				return 'Nice shirt!';
-			case 0:
-				return 'You are my hero!';
-				
+		case 1:
+			return 'Your hair looks good today!';
+		case 2:
+			return 'Good job!';
+		case 3:
+			return 'Neat!';
+		case 4:
+			return 'Keep it up!';
+		case 5:
+			return 'Stay sharp!';
+		case 6:
+			return 'You\'re almost there!';
+		case 7:
+			return 'That was awesome!';
+		case 8:
+			return 'I wish I were as talented as you!';
+		case 9:
+			return 'Nice shirt!';
+		case 0:
+			return 'You are my hero!';
 		}
 	},
 

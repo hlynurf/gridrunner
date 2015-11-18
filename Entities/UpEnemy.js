@@ -15,13 +15,12 @@ function UpEnemy(descr) {
 	this._stopTime = 0;
 	this._goingRight = true;
 	this._hasFired = false;
-};
+}
 
 UpEnemy.prototype = new Entity();
 
 // HACKED-IN AUDIO (no preloading)
-UpEnemy.prototype.fireSound = new Audio(
-	"sounds/laser.ogg");
+UpEnemy.prototype.fireSound = new Audio('sounds/laser.ogg');
 
 UpEnemy.prototype.rememberResets = function () {
 	// Remember my reset positions

@@ -5,12 +5,10 @@ function drawBackground(ctx) {	// Draws the grid
 	var boxSize = 20;
 	var vertLines = g_canvas.width / boxSize;
 	var horLines = g_canvas.height / boxSize;
-	
 	var maxHor = Math.floor(180 - levelManager.levelCountDown());
 	var maxVert = Math.floor(maxHor - horLines);
 	if (vertLines > maxVert) vertLines = maxVert;
 	if (horLines > maxHor) horLines = maxHor;
-	
 	for (var i = 1; i < vertLines; i++) {
 		ctx.save();
 		ctx.lineWidth = 2;
@@ -25,16 +23,14 @@ function drawBackground(ctx) {	// Draws the grid
 		}
 		ctx.beginPath();
 		ctx.moveTo(boxSize * i, boxSize + levelManager.levelOvertime());
-		ctx.lineTo(boxSize * i, g_canvas.height - 2*boxSize + levelManager.levelOvertime());
+		ctx.lineTo(boxSize * i, g_canvas.height - 2 * boxSize + levelManager.levelOvertime());
 		ctx.strokeStyle = util.gridColor(levelManager.getCurrentLevel());
 		ctx.stroke();
 		ctx.restore();
 	}
-	
 	var horStart = levelManager.levelOvertime() - g_canvas.height;
 	if (horStart < 0) horStart = 0;
 	var horStartIndex = 1 + Math.floor(horStart / boxSize);
-	
 	for (var i = horStartIndex; i < horLines - 1; i++) {
 		ctx.save();
 		ctx.lineWidth = 2;
@@ -49,9 +45,9 @@ function drawBackground(ctx) {	// Draws the grid
 		}
 		ctx.beginPath();
 		ctx.moveTo(boxSize, boxSize * i);
-		ctx.lineTo(g_canvas.width-boxSize, boxSize * i);
+		ctx.lineTo(g_canvas.width - boxSize, boxSize * i);
 		ctx.strokeStyle = util.gridColor(levelManager.getCurrentLevel());
-		ctx.stroke();	
+		ctx.stroke();
 		ctx.restore();
 	}
 }
@@ -90,7 +86,7 @@ function drawCaterpillar(ctx, x, y, isHead, direction, lives) {
 	ctx.fillStyle = '#000';
 	if (isHead && direction)
 		util.fillCircle(ctx,x + 2,y, 3);
-	else if(isHead && !direction)
+	else if (isHead && !direction)
 		util.fillCircle(ctx,x - 2,y, 3);
 	ctx.restore();
 }
@@ -102,7 +98,7 @@ function drawRocket(ctx) {
 		ctx.bezierCurveTo(250,150,250,250,250,250);
 		ctx.bezierCurveTo(200,200,150,200,150,200);
 		ctx.closePath();
-		ctx.fillStyle='Red';
+		ctx.fillStyle = 'Red';
 		ctx.fill();
 		ctx.stroke();
 	}
@@ -263,18 +259,18 @@ function drawVictoryScreen(ctx) {
 
 function drawRewardMessages(ctx, num) {
 	switch (num) {
-		case 1:
-			util.borderedCenteredText(ctx, g_canvas.width / 2, 6 * g_canvas.height / 15, 'Yellow', 'Red', '40px Impact', 2, 'LEVEL COMPLETED!');
-			break;
-		case 2:
-			drawRewardMessages(ctx,1);
-			util.borderedCenteredText(ctx, g_canvas.width / 2, 7.5 * g_canvas.height / 15, 'Yellow', 'Red', '30px Impact', 1.2, util.randomCompliment(levelManager.compliment()));
-			break;
-		case 3:
-			drawRewardMessages(ctx,2);
-			util.borderedCenteredText(ctx, g_canvas.width / 2, 6 * g_canvas.height / 7, 'Yellow', 'Red', '30px Impact', 1, 'ENTERING GRID ' + (levelManager.getCurrentLevel() + 1 + '!'));
-			break;
-	}	
+	case 1:
+		util.borderedCenteredText(ctx, g_canvas.width / 2, 6 * g_canvas.height / 15, 'Yellow', 'Red', '40px Impact', 2, 'LEVEL COMPLETED!');
+		break;
+	case 2:
+		drawRewardMessages(ctx,1);
+		util.borderedCenteredText(ctx, g_canvas.width / 2, 7.5 * g_canvas.height / 15, 'Yellow', 'Red', '30px Impact', 1.2, util.randomCompliment(levelManager.compliment()));
+		break;
+	case 3:
+		drawRewardMessages(ctx,2);
+		util.borderedCenteredText(ctx, g_canvas.width / 2, 6 * g_canvas.height / 7, 'Yellow', 'Red', '30px Impact', 1, 'ENTERING GRID ' + (levelManager.getCurrentLevel() + 1 + '!'));
+		break;
+	}
 }
 
 function drawGamePaused(ctx) {
@@ -345,7 +341,7 @@ function drawHighScores(ctx, highScores) {
 
 function drawRules(ctx) {
 	drawScrollingBackground(ctx);
-	util.borderedCenteredText(ctx, g_canvas.width/2, g_canvas.height * 0.2, 'Yellow', 'Red', '60px Impact', 2, 'INSTRUCTIONS');
+	util.borderedCenteredText(ctx, g_canvas.width / 2, g_canvas.height * 0.2, 'Yellow', 'Red', '60px Impact', 2, 'INSTRUCTIONS');
 
 	drawShipAt(ctx, 40, 165, 0.5);
 	util.borderedRightAlignedText(ctx, 75, 180, 'Yellow', 'Red', '25px Impact', 1, 'Move your ship with WASD');
@@ -358,7 +354,7 @@ function drawRules(ctx) {
 	drawCaterpillar(ctx, 30, 340, false, Math.PI, 3);
 	drawCaterpillar(ctx, 50, 340, true, Math.PI, 3);
 	util.borderedRightAlignedText(ctx, 75, 350, 'Yellow', 'Red', '25px Impact', 1, 'Caterpillars give 30 points');
-	drawRocketAt(ctx, 40, 370, -Math.PI/2, 1);
+	drawRocketAt(ctx, 40, 370, -Math.PI / 2, 1);
 	util.borderedRightAlignedText(ctx, 75, 380, 'Yellow', 'Red', '25px Impact', 1, 'Rockets give 50 points');
 	drawMineAt(ctx, 40, 400, 7, 'Red');
 	util.borderedRightAlignedText(ctx, 75, 410, 'Yellow', 'Red', '25px Impact', 1, 'Watch out for mines!');
@@ -395,18 +391,18 @@ function drawBullet(ctx) {
 function drawSoundLogo(ctx) {
 	ctx.save();
 
-	var grd = ctx.createRadialGradient(g_canvas.width-20, 20,0,g_canvas.width-20, 20,10);
+	var grd = ctx.createRadialGradient(g_canvas.width - 20, 20,0,g_canvas.width - 20, 20,10);
 	grd.addColorStop(0,'Gray');
 	grd.addColorStop(1, 'White');
 
 	ctx.beginPath();
-	ctx.moveTo(g_canvas.width-20, 30);
-	ctx.lineTo(g_canvas.width-25, 25);
-	ctx.lineTo(g_canvas.width-30, 25);
-	ctx.lineTo(g_canvas.width-30, 15);
-	ctx.lineTo(g_canvas.width-25, 15);
-	ctx.lineTo(g_canvas.width-20, 10);
-	ctx.arc(g_canvas.width-30, 20, Math.sqrt(2*10*10), -Math.PI/4, Math.PI/4);
+	ctx.moveTo(g_canvas.width - 20, 30);
+	ctx.lineTo(g_canvas.width - 25, 25);
+	ctx.lineTo(g_canvas.width - 30, 25);
+	ctx.lineTo(g_canvas.width - 30, 15);
+	ctx.lineTo(g_canvas.width - 25, 15);
+	ctx.lineTo(g_canvas.width - 20, 10);
+	ctx.arc(g_canvas.width - 30, 20, Math.sqrt(2 * 10 * 10), -Math.PI / 4, Math.PI / 4);
 	//ctx.lineTo(g_canvas.width-20, 30);
 	ctx.fillStyle = grd;
 	ctx.fill();

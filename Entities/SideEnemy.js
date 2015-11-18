@@ -10,7 +10,6 @@ function SideEnemy(descr) {
 	this.setup(descr);
 
 	this.rememberResets();
-	
 	this._bulletDifference = 5000;
 	this._goingDown = true;
 	this._nextStop = 4000 / NOMINAL_UPDATE_INTERVAL;
@@ -79,6 +78,6 @@ SideEnemy.prototype.render = function (ctx) {
 	util.fillBox(ctx, this.cx + width * 0.3, y + height / 3, 3, 6, 'Yellow');
 
 	util.fillBox(ctx, this.cx + width * 0.45, y + height * 0.125, 3, 10, 'Yellow');
-	util.fillBox(ctx, this.cx + width * 0.45, y + height * 0.25 -1 , 12, 4, 'Yellow');
+	util.fillBox(ctx, this.cx + width * 0.45, y + height * 0.25 - 1 , 12, 4, 'Yellow');
 	ctx.restore();
 };

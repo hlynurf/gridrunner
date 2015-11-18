@@ -3,7 +3,7 @@ function Fragment(descr) {
 		this[property] = descr[property];
 	}
 	this.vel = util.fragVel();
-	this.angle = util.randRange(0, 2*Math.PI);
+	this.angle = util.randRange(0, 2 * Math.PI);
 	this.alpha = 1;
 	this.startX = this.cx;
 	this.startY = this.cy;

@@ -23,7 +23,6 @@ Bomb.prototype.scaleX = 15;
 Bomb.prototype.scaleY = 15;
 
 Bomb.prototype.update = function (du) {
-
 	spatialManager.unregister(this);
 
 	this.cy += this.velY * du;

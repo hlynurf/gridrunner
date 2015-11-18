@@ -60,7 +60,6 @@ function updateSimulation(du) {
 		} else if (levelManager.levelOver()) {
 			main.gameOver();
 		}
-
 	}
 	particleManager.update(du);
 }
@@ -69,7 +68,7 @@ function updateScore(points) {
 	// Minus points don't have combo
 	if (points >= 0) {
 		increaseCombo();
-		score = points*g_combo;
+		score = points * g_combo;
 	} else
 		score = points;
 
@@ -129,11 +128,10 @@ function processDiagnostics() {
 // GAME-SPECIFIC RENDERING
 
 function renderSimulation(ctx) {
-
 	drawScrollingBackground(ctx);
 	drawBackground(ctx);
 	drawScore(ctx);
-	if(levelManager.levelCountDown() > 0) {
+	if (levelManager.levelCountDown() > 0) {
 		drawLevelCountdown(ctx);
 	} else {
 		drawLevelNum(ctx);
@@ -155,8 +153,8 @@ function renderVictoryScreen(ctx) {
 	drawBackground(ctx);
 	drawVictoryScreen(ctx);
 }
-function renderGamePaused(ctx){
-	drawGamePaused(ctx); 
+function renderGamePaused(ctx) {
+	drawGamePaused(ctx);
 }
 
 var g_sprites = {};

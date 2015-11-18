@@ -59,4 +59,4 @@ Level.prototype.workOvertime = function() {
 
 Level.prototype.compliment = function() {
 	return this.compliment;
-}
+};

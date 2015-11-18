@@ -61,7 +61,7 @@ var entityManager = {
 		}));
 	},
 
-	createPowerups: function(cx,cy){
+	createPowerups: function(cx,cy) {
 		this._powerups.push(new Powerups({
 			cx: cx,
 			cy: cy

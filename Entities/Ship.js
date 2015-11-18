@@ -137,7 +137,7 @@ Ship.prototype.update = function (du) {
 	}
 
 	// Handle firing
-	if(levelManager.levelCountDown() <= 0 && levelManager.levelOvertime() <= 0) {
+	if (levelManager.levelCountDown() <= 0 && levelManager.levelOvertime() <= 0) {
 		this.maybeFireBullet(du);
 	}
 	var isHit = this.findHitEntity();
@@ -300,7 +300,7 @@ Ship.prototype.makeEnlarged = function() {
 };
 
 Ship.prototype.renderEnlargedCountdown = function(ctx) {
-	var enlargedSecs = Math.ceil(this.enlargedDuration / SECS_TO_NOMINALS)
+	var enlargedSecs = Math.ceil(this.enlargedDuration / SECS_TO_NOMINALS);
 	if (enlargedSecs > 0) {
 		var boxSize = 20;
 		util.borderedCenteredText(ctx, g_canvas.width - boxSize - 30, g_canvas.height - boxSize - 30, 'Yellow', 'Red', '60px Impact', 1.2, enlargedSecs);
