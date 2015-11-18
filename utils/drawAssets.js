@@ -210,6 +210,13 @@ function drawShipAt(ctx, x, y, scale) {
 	ctx.restore();
 }
 
+function drawLives(ctx, lives) {
+	var w = 10 * 2.2;
+	for (var i = 0; i < lives; i++) {
+		drawShipAt(ctx, g_canvas.width - 30 - 1.1 * w * i, g_canvas.height - w, .28);
+	}
+}
+
 function drawMineAt(ctx, x, y, radius, innerColor) {
 	ctx.save();
 	var grd = ctx.createRadialGradient(x, y, 0, x, y, radius);

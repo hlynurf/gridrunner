@@ -80,6 +80,7 @@ main._mainMenu = true;
 main._highScore = false;
 main._rules = false;
 main.highScores = [];
+main._currLives = 0;
 
 main.gameOver = function () {
 	this._isGameOver = true;
@@ -136,10 +137,8 @@ main.newGame = function () {
 };
 
 main.nextLevel = function() {
-	var currLives = entityManager.getShipLives();
-	entityManager.resetCategories();
 	entityManager.init();
-	createNextLevelShip(currLives);
+	createNextLevelShip(this._currLives);
 	levelManager.nextLevel();
 };
 
@@ -155,7 +154,8 @@ main.ruleScreen = function () {
 
 // Simple voluntary quit mechanism
 //
-var KEY_QUIT = 'Q'.charCodeAt(0);
+var KEY_QUIT = 27;
+
 function requestedQuit() {
 	return keys[KEY_QUIT];
 }

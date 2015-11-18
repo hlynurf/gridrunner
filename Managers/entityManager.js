@@ -117,6 +117,10 @@ var entityManager = {
 		return this._ships[0]._lives;
 	},
 
+	hasShip : function() {
+		return this._ships.length > 0;
+	},
+
 	fireLightning : function(cx, cy) {
 		this._lightnings.push(new Lightning({
 			cx: cx,

@@ -8,7 +8,6 @@ var g_ctx = g_canvas.getContext('2d');
 var g_score = 0;// ideally it would be wise to not make this global
 var g_combo = 0;
 var g_highest_combo = 0;
-var g_last_combo_hit_timestamp = 0;
 var g_combo_timer = 0;
 
 // ====================
@@ -55,7 +54,7 @@ function updateSimulation(du) {
 		if (levelManager.levelOver() && levelManager.moreLevels()) {
 			main.nextLevel();
 		} else if (levelManager.levelOver()) {
-			main.gameOver();
+			main.victory();
 		}
 	}
 	particleManager.update(du);
@@ -127,6 +126,11 @@ function renderSimulation(ctx) {
 	drawScrollingBackground(ctx);
 	drawBackground(ctx);
 	drawScore(ctx);
+	if (entityManager.hasShip()) {
+		drawLives(ctx, entityManager.getShipLives());
+	} else {
+		drawLives(ctx, main._currLives);
+	}
 	if (levelManager.levelCountDown() > 0) {
 		drawLevelCountdown(ctx);
 	} else {
