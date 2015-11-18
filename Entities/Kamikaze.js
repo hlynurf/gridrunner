@@ -25,7 +25,6 @@ Kamikaze.prototype.cy = 0;
 
 Kamikaze.prototype.update = function (du) {
 	spatialManager.unregister(this);
-	console.log(this.cx);
 	if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 	// Kamikaze movement
 	this.cy += this.velY * du;
