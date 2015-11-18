@@ -137,7 +137,9 @@ Ship.prototype.update = function (du) {
 	}
 
 	// Handle firing
-	this.maybeFireBullet(du);
+	if(levelManager.levelCountDown() <= 0 && levelManager.levelOvertime() <= 0) {
+		this.maybeFireBullet(du);
+	}
 	var isHit = this.findHitEntity();
 	if (isHit) {
 		if (isHit.killShip && this.enlargedDuration <= 0) {
