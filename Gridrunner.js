@@ -126,6 +126,9 @@ function renderSimulation(ctx) {
 	drawScrollingBackground(ctx);
 	drawBackground(ctx);
 	drawScore(ctx);
+	if(g_combo > 1) {
+		drawCombo(ctx);
+	}
 	if (entityManager.hasShip()) {
 		drawLives(ctx, entityManager.getShipLives());
 	} else {
