@@ -84,7 +84,7 @@ main._currLives = 0;
 
 main.gameOver = function () {
 	this._isGameOver = true;
-	var gameOver = new Audio('sounds/gameOver.ogg');
+	var gameOver = new Audio('sounds/gameover.ogg');
 	util.playSound(gameOver);
 	this.highScores.push(g_score);
 	if (this.highScores.length) {
